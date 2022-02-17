@@ -1,0 +1,54 @@
+$backgorund-color: rgba(2, 34, 34, 0.534);
+$letter-color: rgba(255, 255, 255, 0.733);
+
+.title {
+  margin: 150px auto 0 auto;
+  color: $letter-color;
+  padding: 15px;
+  min-width: 300px;
+  max-width: 500px;
+  text-align: center;
+  border-radius: 10px;
+  background-color: $backgorund-color;
+
+  .logout {
+    margin-top: 25px;
+    padding: 10px 15px;
+    border: none;
+    background-color: $letter-color;
+    font-size: 120%;
+    &:hover {
+      color: rgba(117, 4, 4, 0.555);
+    }
+  }
+}
+
+.absolute {
+  position: absolute;
+  color: rgb(255, 255, 255);
+  top: 200px;
+  left: 100px;
+  & div {
+    background-color: rgba(128, 128, 128, 0.815);
+    font-size: 110%;
+    line-height: 200%;
+    text-align: center;
+    height: 100px;
+    width: 200px;
+  }
+  .user {
+    border: 2px solid rgb(0, 218, 29);
+    & span {
+      font-weight: 700;
+      color: rgb(3, 255, 3);
+    }
+  }
+  .admin {
+    margin-top: 30px;
+    border: 2px solid rgb(218, 0, 0);
+    & span {
+      font-weight: 700;
+      color: rgb(153, 2, 2);
+    }
+  }
+}
