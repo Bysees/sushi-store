@@ -1,7 +1,17 @@
 [
   {
-    "name": "qwe",
+    "name": "admin",
     "password": "qwe",
     "role": "admin"
+  },
+  {
+    "name": "user1",
+    "password": "qwe",
+    "role": "user"
+  },
+  {
+    "name": "user2",
+    "password": "qwe",
+    "role": "user"
   }
 ]

@@ -44,7 +44,7 @@ class AuthController {
         return res.status(403).json({ message: `Login or password incorrect` })
       }
 
-      const serverUser = getValueFromArr(users, 'name', clientUser.name)
+      const serverUser = getItemByValueFromArr(users, 'name', clientUser.name)
       const isPasswordCorrect = serverUser.password === clientUser.password
 
       if (!isPasswordCorrect) {
@@ -75,7 +75,7 @@ function checkValueInArr(arr, field, value) {
   return result
 }
 
-function getValueFromArr(arr, field, value) {
+function getItemByValueFromArr(arr, field, value) {
   let result
   arr.forEach(item => {
     if (item[field] === value) {

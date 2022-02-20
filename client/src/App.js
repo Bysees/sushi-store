@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 import { setAuthorized, setUser } from './redux/user';
 import jwtDecode from 'jwt-decode';
 import { AuthService } from './api/authService';
+import Messenger from './components/messenger/Messenger';
 
 const App = () => {
 
@@ -32,6 +33,7 @@ const App = () => {
         ? <HomePage />
         : <AuthPage />
       }
+      <Messenger />
     </div>
   );
 }
