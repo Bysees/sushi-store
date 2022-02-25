@@ -14,7 +14,8 @@
   "description": "authentification",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "nodemon index.js",
+    "socket": "nodemon socket.js"
   },
   "author": "myseld",
   "license": "ISC"
