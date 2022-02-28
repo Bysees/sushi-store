@@ -18,6 +18,12 @@
   background-size: cover;
 }
 
+.main {
+  //! border-top предотвращает схлопывание
+  border-top: 1px solid transparent;
+  height: 100%;
+}
+
 .auth {
   overflow: auto;
   height: 100%;

@@ -1,0 +1,25 @@
+$slider-width: 800px;
+$block-width: calc($slider-width / 2);
+
+.wrapper {
+  overflow: hidden;
+  height: 400px;
+  width: 800px;
+  margin: 0 auto;
+  border: 1px solid #000;
+  position: relative;
+
+  .slider {
+    position: absolute;
+    left: -800px;
+    height: 100%;
+    display: flex;
+  }
+
+  .slide {
+    user-select: none;
+    flex-shrink: 0;
+    width: $block-width;
+    border: 1px solid rgb(255, 0, 0);
+  }
+}
