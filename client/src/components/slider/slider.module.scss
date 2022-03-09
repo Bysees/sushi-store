@@ -3,23 +3,26 @@ $block-width: calc($slider-width / 2);
 
 .wrapper {
   overflow: hidden;
-  height: 400px;
-  width: 800px;
-  margin: 0 auto;
-  border: 1px solid #000;
   position: relative;
+  height: 200px;
+  width: 800px;
 
   .slider {
     position: absolute;
-    left: -800px;
+    left: 0px;
     height: 100%;
     display: flex;
   }
 
   .slide {
-    user-select: none;
-    flex-shrink: 0;
     width: $block-width;
-    border: 1px solid rgb(255, 0, 0);
+    flex-shrink: 0;
+
+    background-color: transparent;
+    border: 4px solid rgba(0, 0, 0, 0.493);
+    border-left-width: 3px;
+    border-right-width: 3px;
+
+    user-select: none;
   }
 }

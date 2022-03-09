@@ -1,0 +1,89 @@
+.wrapper {
+  margin-top: 50px;
+  max-width: 1000px;
+}
+
+.slider {
+  margin: 0 auto;
+}
+
+.description {
+  margin-top: 30px;
+  padding: 10px;
+  background-color: rgba(110, 110, 110, 0.103);
+  color: rgb(211, 211, 211);
+
+  .title {
+    font-size: 2rem;
+    margin-bottom: 10px;
+  }
+  .text {
+    font-size: 1.2rem;
+    margin-left: 5px;
+    & span {
+      display: inline-block;
+    }
+  }
+}
+
+.linkWrap {
+  margin-top: 60px;
+  display: flex;
+  justify-content: center;
+}
+
+.link {
+  display: inline-block;
+  padding: 2px 30px 10px 30px;
+
+  vertical-align: middle;
+
+  color: #fff;
+  box-shadow: inset -10px 0px 0px 0px #fdfdfd;
+  border-bottom: 1px solid #fdfdfd;
+  border-top: 1px solid #fdfdfd;
+  border-top-right-radius: 45px;
+  border-bottom-right-radius: 45px;
+
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-style: italic;
+  font-size: 4rem;
+  font-weight: 700;
+
+  transition: 0.3s;
+
+  @keyframes arrow-moving {
+    from {
+      transform: translateX(0);
+    }
+    from {
+      transform: translateX(10px);
+    }
+  }
+
+  &:hover,
+  &:focus {
+    box-shadow: inset -15px 0px 5px 0px #fdfdfd;
+    &::after {
+      margin-left: 30px;
+      margin-right: 10px;
+      height: 35px;
+      width: 35px;
+    }
+  }
+
+  &::after {
+    content: '';
+    display: inline-block;
+    height: 0px;
+    width: 0px;
+
+    vertical-align: middle;
+
+    background: url('../../images/icons/arrow.png') center center no-repeat;
+    background-size: cover;
+
+    transition: 0.3s;
+    animation: arrow-moving 0.3s infinite alternate;
+  }
+}

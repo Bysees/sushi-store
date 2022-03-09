@@ -1,0 +1,100 @@
+@import './variables.scss';
+
+html {
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+.app {
+  height: 100vh;
+  width: 100vw;
+
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+::-webkit-scrollbar {
+  background-color: rgba(92, 92, 92, 0.287);
+  width: $scroll-width;
+}
+::-webkit-scrollbar-thumb {
+  background-color: rgba(80, 80, 80, 0.678);
+}
+
+.home {
+  //! border-top предотвращает схлопывание
+  border-top: 1px solid transparent;
+  height: 100%;
+  background: url('https://www.remontbp.com/wp-content/uploads/2017/12/%D0%B4%D0%B5%D1%80%D0%B5%D0%B2%D1%8F%D0%BD%D0%BD%D1%8B%D0%B9-%D0%B4%D0%BE%D0%BC-%D1%81-%D0%B1%D0%BE%D0%BB%D1%8C%D1%88%D0%B8%D0%BC-%D0%BA%D0%B0%D0%BC%D0%B8%D0%BD%D0%BE%D0%BC.jpeg')
+    no-repeat center center;
+  background-size: cover;
+}
+
+.header {
+  position: fixed;
+  height: $header-height;
+  // background: url('../images/header-fon1.jpg') top center;
+  background-color: #121212;
+  box-shadow: 0px 3px 2px 2px $special-color;
+  color: $special-color;
+  width: 100%;
+  z-index: 999;
+}
+
+.main {
+  //! border-top предотвращает схлопывание
+  border-top: 1px solid transparent;
+  min-height: 100%;
+  background: url('../images/background-main.jpg') no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  padding-top: $header-height;
+  padding-bottom: $footer-height;
+  margin-right: $scroll-width;
+}
+
+.menu,
+.cart,
+.profile {
+  border-top: 1px solid transparent;
+  min-height: 100%;
+  background: url('../images/background-menu.jpg') center center no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  padding-top: $header-height;
+  padding-bottom: $footer-height;
+  margin-right: $scroll-width;
+}
+
+.container {
+  min-height: 100%;
+  height: 100%;
+  margin: 0 auto;
+  margin-left: auto;
+  padding: 0 20px;
+  max-width: 1550px;
+}
+
+.footer {
+  margin-top: -$footer-height;
+  height: $footer-height;
+  background-color: #121212;
+  box-shadow: -4px 1px 1px 2px $special-color;
+  color: $special-color;
+  width: 100%;
+  z-index: 999;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+
+  padding-top: 150px;
+  display: flex;
+  justify-content: center;
+
+  background-color: rgba(0, 0, 0, 0.6);
+}

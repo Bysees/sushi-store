@@ -1,0 +1,84 @@
+$transition-time: 0.2s;
+$transition-function: ease-in-out;
+
+.wrapper {
+  height: 100%;
+  padding-top: 1px;
+  padding-bottom: 60px;
+  background-color: rgb(255, 188, 188);
+}
+
+.container {
+  border: 1px solid #000;
+  width: 600px;
+  height: 400px;
+  margin: 100px auto;
+}
+
+@keyframes hide {
+  from {
+    transform: rotateX(0);
+  }
+  to {
+    transform: rotateX(90deg);
+  }
+}
+
+@keyframes show {
+  from {
+    transform: rotateX(-90deg);
+  }
+  to {
+    transform: rotateX(0deg);
+  }
+}
+
+.imgWrap {
+  height: 200px;
+  position: relative;
+  overflow: hidden;
+
+  perspective: 800px;
+
+  .img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    object-position: 50% 60%;
+  }
+
+  .description {
+    overflow-y: scroll;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    padding: 20px;
+
+    background-color: rgba(0, 0, 0, 0.541);
+    color: #fff;
+
+    transform: rotateX(-90deg);
+  }
+
+  &_showDescription {
+    .img {
+      animation: hide $transition-time $transition-function alternate both;
+    }
+    .description {
+      animation: show $transition-time $transition-function $transition-time
+        alternate both;
+    }
+  }
+
+  &_showImg {
+    .img {
+      animation: show $transition-time $transition-function $transition-time
+        alternate both;
+    }
+    .description {
+      animation: hide $transition-time $transition-function alternate both;
+    }
+  }
+}
