@@ -1,0 +1,164 @@
+@import '../../styles/variables.scss';
+
+.wrapper {
+  margin-top: 150px;
+  &__product {
+    position: absolute;
+    top: 50px;
+    bottom: 50px;
+    overflow-y: auto;
+  }
+}
+
+.form {
+  max-width: 1200px;
+  padding: 40px 50px;
+  border: 5px solid rgb(116, 116, 116);
+  background-color: rgba(8, 8, 8, 0.8);
+
+  &__product {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 30px;
+
+    .button {
+      grid-column: 1/3;
+      margin-top: 30px;
+      text-align: center;
+    }
+  }
+}
+
+.title {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+h2.title {
+  font-size: 2rem;
+}
+
+h3.title {
+  font-size: 1.7rem;
+}
+
+.field {
+  margin-left: 15px;
+  margin-bottom: 20px;
+  display: grid;
+
+  grid-template-columns: 350px;
+
+  & label {
+    padding-right: 30px;
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+  }
+
+  & input,
+  & textarea {
+    padding: 5px;
+
+    border-bottom: 2px solid rgb(255, 255, 255);
+    background-color: $input-color;
+    color: #fff;
+
+    font-size: 1.1rem;
+    &::placeholder {
+      font-size: 1rem;
+      color: rgb(155, 155, 155);
+    }
+
+    &:focus {
+      background-color: $input-focus-color;
+    }
+
+    &:disabled {
+      background-color: rgba(128, 128, 128, 0.644);
+    }
+  }
+
+  & textarea {
+    min-width: 100%;
+    max-width: 100%;
+    min-height: 100px;
+    max-height: 200px;
+  }
+
+  & input[type='file'] {
+    border: none;
+  }
+
+  & select[multiple] {
+    border-bottom: 2px solid rgb(255, 255, 255);
+    background-color: transparent;
+    border: none;
+
+    & option {
+      padding: 5px;
+      background-color: $input-color;
+      border-bottom: 1px solid #fff;
+
+      color: #fff;
+
+      font-size: 1.1rem;
+      text-transform: lowercase;
+      &:checked {
+        background-color: $input-focus-color;
+      }
+    }
+  }
+
+  & span {
+    margin-top: 5px;
+
+    line-height: 1.1;
+    font-weight: 500;
+
+    color: rgb(255, 0, 0);
+  }
+}
+
+.img {
+  text-align: right;
+  & img {
+    max-height: 140px;
+    width: 300px;
+    object-fit: cover;
+  }
+}
+
+.field__error {
+  & input {
+    &:focus {
+      background-color: $input-error-color;
+    }
+    background-color: $input-error-color;
+  }
+}
+
+.button {
+  text-align: right;
+
+  & button {
+    padding: 5px 10px 7px;
+    border-radius: 5px;
+    color: #fff;
+    background-color: $button-form;
+    font-size: 1.1rem;
+
+    transition: 0.3s;
+    &:hover,
+    &:focus {
+      background-color: $button-form-hover;
+    }
+    &:focus {
+      box-shadow: 0 0 0 1px #fff;
+    }
+    &:active {
+      transition: 0.1s;
+      text-shadow: 0px 0px 5px #fff;
+      box-shadow: 0 0 0 3px $button-form;
+    }
+  }
+}

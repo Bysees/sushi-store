@@ -16,6 +16,7 @@ import ProfilePage from './pages/profile/ProfilePage';
 // import { AuthService } from './api/authService';
 
 import './styles/styles_clear.css'
+import './styles/portal.css'
 import styles from './styles/app.module.scss'
 
 const App = () => {

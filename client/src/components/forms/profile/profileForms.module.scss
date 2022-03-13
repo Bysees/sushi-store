@@ -1,0 +1,107 @@
+@import '../../../styles/variables.scss';
+
+.profileForms {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 15px;
+
+  .box:first-child {
+    grid-row: 1/3;
+  }
+}
+
+.formToogler {
+  overflow: hidden;
+
+  display: flex;
+  align-items: center;
+
+  & button {
+    padding: 5px;
+    flex: 50% 0 0;
+
+    border: 1px solid transparent;
+    outline: none;
+
+    background-color: rgba(65, 65, 65, 0.5);
+    color: #fff;
+
+    font-size: 1.1rem;
+
+    transition: 0.3s;
+
+    &:focus {
+      border: 1px solid #fff;
+    }
+
+    &:hover {
+      background-color: $button-form-hover;
+    }
+  }
+
+  .activeBtn {
+    background-color: $button-form-hover;
+  }
+}
+
+.inputFile {
+  position: absolute;
+  z-index: -1;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.labelFile {
+  cursor: pointer;
+  display: block;
+  height: 180px;
+  width: 180px;
+
+  transition: 0.3s;
+
+  &:hover,
+  &:focus {
+    .btnTitle {
+      background-color: $button-form-hover;
+    }
+  }
+
+  &:focus {
+    .btnTitle {
+      box-shadow: 0 0 0 1px #fff;
+    }
+  }
+
+  .btnTitle {
+    margin-top: 20px;
+    display: block;
+    text-align: center;
+
+    padding: 15px 20px;
+    border-radius: 5px;
+    background-color: $button-form;
+    font-size: 1.1rem;
+
+    transition: 0.3s;
+  }
+}
+
+.avatar {
+  overflow: hidden;
+  height: 100%;
+  width: 100%;
+  border-radius: 50%;
+  background-color: rgb(139, 139, 139);
+
+  display: grid;
+  &__icon {
+    place-self: center;
+    height: 60%;
+    width: 60%;
+  }
+  & img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+}

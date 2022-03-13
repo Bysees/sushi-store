@@ -33,7 +33,6 @@ html {
 .header {
   position: fixed;
   height: $header-height;
-  // background: url('../images/header-fon1.jpg') top center;
   background-color: #121212;
   box-shadow: 0px 3px 2px 2px $special-color;
   color: $special-color;
@@ -92,9 +91,9 @@ html {
   height: 100vh;
   width: 100vw;
 
-  padding-top: 150px;
   display: flex;
   justify-content: center;
+  align-items: baseline;
 
   background-color: rgba(0, 0, 0, 0.6);
 }

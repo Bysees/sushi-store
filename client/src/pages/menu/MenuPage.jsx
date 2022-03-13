@@ -1,16 +1,18 @@
 import cn from 'classnames'
+import { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowAltCircleLeft, faArrowLeftLong, faArrowLeftRotate, faArrowRightRotate, faArrowTurnRight, faArrowTurnUp, faArrowUpWideShort, faBackward, faBackwardStep, faCirclePlus, faSquareArrowUpRight, faTrashCanArrowUp, faUndo, faUndoAlt, faUpRightAndDownLeftFromCenter, faUpRightFromSquare } from '@fortawesome/free-solid-svg-icons'
+import { faArrowTurnRight, faCirclePlus } from '@fortawesome/free-solid-svg-icons'
 
 import Container from '../../components/common/Container'
+import CreateProductForm from '../../components/forms/product/CreateProductForm'
+import EditProductForm from '../../components/forms/product/EditProductForm'
 
 import { productItems } from '../../components/products/Products'
 import image from '../../images/food/sushi_sake.jpg'
 
 import styles from './menuPage.module.scss'
 import appStyles from '../../styles/app.module.scss'
-import { useState } from 'react'
-import NewProduct from '../../components/forms/products/NewProduct'
+
 
 
 const sake = {
@@ -63,7 +65,7 @@ const Filters = () => {
 
       {filterTitles.map((title, i) => {
         return (
-          <div key={title} className={cn(styles.filter, i == 0 && styles.filter_active, i == 1 && styles.filter_hover)}>
+          <div key={title} className={cn(styles.filter, i === 0 && styles.filter_active, i === 1 && styles.filter_hover)}>
             <button>
               <div className={styles.filter__title}>{title}</div>
               <div className={styles.filter__label_vegan}></div>
@@ -94,12 +96,14 @@ const ProductsMenu = () => {
     showDescription(false)
   }
 
-  const [isShowNewProductForm, showNewProductForm] = useState(false)
+  const [isShowCreateProductForm, showCreateProductForm] = useState(false)
+  const [isShowEditProductForm, showEditProductForm] = useState(false)
 
   return (
     <div className={styles.products}>
 
-      {isShowNewProductForm && <NewProduct onHide={() => showNewProductForm(false)} />}
+      {isShowCreateProductForm && <CreateProductForm onHide={() => showCreateProductForm(false)} />}
+      {isShowEditProductForm && <EditProductForm onHide={() => showEditProductForm(false)} />}
 
       {products.map((product, index) => {
 
@@ -181,11 +185,11 @@ const ProductsMenu = () => {
             </div>
             {/* //! Image-block: END */}
 
-            {/* //! Reduct-block: START */}
+            {/* //! Edit-block: START */}
             <div className={styles.edit}>
-              <button>Редактировать</button>
+              <button onClick={() => showEditProductForm(true)}>Редактировать</button>
             </div>
-            {/* //! Reduct-block: END */}
+            {/* //! Edit-block: END */}
 
 
             {/* //! title-block: START */}
@@ -208,7 +212,7 @@ const ProductsMenu = () => {
       })}
 
       <div className={cn(styles.product, styles.newProduct)}>
-        <button className={styles.newProduct__button} onClick={() => showNewProductForm(true)}>
+        <button className={styles.newProduct__button} onClick={() => showCreateProductForm(true)}>
           <FontAwesomeIcon className={styles.newProduct__icon} icon={faCirclePlus} />
           <div className={styles.newProduct__title}>Добавить новый продукт</div>
         </button>

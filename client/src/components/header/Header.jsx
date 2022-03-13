@@ -2,11 +2,14 @@ import React, { Fragment, useEffect, useRef, useState } from 'react'
 import cn from 'classnames'
 import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faListAlt, faLock, faShoppingBasket, faUnlock, faUser, faUserPlus } from '@fortawesome/free-solid-svg-icons'
+import {
+  faListAlt, faLock, faShoppingBasket,
+  faUnlock, faUser, faUserPlus
+} from '@fortawesome/free-solid-svg-icons'
 
 import Container from '../common/Container'
-import Login from '../forms/login/Login'
-import Registration from '../forms/registration/Registration'
+import LoginForm from '../forms/login/LoginForm'
+import RegistrationForm from '../forms/registration/RegistrationForm'
 
 import styles from './header.module.scss'
 import appStyles from '../../styles/app.module.scss'
@@ -51,8 +54,8 @@ const Header = () => {
   return (
     <header className={appStyles.header}>
 
-      {isShowLoginForm && <Login onHide={hideLoginForm} />}
-      {isShowRegistrationForm && <Registration onHide={hideRegistrationForm} />}
+      {isShowLoginForm && <LoginForm onHide={hideLoginForm} />}
+      {isShowRegistrationForm && <RegistrationForm onHide={hideRegistrationForm} />}
 
       <Container>
 
