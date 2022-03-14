@@ -86,10 +86,10 @@ const ProductsMenu = () => {
   const [isShowDescription, showDescription] = useState(true)
   const [isShowImg, showImg] = useState(false)
 
-  const showDescriptionHideImg = () => {
-    showDescription(true)
-    showImg(false)
-  }
+  // const showDescriptionHideImg = () => {
+  //   showDescription(true)
+  //   showImg(false)
+  // }
 
   const showImgHideDescription = () => {
     showImg(true)

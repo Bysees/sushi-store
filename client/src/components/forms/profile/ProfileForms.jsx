@@ -1,5 +1,7 @@
-import React, { useState } from 'react'
+import React from 'react'
 import cn from 'classnames'
+
+import { useToogle } from '../../../hooks/useToogle'
 
 import ChangeAvatar from './ChangeAvatar'
 import ChangeDescriptionForm from './ChangeDescriptionForm'
@@ -9,9 +11,7 @@ import styles from './profileForms.module.scss'
 
 const ProfileForms = () => {
 
-  const [isPasswordForm, tooglePasswordForm] = useState(false)
-  const showDescriptionForm = () => tooglePasswordForm(false)
-  const showPasswordForm = () => tooglePasswordForm(true)
+  const [isPasswordForm, showPasswordForm, showDescriptionForm] = useToogle(false)
 
   return (
     <div className={styles.profileForms}>
