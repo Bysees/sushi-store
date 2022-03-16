@@ -1,0 +1,32 @@
+@keyframes hide {
+  from {
+    transform: rotateX(0);
+  }
+  to {
+    transform: rotateX(90deg);
+  }
+}
+
+@keyframes show {
+  from {
+    transform: rotateX(-90deg);
+  }
+  to {
+    transform: rotateX(0deg);
+  }
+}
+
+.showComponent {
+  animation: show 0.2s alternate;
+}
+
+.hideComponent {
+  animation: hide 0.2s both;
+}
+
+//! Если не захочу демонтировать компонент, можно использовать это!
+.endHideComponent {
+  position: absolute;
+  z-index: -1;
+  visibility: hidden;
+}

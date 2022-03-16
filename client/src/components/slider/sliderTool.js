@@ -12,10 +12,10 @@ class SliderTool {
   blockWidth = 0
   halfBlockWidth = 0
 
-  constructor(sliderWrapperElement, sliderElement, slideElement) {
-    this.sliderWrapperElement = sliderWrapperElement
+  constructor(wrapperWidth, sliderElement, slideWidth) {
+    this.sliderWrapperElementWidth = wrapperWidth
     this.sliderElement = sliderElement
-    this.slideElement = slideElement
+    this.slideElementWidth = slideWidth
     this.setListeners()
     this.setInitialDimensions()
     this.startIntervalMoving()
@@ -130,9 +130,9 @@ class SliderTool {
 
   setInitialDimensions = () => {
     this.minOffset = 0
-    this.maxOffset = -(this.sliderElement.offsetWidth - this.sliderWrapperElement.offsetWidth)
-    this.blockWidth = this.slideElement.offsetWidth
-    this.halfBlockWidth = this.slideElement.offsetWidth / 2
+    this.maxOffset = -(this.sliderElement.offsetWidth - this.sliderWrapperElementWidth)
+    this.blockWidth = this.slideElementWidth
+    this.halfBlockWidth = this.slideElementWidth / 2
   }
 
   setListeners = () => {

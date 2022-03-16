@@ -1,63 +1,219 @@
 @import '../../styles/variables.scss';
 
-.product {
+.products {
+  margin: 50px 0;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 20px;
+}
+
+.addProduct {
+  position: relative;
   height: 100%;
+  width: 100%;
 
-  .imgWrap {
-    overflow: hidden;
-    position: relative;
+  & > button {
+    background-color: transparent;
     height: 100%;
-    & img {
-      height: 100%;
-      width: 100%;
-      object-fit: cover;
-    }
+    width: 100%;
 
-    .hint_condition,
-    .hint_menu {
-      opacity: 0.9;
-      cursor: pointer;
-      position: absolute;
-      top: 10px;
-      // transform: translateY(-50%);
-      padding: 5px 10px;
-
-      height: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    & > svg {
+      z-index: 1;
+      color: $color-edit;
       width: 150px;
-
-      border-radius: 10px;
-      color: #fff;
-
-      font-size: 1.1rem;
-      // font-style: italic;
-      font-weight: 500;
-      text-align: center;
-
+      height: 150px;
+      margin-bottom: 15px;
       transition: 0.3s;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
-
-    .hint_condition {
-      right: -250px;
-      // background-color: rgb(0, 80, 171);
-      background-color: rgba(39, 39, 39, 0.794);
+    & > div {
+      color: #fff;
+      font-size: 1.8rem;
+      font-weight: 700;
     }
+  }
 
-    .hint_menu {
-      left: -250px;
-      background-color: $btn-color-red;
+  &:hover svg {
+    color: $color-edit-hover;
+  }
+}
+
+.product {
+  background-color: $black-transparent-color;
+  color: #fff;
+}
+
+.row_one {
+  margin: 3px;
+  height: 200px;
+  perspective: 800px;
+  overflow: hidden;
+}
+
+.img {
+  height: 100%;
+  width: 100%;
+  & img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    object-position: 50% 60%;
+  }
+  .orderPrompt {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+
+    background-color: rgba(243, 99, 99, 0.329);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    &__icon {
+      background: url('../../images/icons/added.png') center center no-repeat;
+      background-size: contain;
+      height: 90px;
+      width: 90px;
     }
+    &__title {
+      font-size: 2.2rem;
+      text-align: center;
+    }
+  }
 
+  .descriptionPrompt {
+    cursor: pointer;
+    position: absolute;
+    top: 22%;
+    left: 100%;
+    height: 80px;
+    width: 200px;
+
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    background: url('../../images/icons/loupe.png') 10% center no-repeat,
+      rgba(0, 110, 255, 0.719);
+    background-size: 65px;
+
+    transition: 0.3s;
+  }
+
+  .findPrompt {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    position: absolute;
+    top: 22%;
+    left: -250px;
+    padding: 5px 10px;
+
+    height: 80px;
+    width: 130px;
+
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+
+    opacity: 0.9;
+    color: #fff;
+    background-color: $btn-color-red;
+    font-size: 1.3rem;
+    font-weight: 500;
+    text-align: center;
+
+    transition: 0.3s;
+  }
+
+  &:hover .findPrompt {
+    left: 0;
+  }
+  &:hover .descriptionPrompt {
+    left: 70%;
+  }
+}
+
+.edit {
+  margin: 30px 0;
+  text-align: center;
+  & button {
+    padding: 5px 15px;
+    font-size: 1.2rem;
+    background-color: $color-edit;
+    color: #fff;
+    font-weight: 500;
+    border-radius: 15px;
+    text-transform: uppercase;
+
+    transition: 0.2s;
     &:hover {
-      .hint_condition {
-        right: 10px;
-      }
-      .hint_menu {
-        left: 10px;
-      }
+      box-shadow: 0 0 5px $color-edit-hover;
     }
+
+    &:active {
+      text-shadow: 0 0 5px #fff;
+    }
+  }
+}
+
+.title {
+  margin-top: 15px;
+
+  font-size: 1.4rem;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.row_four {
+  margin: 20px 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .price {
+    padding: 5px;
+
+    display: inline-block;
+
+    font-size: 2.1rem;
+    text-transform: uppercase;
+    word-break: keep-all;
+
+    vertical-align: middle;
+  }
+}
+
+.orderBtn {
+  padding: 5px 15px;
+  margin-left: 30px;
+
+  border-radius: 25px;
+  background-color: $btn-color-red;
+  color: #fff;
+
+  font-size: 1.3rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+
+  vertical-align: middle;
+
+  transition: 0.2s;
+
+  &:hover {
+    box-shadow: 0px 0px 5px 2px $btn-color-red;
+  }
+
+  &:active {
+    transition: 0.1s;
+    text-shadow: 0px 0px 5px#fff;
   }
 }

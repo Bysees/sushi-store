@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-const NavBarLink = ({ className, title, icon, path }) => {
+const LinkIcon = ({ className, title, icon, path }) => {
   return (
     <div className={className}>
       <Link to={path}>
@@ -13,4 +13,4 @@ const NavBarLink = ({ className, title, icon, path }) => {
   )
 }
 
-export default NavBarLink
+export default LinkIcon

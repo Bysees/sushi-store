@@ -5,11 +5,11 @@ import {
   faUnlock, faUser, faUserPlus
 } from '@fortawesome/free-solid-svg-icons'
 
-import NavbarLink from './buttons/NavbarLink'
+import Dropdown from '../../common/Dropdown'
 
 import styles from './navbar.module.scss'
-import NavbarButton from './buttons/NavbarButton'
-import Dropdown from '../../common/Dropdown'
+import LinkIcon from '../../common/LinkIcon'
+import ButtonIcon from '../../common/ButtonIcon'
 
 const links = [
   { path: 'menu', title: 'Cуши' },
@@ -30,7 +30,7 @@ const Navbar = ({ showLoginForm, showRegistrationForm }) => {
       <Dropdown
         className={styles.dropdown}
         renderButton={() => (
-          <NavbarButton
+          <ButtonIcon
             className={styles.button}
             icon={faListAlt}
             title={'Меню'}
@@ -47,19 +47,19 @@ const Navbar = ({ showLoginForm, showRegistrationForm }) => {
 
       {isAuth
         ? <>
-          <NavbarLink
+          <LinkIcon
             className={styles.link}
             icon={faUser}
             path={'/profile'}
             title={'Профиль'}
           />
-          <NavbarLink
+          <LinkIcon
             className={styles.link}
             path={'/cart'}
             title={'Корзина '}
             icon={faShoppingBasket}
           />
-          <NavbarButton
+          <ButtonIcon
             className={styles.button}
             onClick={logout}
             title={'Выйти '}
@@ -67,13 +67,13 @@ const Navbar = ({ showLoginForm, showRegistrationForm }) => {
           />
         </>
         : <>
-          <NavbarButton
+          <ButtonIcon
             className={styles.button}
             onClick={showLoginForm}
             title={'Войти '}
             icon={faLock}
           />
-          <NavbarButton
+          <ButtonIcon
             className={styles.button}
             onClick={showRegistrationForm}
             title={'Зарегистрироваться '}

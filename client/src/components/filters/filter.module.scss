@@ -1,0 +1,120 @@
+@import '../../styles/variables.scss';
+
+.filteringProduct {
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+
+  &__item {
+    & button {
+      padding: 10px 30px 10px;
+      height: 100%;
+      width: 100%;
+
+      border-radius: 45px;
+
+      background: #000000a6;
+      color: #fff;
+
+      font-weight: 700;
+      font-size: 1.4rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+
+      transition: 0.3s;
+
+      &:hover {
+        color: $btn-color-red;
+      }
+
+      &:focus {
+        background: $btn-color-red;
+        box-shadow: 0 15px 20px rgb(0 0 0 / 99%);
+        color: white;
+        transform: translateY(-7px);
+      }
+    }
+
+    &:not(:first-child) {
+      margin-left: 10px;
+    }
+  }
+}
+
+//! FILTER LABEL
+.filters {
+  margin-top: 50px;
+
+  background-color: rgba(255, 255, 255, 0.212);
+
+  display: flex;
+  justify-content: center;
+
+  .filter {
+    position: relative;
+    border: 1px solid #fff;
+    min-width: 170px;
+
+    & button {
+      position: relative;
+      height: 100%;
+      width: 100%;
+
+      background-color: $black-transparent-color-strong;
+      color: #fff;
+
+      font-size: 1.6rem;
+      font-weight: 500;
+
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+
+      transition: 0.3s;
+      &:hover {
+        box-shadow: inset 0px 0px 5px 1px #fff;
+      }
+    }
+
+    &__title {
+      padding-left: 10px;
+      flex: auto 1 0;
+      height: 100%;
+    }
+
+    &__label_new,
+    &__label_hit,
+    &__label_hot,
+    &__label_vegan {
+      flex: 44px 0 0;
+      height: 44px;
+
+      background: url('../../images/icons/labels/new.png') center center
+        no-repeat;
+    }
+    &__label_new {
+      background: url('../../images/icons/labels/new.png') center center
+        no-repeat;
+    }
+    &__label_hit {
+      background: url('../../images/icons/labels/hit.png') center center
+        no-repeat;
+    }
+    &__label_hot {
+      background: url('../../images/icons/labels/spicy.png') center center
+        no-repeat;
+    }
+    &__label_vegan {
+      background: url('../../images/icons/labels/vegan.png') center center
+        no-repeat;
+    }
+
+    &_active {
+      background-color: rgb(251, 76, 76);
+    }
+
+    &:not(:first-child) {
+      margin-left: 15px;
+    }
+  }
+}

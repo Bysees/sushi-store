@@ -1,58 +1,35 @@
 import { useRef, useEffect } from 'react'
 import cn from 'classnames'
 
-import Products from '../products/Products'
-import Product from '../products/Product'
-
 import SliderTool from './sliderTool'
 
 import mainStyles from '../../pages/main/mainPage.module.scss'
 import styles from './slider.module.scss'
 
-const Slider = () => {
+const wrapperWidth = { width: 800 }
+const slideWidth = { width: wrapperWidth.width / 2 }
 
-  const sliderWrapperRef = useRef(null)
+const Slider = ({ renderSlides }) => {
+
   const sliderRef = useRef(null)
-  const slideRef = useRef(null)
 
   useEffect(() => {
     const slider = new SliderTool(
-      sliderWrapperRef.current,
+      wrapperWidth.width,
       sliderRef.current,
-      slideRef.current
+      slideWidth.width
     )
 
     return () => slider.unsubscribe()
   }, [])
 
-
-  const setProduct = (img, key) => {
-    return (
-      <div
-        className={styles.slide}
-        key={key}
-        ref={slideRef}>
-        <Product img={img} />
-      </div>
-    )
-  }
-
-
   return (
-    <div
-      className={cn(styles.wrapper, mainStyles.slider)}
-      ref={sliderWrapperRef}>
+    <div className={cn(styles.wrapper, mainStyles.slider)} style={wrapperWidth}>
+      <div className={styles.slider} ref={sliderRef}>
 
-      <div
-        className={styles.slider}
-        ref={sliderRef}>
-
-        {/* //* Ещё подумать над тем, как можно сделать лучше... */}
-        <Products renderProduct={setProduct} />
+        {renderSlides(slideWidth)}
 
       </div>
-
-
     </div>
   )
 }

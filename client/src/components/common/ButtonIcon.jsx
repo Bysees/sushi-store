@@ -1,7 +1,7 @@
 import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-const NavBarButton = ({ className, title, icon, onClick = null }) => {
+const ButtonIcon = ({ className, title, icon, onClick = null }) => {
   return (
     <div className={className}>
       <button onClick={onClick}>
@@ -12,4 +12,4 @@ const NavBarButton = ({ className, title, icon, onClick = null }) => {
   )
 }
 
-export default NavBarButton
+export default ButtonIcon

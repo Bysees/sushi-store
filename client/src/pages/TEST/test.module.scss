@@ -6,10 +6,12 @@ $transition-function: ease-in-out;
   padding-top: 1px;
   padding-bottom: 60px;
   background-color: rgb(255, 188, 188);
+  button {
+    margin: 10px;
+  }
 }
 
 .container {
-  border: 1px solid #000;
   width: 600px;
   height: 400px;
   margin: 100px auto;
@@ -33,52 +35,20 @@ $transition-function: ease-in-out;
   }
 }
 
-.imgWrap {
-  height: 200px;
-  position: relative;
-  overflow: hidden;
-
-  perspective: 800px;
-
-  .img {
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
-    object-position: 50% 60%;
+.img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  object-position: 50% 60%;
+  &-enter {
+    opacity: 0;
   }
-
-  .description {
-    overflow-y: scroll;
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    padding: 20px;
-
-    background-color: rgba(0, 0, 0, 0.541);
-    color: #fff;
-
-    transform: rotateX(-90deg);
+  &-enter-active {
+    opacity: 1;
+    transition: 1000ms;
   }
-
-  &_showDescription {
-    .img {
-      animation: hide $transition-time $transition-function alternate both;
-    }
-    .description {
-      animation: show $transition-time $transition-function $transition-time
-        alternate both;
-    }
-  }
-
-  &_showImg {
-    .img {
-      animation: show $transition-time $transition-function $transition-time
-        alternate both;
-    }
-    .description {
-      animation: hide $transition-time $transition-function alternate both;
-    }
+  &-exit-active {
+    opacity: 0;
+    transition: 1000ms;
   }
 }

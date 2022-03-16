@@ -13,16 +13,4 @@ $block-width: calc($slider-width / 2);
     height: 100%;
     display: flex;
   }
-
-  .slide {
-    width: $block-width;
-    flex-shrink: 0;
-
-    background-color: transparent;
-    border: 4px solid rgba(0, 0, 0, 0.493);
-    border-left-width: 3px;
-    border-right-width: 3px;
-
-    user-select: none;
-  }
 }

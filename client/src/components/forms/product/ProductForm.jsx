@@ -158,7 +158,7 @@ const ProductForm = ({ onSubmit, register, errors, validate, img }) => {
         </div>
 
         <div className={styles.button}>
-          <button>Создать</button>
+          <button>Подтвердить</button>
         </div>
       </form>
     </div>
