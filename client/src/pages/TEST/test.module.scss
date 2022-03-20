@@ -3,18 +3,11 @@ $transition-function: ease-in-out;
 
 .wrapper {
   height: 100%;
-  padding-top: 1px;
+  padding-top: 150px;
   padding-bottom: 60px;
-  background-color: rgb(255, 188, 188);
   button {
     margin: 10px;
   }
-}
-
-.container {
-  width: 600px;
-  height: 400px;
-  margin: 100px auto;
 }
 
 @keyframes hide {

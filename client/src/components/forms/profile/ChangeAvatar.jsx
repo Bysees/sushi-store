@@ -1,28 +1,14 @@
-import React, { useRef } from 'react'
+import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser } from '@fortawesome/free-solid-svg-icons'
 
-import profileStyles from './profileForms.module.scss'
-import sake from '../../../images/food/sushi_sake.jpg'
+import { useImgPreview } from '../../../hooks/useImgPreview'
 
+import profileStyles from './profileForms.module.scss'
 
 const ChangeAvatar = () => {
 
-  const refImg = useRef(null)
-  const hasImg = true
-
-  const onChangeHandler = (e) => {
-
-    const file = e.target.files[0]
-
-    if (file) {
-      refImg.current.src = URL.createObjectURL(file)
-      refImg.current.onload = () => {
-        URL.revokeObjectURL(file)
-      }
-    }
-  }
-
+  const { src, previewImageHandler } = useImgPreview(null)
 
   return (
     <div className={profileStyles.box}>
@@ -30,12 +16,12 @@ const ChangeAvatar = () => {
         type="file"
         id='imgFile'
         accept='image/*'
-        onChange={onChangeHandler}
+        onChange={previewImageHandler}
       />
       <label className={profileStyles.labelFile} htmlFor="imgFile" tabIndex={0}>
         <div className={profileStyles.avatar}>
-          {hasImg
-            ? <img src={sake} alt="avatar" ref={refImg} />
+          {src
+            ? <img src={src} alt="avatar" />
             : <FontAwesomeIcon className={profileStyles.avatar__icon} icon={faUser} />
           }
         </div>

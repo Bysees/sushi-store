@@ -1,7 +1,10 @@
 import React from 'react'
-import styles from './products.module.scss'
+import cn from 'classnames'
+
 import Rotate from '../animation/Rotate'
 import ProductDescription from './description/ProductDescription'
+
+import styles from './products.module.scss'
 
 const structure = {
   calorie: 505,
@@ -17,7 +20,7 @@ const ProductSlide = ({ img, width }) => {
   return (
     <div className={styles.product} style={width}>
 
-      <div className={styles.row_one} >
+      <div className={cn(styles.rowOne, styles.rowOne_slide)}>
         <Rotate
           renderFirst={(onHide) => (
             <div className={styles.img}>

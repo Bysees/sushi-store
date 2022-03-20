@@ -1,0 +1,297 @@
+[
+  {
+    "id": "4116e749",
+    "title": "РОЛЛ С УГРЁМ И АВОКАДО",
+    "price": 420,
+    "labels": [
+      "new"
+    ],
+    "img": "/picture/roll_avocado.jpg",
+    "structure": {
+      "ingredients": [
+        "угорь",
+        "авокадо",
+        "рис",
+        "сливочный сыр",
+        "водоросли нори",
+        "огурец",
+        "омлет тамаго",
+        "соус унаги",
+        "кунжут"
+      ],
+      "weight": 230,
+      "calorie": 505,
+      "protein": 15,
+      "fat": 29,
+      "carbohydrates": 47
+    }
+  },
+  {
+    "id": "ef0b3d18",
+    "title": "УНАГИ МАКИ",
+    "price": 290,
+    "labels": [],
+    "img": "/picture/sake_unagi.jpg",
+    "structure": {
+      "ingredients": [
+        "Классический ролл с угрем:",
+        "угорь",
+        "рис",
+        "водоросли",
+        "нори",
+        "кунжут"
+      ],
+      "weight": 110,
+      "calorie": 257,
+      "protein": 9,
+      "fat": 8,
+      "carbohydrates": 37
+    }
+  },
+  {
+    "id": "b7ce2056",
+    "title": "РОЛЛ С ТОФУ И АНАНАСОМ",
+    "price": 180,
+    "labels": [
+      "new"
+    ],
+    "img": "/picture/roll_ananas_tofu.jpg",
+    "structure": {
+      "ingredients": [
+        "Тофу",
+        "рис",
+        "водоросли нори",
+        "ананас",
+        "чука",
+        "пекинская капуста",
+        "карамелизированный арахис",
+        "зелёный лук",
+        "соус унаги",
+        "кунжут"
+      ],
+      "weight": 205,
+      "calorie": 379,
+      "protein": 9,
+      "fat": 4,
+      "carbohydrates": 77
+    }
+  },
+  {
+    "id": "1bb0bbdd",
+    "title": "РОЛЛ КАППА АВОКАДО МАКИ",
+    "price": 180,
+    "labels": [
+      "vegan"
+    ],
+    "img": "/picture/kappa_avokado_maki.jpg",
+    "structure": {
+      "ingredients": [
+        "Огурец",
+        "рис",
+        "водоросли нори",
+        "авокадо",
+        "кунжут"
+      ],
+      "weight": 150,
+      "calorie": 282,
+      "protein": 5,
+      "fat": 6,
+      "carbohydrates": 52
+    }
+  },
+  {
+    "id": "c5083aaa",
+    "title": "МАСАГО МАКИ",
+    "price": 180,
+    "labels": [
+      "hit"
+    ],
+    "img": "/picture/masago_maki.jpg",
+    "structure": {
+      "ingredients": [
+        "Тигровая креветка",
+        "рис",
+        "сливочный сыр",
+        "водоросли нори",
+        "икра масаго"
+      ],
+      "weight": 180,
+      "calorie": 362,
+      "protein": 14,
+      "fat": 10,
+      "carbohydrates": 53
+    }
+  },
+  {
+    "id": "19d0234e",
+    "title": "ФИЛАДЕЛЬФИЯ В УГРЕ",
+    "price": 520,
+    "labels": [
+      "hit"
+    ],
+    "img": "/picture/roll_philadelphia_v_ugre.jpg",
+    "structure": {
+      "ingredients": [
+        "Угорь",
+        "сливочный сыр",
+        "рис",
+        "огурец",
+        "водоросли нори",
+        "соус унаги",
+        "кунжут"
+      ],
+      "weight": 220,
+      "calorie": 465,
+      "protein": 17,
+      "fat": 21,
+      "carbohydrates": 53
+    }
+  },
+  {
+    "id": "b068f562",
+    "title": "ФИЛАДЕЛЬФИЯ ЛЮКС",
+    "price": 450,
+    "labels": [
+      "hit"
+    ],
+    "img": "/picture/roll_philadelphia_lux.jpg",
+    "structure": {
+      "ingredients": [
+        "Лосось",
+        "водоросли нори",
+        "сливочный сыр",
+        "рис",
+        "огурец",
+        "икра масаго",
+        "укроп",
+        "лимон"
+      ],
+      "weight": 250,
+      "calorie": 481,
+      "protein": 26,
+      "fat": 19,
+      "carbohydrates": 53
+    }
+  },
+  {
+    "id": "c3ce6f09",
+    "title": "САКУ УНАГИ",
+    "price": 450,
+    "labels": [],
+    "img": "/picture/sake_unagi.jpg",
+    "structure": {
+      "ingredients": [
+        "Лосось",
+        "угорь",
+        "рис",
+        "водоросли нори",
+        "сливочный сыр",
+        "огурец",
+        "соус унаги",
+        "кунжут"
+      ],
+      "weight": 210,
+      "calorie": 416,
+      "protein": 17,
+      "fat": 16,
+      "carbohydrates": 52
+    }
+  },
+  {
+    "id": "11f623af",
+    "title": "РОЛЛ СЛИВОЧНЫЙ УГОРЬ",
+    "price": 430,
+    "labels": [],
+    "img": "/picture/slivochnij_ugor.jpg",
+    "structure": {
+      "ingredients": [
+        "Угорь",
+        "сливочный сыр",
+        "рис",
+        "огурец",
+        "водоросли нори",
+        "сливочный соус",
+        "соусы унаги и сладкий чили",
+        "кунжут"
+      ],
+      "weight": 240,
+      "calorie": 577,
+      "protein": 12,
+      "fat": 30,
+      "carbohydrates": 64
+    }
+  },
+  {
+    "id": "a368279e",
+    "title": "ЗАПЕЧЁННЫЙ РОЛЛ С КРАБОМ И СЫРОМ МОЦАРЕЛЛА",
+    "price": 290,
+    "labels": [
+      "new"
+    ],
+    "img": "/picture/roll_mozarella.jpg",
+    "structure": {
+      "ingredients": [
+        "Снежный краб",
+        "лосось",
+        "сыр моцарелла",
+        "омлет тамаго",
+        "икра масаго",
+        "рис",
+        "водоросли нори",
+        "сливочный сыр",
+        "огурец",
+        "майонез"
+      ],
+      "weight": 270,
+      "calorie": 529,
+      "protein": 16,
+      "fat": 33,
+      "carbohydrates": 57
+    }
+  },
+  {
+    "id": "8cad276d",
+    "title": "САКЕ МАКИ",
+    "price": 210,
+    "labels": [],
+    "img": "/picture/sake_maki.jpg",
+    "structure": {
+      "ingredients": [
+        "Классический ролл с лососем:",
+        "лосось",
+        "рис",
+        "водоросли нори"
+      ],
+      "weight": 110,
+      "calorie": 216,
+      "protein": 10,
+      "fat": 3,
+      "carbohydrates": 37
+    }
+  },
+  {
+    "id": "8fce8159",
+    "title": "ТЁПЛЫЙ РОЛЛ С КРЕВЕТКАМИ В СЛИВОЧНОМ СОУСЕ",
+    "price": 290,
+    "labels": [],
+    "img": "/picture/teplij_roll_s_krivetkoj.jpg",
+    "structure": {
+      "ingredients": [
+        "Жареный лосось",
+        "тамаго",
+        "рис",
+        "водоросли нори",
+        "кляр",
+        "сухари панко",
+        "сливочный соус",
+        "соус унаги",
+        "кунжут"
+      ],
+      "weight": 180,
+      "calorie": 485,
+      "protein": 15,
+      "fat": 15,
+      "carbohydrates": 66
+    }
+  }
+]

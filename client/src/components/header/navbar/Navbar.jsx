@@ -5,16 +5,13 @@ import {
   faUnlock, faUser, faUserPlus
 } from '@fortawesome/free-solid-svg-icons'
 
-import Dropdown from '../../common/Dropdown'
-
-import styles from './navbar.module.scss'
 import LinkIcon from '../../common/LinkIcon'
+import Dropdown from '../../common/Dropdown'
 import ButtonIcon from '../../common/ButtonIcon'
 
-const links = [
-  { path: 'menu', title: 'Cуши' },
-  { path: 'menu', title: 'Ролы' }
-]
+import { navbarLinks } from '../../../consts/links'
+
+import styles from './navbar.module.scss'
 
 const Navbar = ({ showLoginForm, showRegistrationForm }) => {
 
@@ -37,7 +34,7 @@ const Navbar = ({ showLoginForm, showRegistrationForm }) => {
           />)}>
 
         <div className={styles.dropdown__list}>
-          {links.map(({ path, title }) => (
+          {navbarLinks.map(({ path, title }) => (
             <Link key={title} to={path}>
               {title}
             </Link>

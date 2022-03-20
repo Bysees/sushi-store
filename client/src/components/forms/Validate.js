@@ -44,6 +44,20 @@ export default class Validate {
     }
   }
 
+  static productTitle() {
+    return {
+      required: 'Обязательное поле',
+      maxLength: { value: 70, message: 'Максимум 70 символов' }
+    }
+  }
+
+  static structureField() {
+    return {
+      ...Validate.positive(),
+      maxLength: { value: 5, message: 'Максимум 5 символов' }
+    }
+  }
+
   static positive() {
     return {
       validate: {

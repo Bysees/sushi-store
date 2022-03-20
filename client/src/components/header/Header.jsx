@@ -1,12 +1,13 @@
 import React from 'react'
-import { useToogle } from '../../hooks/useToogle'
 
 import Container from '../common/Container'
 import LoginForm from '../forms/login/LoginForm'
 import RegistrationForm from '../forms/registration/RegistrationForm'
+import Navbar from './navbar/Navbar'
+
+import { useToogle } from '../../hooks/useToogle'
 
 import appStyles from '../../styles/app.module.scss'
-import Navbar from './navbar/Navbar'
 
 const Header = () => {
 

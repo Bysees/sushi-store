@@ -5,13 +5,14 @@
   display: flex;
   justify-content: center;
 
-  &__item {
-    & button {
+  & > div {
+    & a {
       padding: 10px 30px 10px;
       height: 100%;
       width: 100%;
 
       border-radius: 45px;
+      border: 1px solid transparent;
 
       background: #000000a6;
       color: #fff;
@@ -28,15 +29,25 @@
       }
 
       &:focus {
-        background: $btn-color-red;
-        box-shadow: 0 15px 20px rgb(0 0 0 / 99%);
-        color: white;
-        transform: translateY(-7px);
+        box-shadow: 0 0px 20px rgba(255, 255, 255, 0.99);
       }
     }
 
     &:not(:first-child) {
       margin-left: 10px;
+    }
+  }
+  .active a {
+    background: $btn-color-red;
+    box-shadow: 0 15px 20px rgb(0 0 0 / 99%);
+    color: white;
+    transform: translateY(-7px);
+    &:hover {
+      color: white;
+    }
+
+    &:focus {
+      box-shadow: 0 15px 20px rgb(0 0 0 / 99%);
     }
   }
 }

@@ -10,7 +10,7 @@ const MenuPage = () => {
   return (
     <div className={appStyles.menu}>
       <FilterProducts />
-      <Outlet />
+      <Outlet /> {/* //* ProductsMenu */}
     </div>
   )
 }

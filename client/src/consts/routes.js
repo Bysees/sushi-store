@@ -14,12 +14,12 @@ export const routes = [
     path: 'menu',
     element: <MenuPage />,
     children: [
+      // {
+      //   index: true,
+      //   element: <ProductsMenu />
+      // },
       {
-        index: true,
-        element: <ProductsMenu />
-      },
-      {
-        path: ':product',
+        path: ':productType',
         element: <ProductsMenu />
       },
     ]

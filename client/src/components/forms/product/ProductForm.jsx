@@ -4,6 +4,8 @@ import cn from 'classnames'
 import Input from '../fields/Input'
 import Select from '../fields/Select'
 
+import { useImgPreview } from '../../../hooks/useImgPreview'
+
 import styles from '../form.module.scss'
 
 const ingredients = [
@@ -28,6 +30,8 @@ const labels = [
 
 const ProductForm = ({ onSubmit, register, errors, validate, img }) => {
 
+  const { src, previewImageHandler } = useImgPreview(img ? img : null)
+
   return (
     <div className={styles.wrapper__product}>
       <form
@@ -44,7 +48,7 @@ const ProductForm = ({ onSubmit, register, errors, validate, img }) => {
             name={'title'}
             placeholder={'~Унаги роллы'}
 
-            validate={validate.required()}
+            validate={validate.productTitle()}
             register={register}
             errors={errors}
           />
@@ -74,15 +78,14 @@ const ProductForm = ({ onSubmit, register, errors, validate, img }) => {
             label={'Фотография: '}
             name={'img'}
             type={'file'}
-
-            validate={validate.required()}
+            accept="image/png, image/jpeg"
+            onChange={previewImageHandler}
             register={register}
-            errors={errors}
           />
 
-          {img &&
+          {src &&
             <div className={styles.img}>
-              <img src={img} alt='sake' />
+              <img src={src} alt='sake' />
             </div>
           }
         </div>
@@ -97,7 +100,7 @@ const ProductForm = ({ onSubmit, register, errors, validate, img }) => {
             type={'number'}
             placeholder={'~500'}
 
-            validate={validate.positive()}
+            validate={validate.structureField()}
             register={register}
             errors={errors}
           />
@@ -108,7 +111,7 @@ const ProductForm = ({ onSubmit, register, errors, validate, img }) => {
             type={'number'}
             placeholder={'~50'}
 
-            validate={validate.positive()}
+            validate={validate.structureField()}
             register={register}
             errors={errors}
           />
@@ -119,7 +122,7 @@ const ProductForm = ({ onSubmit, register, errors, validate, img }) => {
             type={'number'}
             placeholder={'~50'}
 
-            validate={validate.positive()}
+            validate={validate.structureField()}
             register={register}
             errors={errors}
           />
@@ -130,7 +133,7 @@ const ProductForm = ({ onSubmit, register, errors, validate, img }) => {
             type={'number'}
             placeholder={'~50'}
 
-            validate={validate.positive()}
+            validate={validate.structureField()}
             register={register}
             errors={errors}
           />
@@ -141,7 +144,7 @@ const ProductForm = ({ onSubmit, register, errors, validate, img }) => {
             type={'number'}
             placeholder={'~300'}
 
-            validate={validate.positive()}
+            validate={validate.structureField()}
             register={register}
             errors={errors}
           />
