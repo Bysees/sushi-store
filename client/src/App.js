@@ -1,5 +1,5 @@
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 
 // import Messenger from './components/messenger/Messenger';
@@ -24,7 +24,7 @@ const App = () => {
     if (isSuccess) {
       dispatch(setUser(user))
     }
-  }, [isSuccess])
+  }, [isSuccess, dispatch, user])
 
   if (isLoading) {
     return <div>Loading...</div>

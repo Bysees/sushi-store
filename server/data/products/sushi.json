@@ -23,13 +23,9 @@
     }
   },
   {
-    "id": "2f4d5528",
-    "title": "СУШИ, ЗАПЕЧЕННЫЕ ПОД СОУСОМ СПАЙСИ ЛОСОСЬ (3 ШТ.)",
-    "price": 270,
     "img": "/picture/spicy_baked.jpg",
-    "labels": [
-      "hot"
-    ],
+    "price": 270,
+    "title": "СУШИ, ЗАПЕЧЕННЫЕ ПОД СОУСОМ СПАЙСИ ЛОСОСЬ (3 ШТ.)",
     "structure": {
       "ingredients": [
         "лосось",
@@ -42,7 +38,11 @@
       "protein": 15,
       "fat": 12,
       "carbohydrates": 48
-    }
+    },
+    "labels": [
+      "hot"
+    ],
+    "id": "2f4d5528"
   },
   {
     "id": "eac1232e",

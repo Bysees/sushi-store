@@ -1,4 +1,4 @@
-export default function (error, name) {
+export default function errorHandler(error, name) {
   const errorNames = name.split('.')
   let resultError = error
 

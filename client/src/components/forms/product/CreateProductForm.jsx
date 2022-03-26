@@ -23,7 +23,7 @@ const NewProduct = ({ onHide }) => {
       }
     }
   })
-  const [createProduct, { error, isLoading }] = useCreateProductMutation()
+  const [createProduct, { isLoading }] = useCreateProductMutation()
   const { productType } = useParams()
 
   //  error.data.message //? Ошибка с сервера

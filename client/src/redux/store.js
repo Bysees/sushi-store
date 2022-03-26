@@ -1,4 +1,4 @@
-import { configureStore, combineReducers, getDefaultMiddleware } from '@reduxjs/toolkit'
+import { configureStore, combineReducers } from '@reduxjs/toolkit'
 import { userReducer } from './user'
 import { messagesReducer } from './messages'
 import { productApi } from './RTKquery/product'
