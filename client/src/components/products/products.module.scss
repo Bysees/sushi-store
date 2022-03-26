@@ -15,7 +15,7 @@
 }
 
 .translate {
-  animation: appear 0.7s;
+  animation: appear ease-in-out 0.5s both;
 }
 
 .products {
@@ -224,7 +224,7 @@
   align-items: center;
   justify-content: center;
 
-  font-size: 1.4rem;
+  font-size: 1.5rem;
   text-align: center;
   text-transform: uppercase;
 }
@@ -241,7 +241,7 @@
 
     display: inline-block;
 
-    font-size: 2.1rem;
+    font-size: 2rem;
     text-transform: uppercase;
     word-break: keep-all;
 

@@ -1,26 +1,24 @@
-require('dotenv').config()
-const express = require('express')
+import dotenv from 'dotenv'
+import express, { json, urlencoded } from 'express'
+import cors from 'cors'
+import { resolve, dirname } from 'path'
+import { readdirSync } from 'fs'
+import route from './routers/index.js'
+import { fileURLToPath } from 'url';
+
+dotenv.config()
 const app = express()
-const cors = require('cors')
-const path = require('path')
-const fs = require('fs')
-const fileUpload = require('express-fileupload')
-const route = require('./routers/index')
 const PORT = 5000
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
-app.use(fileUpload({
-  createParentPath: true,
-}))
-
-const pictures = fs.readdirSync(path.resolve(__dirname, 'static'))
+const pictures = readdirSync(resolve(__dirname, 'static'))
 pictures.forEach((dirname) => {
-  app.use('/picture', express.static(path.resolve(__dirname, 'static', dirname)))
+  app.use('/picture', express.static(resolve(__dirname, 'static', dirname)))
 })
 
 app.use(cors())
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
+app.use(json())
+app.use(urlencoded({ extended: true }))
 app.use('/', route)
 
 app.listen(PORT, () => console.log(`Server started on PORT ${PORT}`))

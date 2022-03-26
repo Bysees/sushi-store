@@ -1,57 +1,95 @@
-const fs = require('fs')
-const path = require('path')
-const jwt = require('jsonwebtoken')
+import { writeFileSync, readFileSync } from 'fs'
+import { resolve, dirname } from 'path'
+import jsonwebtoken from 'jsonwebtoken'
+import { fileURLToPath } from 'url';
 
-//! npm i jsonwebtoken bcrypt
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const { sign } = jsonwebtoken
 
-//? bcrypt асинхронная функция,
-//? Encrypt: await bcrypt.hash(pass, 5)
-//? Decrypt: bcrypt.compareSynd(current-pass, db-pass)
-
-//? Tocode: jwt.sign(payload : {login, role, id} , secretKey : string, options : {expiresIn : '24h'})
-//? secretKey лучше хранить в .env файле!
-
-//! Создаём AuthMiddleware и в гет запрос вторым параметром
-//? Decode: jwn.verify(token, secretKey)
+const filePathUsers = resolve(__dirname, '..', 'data', 'users.json')
 
 class AuthController {
 
   async create(req, res, next) {
     try {
       const clientUser = req.body
-      const users = getUsersFromBD()
-      const hasUser = checkValueInArr(users, 'name', clientUser.name)
+      if (!clientUser.login || !clientUser.password) {
+        return res.status(403).json({ message: `You must provide password and login` })
+      }
+
+      const users = getUsersFromDB()
+      const hasUser = checkValueInArr(users, 'login', clientUser.login)
 
       if (!hasUser) {
+        clientUser.name = ''
+        clientUser.description = ''
+        clientUser.img = ''
+
         addUserToBD(clientUser)
-        const token = generateJWT(clientUser.name, clientUser.role)
+
+        delete clientUser.password
+        const token = generateJWT(clientUser)
         return res.status(200).json({ token })
       }
 
-      res.status(403).json({ message: `User with name ${clientUser.name} already exists` })
+      res.status(403).json({ message: `User with login ${clientUser.login} already exists` })
     } catch (e) {
       res.status(500).json({ message: `Server error` })
+    }
+  }
+
+  changePassword(req, res, next) {
+    try {
+      const clientUser = req.body
+
+      if (!clientUser.login || !clientUser.password) {
+        return res.status(403).json({ message: `You must provide password and login` })
+      }
+
+      const users = getUsersFromDB()
+
+      const updatedUsers = users.map((user) => {
+        if (user.login === clientUser.login) {
+          const editedUser = {
+            ...user,
+            password: clientUser.password
+          }
+          return editedUser
+        }
+        return user
+      })
+
+      writeFileSync(filePathUsers, JSON.stringify(updatedUsers, null, 2))
+
+      //! Тут наверное с сервера надо брать юзера
+      delete clientUser.password
+      const token = generateJWT(clientUser)
+
+      res.status(200).json({ token })
+    } catch {
+      res.status(403).json({ message: 'something went wrong' })
     }
   }
 
   login(req, res, next) {
     try {
       const clientUser = req.body
-      let users = getUsersFromBD()
-      const hasUser = checkValueInArr(users, 'name', clientUser.name)
+      let users = getUsersFromDB()
+      const hasUser = checkValueInArr(users, 'login', clientUser.login)
 
       if (!hasUser) {
         return res.status(403).json({ message: `Login or password incorrect` })
       }
 
-      const serverUser = getItemByValueFromArr(users, 'name', clientUser.name)
+      const serverUser = getItemByValueFromArr(users, 'login', clientUser.login)
       const isPasswordCorrect = serverUser.password === clientUser.password
 
       if (!isPasswordCorrect) {
         return res.status(403).json({ message: `Login or password incorrect` })
       }
 
-      const token = generateJWT(serverUser.name, serverUser.role)
+      delete serverUser.password
+      const token = generateJWT(serverUser)
       res.status(200).json({ token })
     } catch (e) {
       res.status(500).json({ message: `Server error` })
@@ -60,7 +98,10 @@ class AuthController {
 
   check(req, res, next) {
     const clientUser = req.user
-    const token = generateJWT(clientUser.name, clientUser.role)
+    delete clientUser.exp
+    delete clientUser.iat
+    const token = generateJWT(clientUser)
+
     res.status(200).json({ token })
   }
 }
@@ -85,20 +126,20 @@ function getItemByValueFromArr(arr, field, value) {
   return result
 }
 
-function getUsersFromBD() {
-  const users = fs.readFileSync(path.resolve(__dirname, '..', 'data', 'users.json'), { encoding: 'utf8' })
+function getUsersFromDB() {
+  const users = readFileSync(filePathUsers, { encoding: 'utf8' })
   return JSON.parse(users)
 }
 
 function addUserToBD(clientUser) {
-  const users = getUsersFromBD()
+  const users = getUsersFromDB()
   users.push(clientUser)
-  fs.writeFileSync(path.resolve(__dirname, '..', 'data', 'users.json'), JSON.stringify(users, null, 2))
+  writeFileSync(filePathUsers, JSON.stringify(users, null, 2))
 }
 
-function generateJWT(name, role) {
-  return jwt.sign({ name, role }, process.env.SECRET_KEY, { expiresIn: '1h' })
+function generateJWT(user) {
+  return sign(user, process.env.SECRET_KEY, { expiresIn: '24h' })
 }
 
 
-module.exports = new AuthController()
+export default new AuthController()

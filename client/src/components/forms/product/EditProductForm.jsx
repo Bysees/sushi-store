@@ -6,7 +6,7 @@ import Modal from '../../common/Modal'
 import ProductForm from './ProductForm'
 
 import Validate from '../Validate'
-import { ProductService } from '../../../api/productService'
+import { useUpdateProductMutation } from '../../../redux/RTKquery/product'
 
 
 const EditProductForm = ({ onHide, product }) => {
@@ -17,14 +17,17 @@ const EditProductForm = ({ onHide, product }) => {
 
   const { productType } = useParams()
 
+  const [updateProduct, { isLoading }] = useUpdateProductMutation()
+
   const onSubmit = async (data) => {
     const formData = new FormData()
-    if (typeof data.img[0] === 'object') {
+    const hasImage = typeof data.img[0] === 'object'
+    if (hasImage) {
       formData.append('picture', data.img[0])
     }
     data = { ...data, img: product.img }
     formData.append('product', JSON.stringify(data))
-    await ProductService.editProduct(formData, productType)
+    await updateProduct({ productType, formData })
   }
 
   return (
@@ -35,6 +38,7 @@ const EditProductForm = ({ onHide, product }) => {
         register={register}
         validate={Validate}
         errors={errors}
+        isLoading={isLoading}
       />
     </Modal>
   )

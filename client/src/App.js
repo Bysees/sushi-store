@@ -1,45 +1,39 @@
-import { useRoutes } from 'react-router-dom';
-// import { useDispatch, useSelector } from 'react-redux';
-// import { useEffect } from 'react';
-// import jwtDecode from 'jwt-decode';
+
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
 
 // import Messenger from './components/messenger/Messenger';
 import Header from './components/header/Header';
 import Footer from './components/footer/Footer';
 
-// import { setAuthorized, setUser } from './redux/user';
-// import { AuthService } from './api/authService';
+import { useCheckAuthQuery } from './redux/RTKquery/auth';
+import { setUser } from './redux/user';
 
 import './styles/styles_clear.css'
 import './styles/portal.css'
 import styles from './styles/app.module.scss'
-import { routes } from './consts/routes';
+import AppRouter from './AppRouter';
+
 
 const App = () => {
 
-  // const { authorized } = useSelector((state) => state.user)
-  // const dispatch = useDispatch()
+  const dispatch = useDispatch()
+  const { data: user, isLoading, isSuccess } = useCheckAuthQuery()
 
-  // useEffect(() => {
-  //   (async () => {
-  //     try {
-  //       const response = await AuthService.check()
-  //       const userData = jwtDecode(response.data.token)
-  //       dispatch(setUser({ name: userData.name, role: userData.role }))
-  //       dispatch(setAuthorized(true))
-  //     } catch (e) {
-  //       console.log(e.response.data.message)
-  //     }
-  //   })()
-  // }, [dispatch])
+  useEffect(() => {
+    if (isSuccess) {
+      dispatch(setUser(user))
+    }
+  }, [isSuccess])
 
-
-  const appRoutes = useRoutes(routes)
+  if (isLoading) {
+    return <div>Loading...</div>
+  }
 
   return (
     <div className={styles.app}>
       <Header />
-      {appRoutes}
+      <AppRouter />
       <Footer />
     </div>
   );

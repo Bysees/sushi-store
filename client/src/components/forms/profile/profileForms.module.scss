@@ -84,6 +84,11 @@
 
     transition: 0.3s;
   }
+
+  & > span {
+    display: block;
+    margin-top: 5px;
+  }
 }
 
 .avatar {

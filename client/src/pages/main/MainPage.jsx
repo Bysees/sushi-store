@@ -1,27 +1,23 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 import Container from '../../components/common/Container'
 import ProductSlide from '../../components/products/ProductSlide'
 import Slider from '../../components/slider/Slider'
 
+import { useGetAllProductsQuery } from '../../redux/RTKquery/product'
+
 import appStyles from '../../styles/app.module.scss'
 import styles from './mainPage.module.scss'
 
-import cheesy from '../../images/food/cheesy_baked.jpg'
-import spicy from '../../images/food/spicy_baked.jpg'
-import chukka from '../../images/food/sushi_chukka1.jpg'
-import ebi from '../../images/food/sushi_ebi.jpg'
-import sake from '../../images/food/sushi_sake.jpg'
-import salmo from '../../images/food/sushi_spicy_salmon.jpg'
-import shrimp from '../../images/food/sushi_spicy_shrimp1.jpg'
-import unagi from '../../images/food/sushi_unagi.jpg'
-
-export const productItems = [
-  cheesy, spicy, chukka, ebi, sake, salmo, shrimp, unagi
-]
 
 const MainPage = () => {
+
+  const { data: products, isLoading } = useGetAllProductsQuery()
+
+  if (isLoading) {
+    return <div>Loading...</div>
+  }
 
   return (
     <div className={appStyles.main}>
@@ -30,8 +26,15 @@ const MainPage = () => {
 
           <Slider
             renderSlides={(width) => (
-              productItems.map(img => (
-                <ProductSlide key={img} img={img} width={width} />)
+              products.map(({ img, id, labels, structure }) => (
+                <ProductSlide
+                  key={id}
+                  id={id}
+                  img={img}
+                  labels={labels}
+                  structure={structure}
+                  width={width}
+                />)
               ))}
           />
 
@@ -43,9 +46,9 @@ const MainPage = () => {
           </div>
 
           <div className={styles.linkWrap}>
-            <NavLink to={'/menu/sushi'} className={styles.link}>
+            <Link to={'/menu/sushi'} className={styles.link}>
               Перейти в меню
-            </NavLink>
+            </Link>
           </div>
 
         </div>

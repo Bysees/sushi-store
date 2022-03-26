@@ -4,6 +4,10 @@ export default class Validate {
     return {
       required: 'Обязательное поле',
       maxLength: { value: 16, message: 'Максимум 16 символов' },
+      pattern: {
+        value: /^[a-zA-Z0-9]+$/,
+        message: 'Только цифры и/или латинские буквы'
+      }
     }
   }
 
@@ -14,7 +18,7 @@ export default class Validate {
       minLength: { value: 8, message: 'Минимум 8 символов' },
       pattern: {
         value: /^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$/,
-        message: 'Пароль должен содержать цифры и латинские буквы'
+        message: 'Только цифры и латинские буквы одновременно'
       }
     }
   }

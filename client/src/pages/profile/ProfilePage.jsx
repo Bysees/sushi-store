@@ -1,5 +1,5 @@
 import React from 'react'
-// import cn from 'classnames'
+import { useSelector } from 'react-redux'
 
 import Container from '../../components/common/Container'
 import ProfileForms from '../../components/forms/profile/ProfileForms'
@@ -7,10 +7,15 @@ import ProfileForms from '../../components/forms/profile/ProfileForms'
 import styles from './profilePage.module.scss'
 import appStyles from '../../styles/app.module.scss'
 
+
 const ProfilePage = () => {
 
-  const username = 'Васил'
-  const description = 'Я нормальный парень, но бывает едет крыша'
+  const { name, description } = useSelector(state => {
+    return {
+      name: state.user.name,
+      description: state.user.description
+    }
+  })
 
   return (
     <div className={appStyles.profile}>
@@ -20,7 +25,7 @@ const ProfilePage = () => {
 
             <div className={styles.profile__info}>
               <div className={styles.username}>
-                {username}
+                {name}
               </div>
               <div className={styles.description}>
                 {description}

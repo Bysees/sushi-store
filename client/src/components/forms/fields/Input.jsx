@@ -1,7 +1,7 @@
 import React, { memo } from 'react'
 import cn from 'classnames'
-import styles from '../../forms/form.module.scss'
 import errorHandler from './errorHandler'
+import styles from '../../forms/form.module.scss'
 
 const Input = ({
   className, name, label, serverError, errors, register, validate = {}, ...rest }) => {
@@ -12,8 +12,8 @@ const Input = ({
     <div className={cn(className, error && styles.field__error)}>
       <label>{label}</label>
       <input {...register(name, validate)} {...rest} />
-      {error && <span>{error.message}</span>}
-      {serverError && <span>{serverError}</span>}
+      {error && <span className={styles.error}>{error.message}</span>}
+      {serverError && <span className={styles.error}>{serverError}</span>}
     </div>
   )
 }

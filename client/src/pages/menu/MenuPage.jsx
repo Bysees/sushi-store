@@ -1,6 +1,6 @@
 import React from 'react'
-
 import { Outlet } from 'react-router-dom'
+
 import FilterProducts from '../../components/filters/FilterProducts'
 
 import appStyles from '../../styles/app.module.scss'

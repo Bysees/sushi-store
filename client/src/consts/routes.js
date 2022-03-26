@@ -1,3 +1,4 @@
+import { Navigate } from "react-router-dom";
 import ProductsMenu from "../components/products/ProductsMenu";
 import CartPage from "../pages/cart/CartPage";
 import MainPage from "../pages/main/MainPage";
@@ -5,7 +6,7 @@ import MenuPage from "../pages/menu/MenuPage";
 import ProfilePage from "../pages/profile/ProfilePage";
 import Test from "../pages/TEST/Test";
 
-export const routes = [
+export const routes = (isLoggedIn) => [
   {
     path: '/',
     element: <MainPage />
@@ -14,10 +15,10 @@ export const routes = [
     path: 'menu',
     element: <MenuPage />,
     children: [
-      // {
-      //   index: true,
-      //   element: <ProductsMenu />
-      // },
+      {
+        path: '',
+        element: <Navigate to='sushi' />
+      },
       {
         path: ':productType',
         element: <ProductsMenu />
@@ -26,11 +27,11 @@ export const routes = [
   },
   {
     path: 'cart',
-    element: <CartPage />
+    element: isLoggedIn ? <CartPage /> : <Navigate to='/' />
   },
   {
     path: 'profile',
-    element: <ProfilePage />
+    element: isLoggedIn ? <ProfilePage /> : <Navigate to='/' />
   },
   {
     path: 'test',

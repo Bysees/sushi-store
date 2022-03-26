@@ -1,15 +1,15 @@
 import { useState } from "react"
 
-export const useImgPreview = (defaultSrc) => {
-  const [src, setSrc] = useState(defaultSrc)
+export const useImgPreview = (defaultSrc = '') => {
+  const [previewImg, setPreviewImg] = useState(defaultSrc)
 
   const previewImageHandler = (e) => {
     const file = e.target.files[0]
     if (file) {
-      const previewSrc = URL.createObjectURL(file)
-      setSrc(previewSrc)
+      const src = URL.createObjectURL(file)
+      setPreviewImg(src)
     }
   }
 
-  return { src, setSrc, previewImageHandler }
+  return { previewImg, previewImageHandler }
 }

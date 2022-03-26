@@ -1,17 +1,42 @@
 [
   {
-    "name": "admin",
-    "password": "qwe",
-    "role": "admin"
+    "login": "sanechek",
+    "password": "qwer1444",
+    "role": "admin",
+    "name": "qwe",
+    "description": "qweweq",
+    "avatar": "/picture/unknown.png"
   },
   {
-    "name": "user1",
+    "login": "user1",
     "password": "qwe",
-    "role": "user"
+    "role": "user",
+    "name": "",
+    "description": "",
+    "avatar": ""
   },
   {
-    "name": "user2",
+    "login": "user2",
     "password": "qwe",
-    "role": "user"
+    "role": "user",
+    "name": "",
+    "description": "",
+    "avatar": ""
+  },
+  {
+    "login": "Vasyan111",
+    "password": "pass1234",
+    "role": "user",
+    "name": "",
+    "description": "",
+    "avatar": ""
+  },
+  {
+    "login": "user123",
+    "password": "qweqwe123",
+    "role": "user",
+    "name": "",
+    "description": "",
+    "img": ""
   }
 ]

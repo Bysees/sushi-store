@@ -1,4 +1,5 @@
-const jwt = require('jsonwebtoken')
+import jsonwebtoken from 'jsonwebtoken'
+const { verify } = jsonwebtoken
 
 const authMiddeware = async (req, res, next) => {
 
@@ -13,7 +14,7 @@ const authMiddeware = async (req, res, next) => {
       return res.status(401).json({ message: `User not authorized` })
     }
 
-    const clientUser = jwt.verify(token, process.env.SECRET_KEY)
+    const clientUser = verify(token, process.env.SECRET_KEY)
     req.user = clientUser
     next()
   } catch (e) {
@@ -21,4 +22,4 @@ const authMiddeware = async (req, res, next) => {
   }
 }
 
-module.exports = authMiddeware
+export default authMiddeware

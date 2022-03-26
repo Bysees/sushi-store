@@ -1,40 +1,41 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
-// import { useDispatch } from 'react-redux'
-// import jwtDecode from 'jwt-decode'
-
-// import { setAuthorized, setUser } from '../../../redux/user'
-// import { AuthService } from '../../../api/authService'
-import Validate from '../Validate'
+import { useDispatch } from 'react-redux'
 
 import Modal from '../../common/Modal'
 import Input from '../fields/Input'
 
-import styles from '../form.module.scss'
+import Validate from '../Validate'
+import { useLoginMutation } from '../../../redux/RTKquery/auth'
+import { setUser } from '../../../redux/user'
 
+import styles from '../form.module.scss'
 
 const LoginForm = ({ onHide }) => {
 
-  // const dispatch = useDispatch()
-  const serverError = ''
+  const dispatch = useDispatch()
+  const { formState: { errors }, handleSubmit, register } = useForm({
+    defaultValues: {
+      login: 'sanechek',
+      password: 'qwer1444',
+    }
+  })
+
+  const [login, { isLoading, error: serverError }] = useLoginMutation()
 
   const onSubmit = async (formData) => {
 
-    // try {
-    //   const response = await AuthService.login(authData)
-    //   const userData = jwtDecode(response.data.token)
-    //   dispatch(setUser({ name: userData.name, role: userData.role }))
-    //   dispatch(setAuthorized(true))
-    // } catch (e) {
+    const response = await login({
+      login: formData.login,
+      password: formData.password
+    })
 
-    //   alert(e.response.data.message)
-    // }
-
-    console.log(formData)
+    if (!response.error) {
+      const user = response.data
+      dispatch(setUser(user))
+      alert(`Добро пожаловать ${user.login}`)
+    }
   }
-
-  const { formState: { errors }, handleSubmit, register } = useForm()
-
 
   return (
     <Modal onHide={onHide}>
@@ -52,7 +53,7 @@ const LoginForm = ({ onHide }) => {
             label='Логин: '
             placeholder='Введите ваш логин...'
 
-            validate={Validate.login()}
+            validate={Validate.required()}
             register={register}
             errors={errors}
           />
@@ -63,13 +64,13 @@ const LoginForm = ({ onHide }) => {
             label='Пароль: '
             placeholder='Введите ваш пароль...'
 
-            validate={Validate.password()}
+            validate={Validate.required()}
             errors={errors}
             register={register}
-            serverError={serverError}
+            serverError={serverError?.data?.message}
           />
           <div className={styles.button}>
-            <button>Войти</button>
+            <button disabled={isLoading}>Войти</button>
           </div>
         </form>
       </div>

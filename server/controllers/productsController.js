@@ -1,17 +1,21 @@
-const fs = require('fs')
-const path = require('path')
-const crypto = require('crypto')
+import { unlinkSync, readdirSync, readFileSync, writeFileSync } from 'fs'
+import { resolve, dirname } from 'path'
+import { randomBytes } from 'crypto'
+import { fileURLToPath } from 'url';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 class ProductsController {
   async getAll(req, res, next) {
     try {
       const { productType } = req.query
-      const filePath = path.resolve(__dirname, '..', 'data', 'products', `${productType}.json`)
 
-      let products = fs.readFileSync(filePath, { encoding: 'utf-8' })
-      products = JSON.parse(products)
+      if (!productType) {
+        return res.status(200).send(getAllProducts())
+      }
 
-      res.status(200).send({ products })
+      res.status(200).send(getProductsByType(productType))
+
     } catch {
       res.status(500).send({ message: 'something went wrong' })
     }
@@ -39,27 +43,33 @@ class ProductsController {
       let { product: editedProduct } = req.body
       editedProduct = JSON.parse(editedProduct)
 
-      if (req.files) {
-        const picture = req.files.picture
-        picture.mv(`./static/${productType}/` + picture.name)
+      if (req.file) {
+
+        //! Удаление картинки
+        try {
+          const products = getProductsByType(productType)
+          const imgName = products.find(product => product.id === editedProduct.id).img.split('/')[2]
+          unlinkSync(resolve(__dirname, '..', 'static', productType, imgName))
+        } catch {
+          console.log('Image already not exist')
+        }
+        //! -----------------
+
+        const picture = req.file
         editedProduct = {
           ...editedProduct,
-          img: `/picture/${picture.name}`
+          img: `/picture/${picture.filename}`
         }
       }
 
-      const filePath = path.resolve(__dirname, '..', 'data', 'products', `${productType}.json`)
-
-      let products = fs.readFileSync(filePath, { encoding: 'utf-8' })
-      products = JSON.parse(products)
-      const editedProducts = products.map((product) => {
+      const editedProducts = getProductsByType(productType).map((product) => {
         if (product.id === editedProduct.id) {
           return editedProduct
         }
         return product
       })
 
-      fs.writeFileSync(filePath, JSON.stringify(editedProducts, null, 2))
+      writeProductsByType(productType, editedProducts)
 
       res.status(200).send({ message: `Product has been edited`, editedProduct })
     } catch {
@@ -74,25 +84,21 @@ class ProductsController {
       newProduct = JSON.parse(newProduct)
       newProduct.id = generateNewId()
 
-      if (req.files) {
-        const picture = req.files.picture
-        picture.mv(`./static/${productType}/` + picture.name)
-        newProduct.img = `/picture/${picture.name}`
-      }
-
-      if (!req.files) {
+      if (!req.file) {
         newProduct.img = `/picture/no-image.jpg`
       }
 
-      const filePath = path.resolve(__dirname, '..', 'data', 'products', `${productType}.json`)
-      let products = fs.readFileSync(filePath, { encoding: 'utf-8' })
-      products = JSON.parse(products)
-      const editedProducts = [...products, newProduct]
+      if (req.file) {
+        const picture = req.file
+        newProduct.img = `/picture/${picture.filename}`
+      }
+      const editedProducts = [...getProductsByType(productType), newProduct]
 
-      fs.writeFileSync(filePath, JSON.stringify(editedProducts, null, 2))
+
+      writeProductsByType(productType, editedProducts)
 
       res.status(201).send({ message: `Product has been created`, newProduct })
-    } catch {
+    } catch (err) {
       res.status(500).send({ message: `something went wrong` })
     }
   }
@@ -102,12 +108,19 @@ class ProductsController {
       const { productType } = req.query
       const { id } = req.params
 
-      const filePath = path.resolve(__dirname, '..', 'data', 'products', `${productType}.json`)
-      let products = fs.readFileSync(filePath, { encoding: 'utf-8' })
-      products = JSON.parse(products)
+      const products = getProductsByType(productType)
       const editedProducts = products.filter(product => product.id !== id)
 
-      fs.writeFileSync(filePath, JSON.stringify(editedProducts, null, 2))
+      //! Удаление картинки
+      try {
+        const imgName = products.find(product => product.id === id).img.split('/')[2]
+        unlinkSync(resolve(__dirname, '..', 'static', productType, imgName))
+      } catch {
+        console.log('Image already not exist')
+      }
+      //! -----------------
+
+      writeProductsByType(productType, editedProducts)
 
       res.send({ message: `Product has been removed` })
     } catch {
@@ -116,20 +129,32 @@ class ProductsController {
   }
 }
 
-module.exports = new ProductsController()
+export default new ProductsController()
 
 function getAllProducts() {
   let products = []
-  const fileNames = fs.readdirSync(path.resolve(__dirname, '..', 'data', 'products'))
+  const fileNames = readdirSync(resolve(__dirname, '..', 'data', 'products'))
   fileNames.forEach(filename => {
-    const items = fs.readFileSync(path.resolve(__dirname, '..', 'data', 'products', filename), { encoding: 'utf-8' })
+    const items = readFileSync(resolve(__dirname, '..', 'data', 'products', filename), { encoding: 'utf-8' })
     products = [...products, ...JSON.parse(items)]
   })
   return products
 }
 
+function getProductsByType(type) {
+  const filePath = resolve(__dirname, '..', 'data', 'products', `${type}.json`)
+  let products = readFileSync(filePath, { encoding: 'utf-8' })
+  products = JSON.parse(products)
+  return products
+}
+
+function writeProductsByType(type, products) {
+  const filePath = resolve(__dirname, '..', 'data', 'products', `${type}.json`)
+  writeFileSync(filePath, JSON.stringify(products, null, 2))
+}
+
 function generateNewId() {
-  const id = crypto.randomBytes(4).toString('hex')
+  const id = randomBytes(4).toString('hex')
   const IdExistYet = getAllProducts().some(item => item.id === id)
   if (IdExistYet) {
     return generateNewId()

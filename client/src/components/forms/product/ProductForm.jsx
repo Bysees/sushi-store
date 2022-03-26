@@ -28,9 +28,10 @@ const labels = [
   { value: 'vegan', title: 'Веган' },
 ]
 
-const ProductForm = ({ onSubmit, register, errors, validate, img }) => {
+const ProductForm = ({ onSubmit, register, errors, validate, img, isLoading }) => {
 
-  const { src, previewImageHandler } = useImgPreview(img ? img : null)
+  const { previewImg, previewImageHandler } = useImgPreview()
+  const imgSrc = previewImg ? previewImg : img
 
   return (
     <div className={styles.wrapper__product}>
@@ -78,16 +79,15 @@ const ProductForm = ({ onSubmit, register, errors, validate, img }) => {
             label={'Фотография: '}
             name={'img'}
             type={'file'}
-            accept="image/png, image/jpeg"
+            accept=".png,.jpg,.jpeg"
             onChange={previewImageHandler}
             register={register}
           />
 
-          {src &&
+          {imgSrc &&
             <div className={styles.img}>
-              <img src={src} alt='sake' />
-            </div>
-          }
+              <img src={imgSrc} alt='sake' />
+            </div>}
         </div>
 
         <div className={styles.column}>
@@ -160,8 +160,10 @@ const ProductForm = ({ onSubmit, register, errors, validate, img }) => {
           />
         </div>
 
+        {/* //! Здесь выводить ошибку с сервера */}
+        {/* //* Здесь выводить сообщение что товар добавлен */}
         <div className={styles.button}>
-          <button>Подтвердить</button>
+          <button disabled={isLoading}>Подтвердить</button>
         </div>
       </form>
     </div>

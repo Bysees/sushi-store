@@ -1,44 +1,43 @@
 import { useParams } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 import cn from 'classnames'
 
 import Rotate from '../animation/Rotate'
 import EditProductForm from '../forms/product/EditProductForm'
 import ProductDescription from './description/ProductDescription'
 
-import { ProductService } from '../../api/productService'
+import { useDeleteProductMutation } from '../../redux/RTKquery/product'
 import { useToogle } from '../../hooks/useToogle'
 
 import styles from './products.module.scss'
 
+const ProductMenu = ({ img, price, title, structure, labels, id }) => {
+  const product = { img, price, title, structure, labels, id }
 
-const ProductMenu = (props) => {
-
-  const { img, price, title, structure, id } = props
+  const isAdmin = useSelector(state => state.user.role === 'admin')
   const { productType } = useParams()
-
-  // const src = `http://localhost:5000${img}` //! без proxy
-  const src = img
 
   const [isOrdered, showOrderedHint] = useToogle(false)
   const [isEdit, showEditForm, hideEditForm] = useToogle(false)
 
+  const [deleteProduct, { isLoading }] = useDeleteProductMutation()
+
   const removeProduct = async () => {
     const isRemove = window.confirm(`Вы действительно хотите удалить "${title}"`)
     if (isRemove) {
-      await ProductService.removeProduct(id, productType)
+      await deleteProduct({ productType, id })
     }
   }
 
   return (
     <div className={styles.product}>
-
-      {isEdit && <EditProductForm onHide={hideEditForm} product={props} />}
-
       <div className={cn(styles.rowOne, styles.rowOne_menu)}>
+
         <Rotate
           renderFirst={(onHide) => (
             <div className={styles.img}>
-              <img src={src} alt="sushi" />
+              <img src={img} alt="sushi" />
+
               {isOrdered &&
                 <div className={styles.orderPrompt}>
                   <div className={styles.orderPrompt__icon} />
@@ -46,23 +45,27 @@ const ProductMenu = (props) => {
                     Добавлен 1 набор
                   </p>
                 </div>}
+
               <div className={styles.descriptionPrompt} onClick={onHide} />
             </div>
           )}
 
           renderSecond={(onHide) => (
-            <ProductDescription structure={structure} onHide={onHide} />
-          )} />
+            <ProductDescription labels={labels} structure={structure} onHide={onHide} />
+          )}
+        />
+
       </div>
 
-      <div className={styles.rowThree}>
-        <div className={styles.edit}>
-          <button onClick={showEditForm}>Редактировать</button>
-        </div>
-        <div className={styles.remove}>
-          <button onClick={removeProduct}>Удалить</button>
-        </div>
-      </div>
+      {isAdmin &&
+        <div className={styles.rowThree}>
+          <div className={styles.edit}>
+            <button onClick={showEditForm}>Редактировать</button>
+          </div>
+          <div className={styles.remove}>
+            <button onClick={removeProduct} disabled={isLoading}>Удалить</button>
+          </div>
+        </div>}
 
       <div className={styles.title}>{title}</div>
 
@@ -77,6 +80,7 @@ const ProductMenu = (props) => {
         </button>
       </div>
 
+      {isEdit && <EditProductForm onHide={hideEditForm} product={product} />}
     </div>
   )
 }

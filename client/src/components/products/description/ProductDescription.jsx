@@ -4,9 +4,10 @@ import { faArrowTurnRight } from '@fortawesome/free-solid-svg-icons'
 
 import styles from './description.module.scss'
 
-const ProductDescription = ({ structure, onHide, isOnMoveHide = false }) => {
+const ProductDescription = ({ structure, labels, onHide, isOnMoveHide = false }) => {
 
   const { calorie, carbohydrates, fat, protein, weight, ingredients } = structure
+
   const diets = {
     'калории': calorie,
     'углеводы': carbohydrates,
@@ -15,6 +16,7 @@ const ProductDescription = ({ structure, onHide, isOnMoveHide = false }) => {
     'вес': weight
   }
 
+  const hasLabels = labels.length > 0
 
   return (
     <div className={styles.description} onMouseLeave={isOnMoveHide ? onHide : undefined}>
@@ -24,12 +26,12 @@ const ProductDescription = ({ structure, onHide, isOnMoveHide = false }) => {
           <FontAwesomeIcon icon={faArrowTurnRight} className={styles.undoBtn__icon} />
         </button>
 
-        <div className={styles.labels}>
-          <div className={styles.label__new} />
-          <div className={styles.label__hot} />
-          <div className={styles.label__hit} />
-          <div className={styles.label__vegan} />
-        </div>
+        {hasLabels &&
+          <div className={styles.labels}>
+            {labels.map(label => (
+              <div key={label} className={styles[`label__${label}`]} />
+            ))}
+          </div>}
       </div>
 
       <div className={styles.structure}>

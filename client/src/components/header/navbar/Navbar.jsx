@@ -1,23 +1,30 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
 import {
   faListAlt, faLock, faShoppingBasket,
   faUnlock, faUser, faUserPlus
 } from '@fortawesome/free-solid-svg-icons'
+import { useDispatch, useSelector } from 'react-redux'
 
 import LinkIcon from '../../common/LinkIcon'
 import Dropdown from '../../common/Dropdown'
 import ButtonIcon from '../../common/ButtonIcon'
 
+import { TokenService } from '../../../storage/tokenService'
+import { removeUser } from '../../../redux/user'
 import { navbarLinks } from '../../../consts/links'
 
 import styles from './navbar.module.scss'
 
 const Navbar = ({ showLoginForm, showRegistrationForm }) => {
 
-  const [isAuth, setIsAuth] = useState(true)
+  const dispatch = useDispatch()
+  const isLoggedIn = useSelector(state => !!state.user.login)
 
-  const logout = () => setIsAuth(false)
+  const logout = () => {
+    TokenService.remove()
+    dispatch(removeUser())
+  }
 
   return (
     <nav className={styles.navbar}>
@@ -42,7 +49,7 @@ const Navbar = ({ showLoginForm, showRegistrationForm }) => {
         </div>
       </Dropdown>
 
-      {isAuth
+      {isLoggedIn
         ? <>
           <LinkIcon
             className={styles.link}

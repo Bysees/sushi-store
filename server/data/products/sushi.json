@@ -210,20 +210,5 @@
       "fat": 24,
       "carbohydrates": 27
     }
-  },
-  {
-    "title": "123",
-    "price": "321",
-    "labels": [],
-    "img": "/picture/E0bcp8c.jpg",
-    "structure": {
-      "calorie": "541",
-      "carbohydrates": "421",
-      "fat": "3123",
-      "protein": "22",
-      "weight": "231",
-      "ingredients": []
-    },
-    "id": "31e1137f"
   }
 ]

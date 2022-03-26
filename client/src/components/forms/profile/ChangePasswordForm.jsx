@@ -1,28 +1,40 @@
-import { useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { useSelector } from 'react-redux'
 import cn from 'classnames'
 
-import Validate from '../Validate'
-
 import Input from '../fields/Input'
+
+import Validate from '../Validate'
+import { useChangePasswordMutation } from '../../../redux/RTKquery/auth'
 
 import styles from '../form.module.scss'
 import profileStyles from './profileForms.module.scss'
 
+
 const ChangePasswordForm = () => {
 
-  const [serverError, setServerError] = useState('')
-
-  const onSubmit = async (formData) => {
-    console.log(formData)
-    setServerError(`Server error!!!`)
-  }
+  const { login, role } = useSelector(state => state.user)
 
   const { formState: { errors }, handleSubmit, register, getValues } = useForm({
     defaultValues: {
-      login: 'user1234'
+      login: login,
+      password: 'qwer1555',
+      passwordRepeat: 'qwer1555',
     }
   })
+
+  const [changePassword, { isLoading, error: serverError }] = useChangePasswordMutation()
+
+  const onSubmit = async (formData) => {
+    const response = await changePassword({
+      login: formData.login,
+      password: formData.password,
+      role: role
+    })
+    if (!response.error) {
+      alert('Password has been changed')
+    }
+  }
 
   return (
     <form
@@ -50,18 +62,18 @@ const ChangePasswordForm = () => {
       />
       <Input
         className={styles.field}
-        name='password_repeat'
+        name='passwordRepeat'
         label='Повторите пароль: '
         placeholder='Повторите новый пароль...'
 
         validate={Validate.passwordRepeat(getValues)}
         register={register}
         errors={errors}
-        serverError={serverError}
+        serverError={serverError?.data?.message}
       />
 
       <div className={styles.button}>
-        <button>Сохранить изменения</button>
+        <button disabled={isLoading}>Сохранить изменения</button>
       </div>
     </form>
   )

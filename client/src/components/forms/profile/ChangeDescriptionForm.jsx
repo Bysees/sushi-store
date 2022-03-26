@@ -1,25 +1,32 @@
-import { useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { useDispatch } from 'react-redux'
 import cn from 'classnames'
-
-import Validate from '../Validate'
 
 import Input from '../fields/Input'
 import Textarea from '../fields/Textarea'
 
+import { useUpdateInfoMutation } from '../../../redux/RTKquery/user'
+import { setUserInfo } from '../../../redux/user'
+import Validate from '../Validate'
+
 import styles from '../form.module.scss'
 import profileStyles from './profileForms.module.scss'
 
+
 const ChangeDescriptionForm = () => {
 
-  const [serverError, setServerError] = useState('')
+  const dispatch = useDispatch()
+  const { formState: { errors }, handleSubmit, register } = useForm()
+  const [updateInfo, { isLoading, error: serverError }] = useUpdateInfoMutation()
 
   const onSubmit = async (formData) => {
-    console.log(formData)
-    setServerError(`Server Error!!!`)
-  }
 
-  const { formState: { errors }, handleSubmit, register } = useForm()
+    const response = await updateInfo(formData)
+    if (!response.error) {
+      const { description, name } = response.data
+      dispatch(setUserInfo({ description, name }))
+    }
+  }
 
   return (
     <form
@@ -29,7 +36,7 @@ const ChangeDescriptionForm = () => {
 
       <Input
         className={styles.field}
-        name='username'
+        name='name'
         label='Ваше имя: '
         placeholder='Введите ваше имя...'
 
@@ -46,11 +53,11 @@ const ChangeDescriptionForm = () => {
         validate={Validate.description()}
         register={register}
         errors={errors}
-        serverError={serverError}
+        serverError={serverError?.data?.message}
       />
 
       <div className={styles.button}>
-        <button>Сохранить изменения</button>
+        <button disabled={isLoading}>Сохранить изменения</button>
       </div>
     </form>
   )

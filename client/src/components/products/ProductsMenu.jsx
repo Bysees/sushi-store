@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react'
-import { faCirclePlus } from '@fortawesome/free-solid-svg-icons'
+import React, { useLayoutEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import { faCirclePlus } from '@fortawesome/free-solid-svg-icons'
 import cn from 'classnames'
 
 import ButtonIcon from '../common/ButtonIcon'
@@ -9,32 +10,51 @@ import FilterLabels from '../filters/FilterLabels'
 import CreateProductForm from '../forms/product/CreateProductForm'
 import ProductMenu from './ProductMenu'
 
+import { labelTitles } from '../../consts/labels'
 import { useToogle } from '../../hooks/useToogle'
-import { ProductService } from '../../api/productService'
+import { useGetProductsByTypeQuery } from '../../redux/RTKquery/product'
 
 import styles from './products.module.scss'
 
 const ProductsMenu = () => {
 
-  const { productType } = useParams()
+  const isAdmin = useSelector(state => state.user.role === 'admin')
 
   const [isCreateProduct, showProductForm, hideProductForm] = useToogle(false)
 
+  const { productType } = useParams()
+  const { data: initialProducts } = useGetProductsByTypeQuery(productType)
   const [products, setProducts] = useState([])
-  const [translateTrigger, setTranslateTrigger] = useState(false)
+  const [labels, setLabels] = useState([])
+  const [animationTrigger, setAnimationTrigger] = useState(false)
 
-  useEffect(() => {
-    const getProducts = async () => {
-      const products = await ProductService.getProducts(productType)
-      setProducts(products)
-      setTranslateTrigger(trigger => !trigger)
+  useLayoutEffect(() => {
+    if (initialProducts) {
+      setProducts(initialProducts)
+      setLabels([...new Set(initialProducts.flatMap((product) => product.labels))])
     }
-    getProducts()
+  }, [initialProducts])
+
+  useLayoutEffect(() => {
+    setAnimationTrigger(trigger => !trigger)
   }, [productType])
 
+
+  const filterByLabel = (label) => {
+    if (label === labelTitles.eng.all) {
+      return setProducts(initialProducts)
+    }
+
+    const filtredProducts = initialProducts.filter(
+      (product) => product.labels.includes(label)
+    )
+
+    setProducts(filtredProducts)
+  }
+
   return (
-    <div key={translateTrigger} className={styles.translate}>
-      <FilterLabels />
+    <div key={animationTrigger} className={styles.translate}>
+      <FilterLabels labels={labels} filterHandler={filterByLabel} />
       <Container>
         <div className={styles.products}>
 
@@ -42,12 +62,14 @@ const ProductsMenu = () => {
             <ProductMenu key={product.id} {...product} />
           ))}
 
-          <ButtonIcon
-            className={cn(styles.product, styles.addProduct)}
-            onClick={showProductForm}
-            icon={faCirclePlus}
-            title={'Добавить новый продукт'}
-          />
+          {isAdmin &&
+            <ButtonIcon
+              className={cn(styles.product, styles.addProduct)}
+              onClick={showProductForm}
+              icon={faCirclePlus}
+              title={'Добавить новый продукт'}
+            />}
+
         </div>
       </Container>
 

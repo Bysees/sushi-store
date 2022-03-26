@@ -1,38 +1,35 @@
-import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux'
-// import jwtDecode from 'jwt-decode'
-
-// import { AuthService } from '../../../api/authService'
-// import { setAuthorized, setUser } from '../../../redux/user'
-import Validate from '../Validate'
 
 import Modal from '../../common/Modal'
 import Input from '../fields/Input'
+
+import { useRegistrationMutation } from '../../../redux/RTKquery/auth'
+import { setUser } from '../../../redux/user'
+import Validate from '../Validate'
 
 import styles from '../form.module.scss'
 
 const RegistrationForm = ({ onHide }) => {
 
-  // const dispatch = useDispatch()
-  const [serverError, setServerError] = useState('')
+  const dispatch = useDispatch()
+  const { formState: { errors }, handleSubmit, register, getValues } = useForm()
+  const [registration, { isLoading, error: serverError }] = useRegistrationMutation()
 
   const onSubmit = async (formData) => {
-    //! Переименовать все name на login, и на сервере тоже.
-    // try {
-    //   const response = await AuthService.registration(authData)
-    //   const userData = jwtDecode(response.data.token)
-    //   dispatch(setUser({ name: userData.name, role: userData.role }))
-    //   dispatch(setAuthorized(true))
-    // } catch (e) {
-    //   alert(e.response.data.message)
-    // }
-    console.log(formData)
-    setServerError(`Логин ${formData.login} уже существует`)
+
+    const response = await registration({
+      login: formData.login,
+      password: formData.password,
+      role: 'user'
+    })
+
+    if (!response.error) {
+      const user = response.data
+      dispatch(setUser(user))
+      alert(`Регистрация прошла успешно!`)
+    }
   }
-
-  const { formState: { errors }, handleSubmit, register, getValues } = useForm()
-
 
   return (
     <Modal onHide={onHide}>
@@ -73,11 +70,11 @@ const RegistrationForm = ({ onHide }) => {
             validate={Validate.passwordRepeat(getValues)}
             register={register}
             errors={errors}
-            serverError={serverError}
+            serverError={serverError?.data?.message}
           />
 
           <div className={styles.button}>
-            <button>Войти</button>
+            <button disabled={isLoading}>Войти</button>
           </div>
         </form>
       </div>

@@ -1,30 +1,36 @@
-import React from 'react'
+import React, { useState } from 'react'
 import cn from 'classnames'
 
+import { labelsToRus, labelToEng } from './label-translater'
+import { labelTitles } from '../../consts/labels'
 
 import styles from './filter.module.scss'
 
-const filterTitles = ['все', 'острое', 'новинка', 'веган', 'хит']
+const FilterLabels = ({ labels, filterHandler }) => {
 
-const FilterLabels = () => {
+  const [currentLabel, setCurrentLabel] = useState(labelTitles.rus.all)
 
-  //! Переименовать СТИЛИ!
+  const getCurrentLabel = (label) => () => {
+    setCurrentLabel(label)
+    filterHandler(labelToEng(label))
+  }
+
   return (
     <div className={styles.filters}>
 
-      {filterTitles.map((title, i) => {
-        return (
-          <div key={title} className={cn(styles.filter, i === 0 && styles.filter_active, i === 1 && styles.filter_hover)}>
-            <button>
-              <div className={styles.filter__title}>{title}</div>
-              <div className={styles.filter__label_vegan}></div>
-              {/* <div className={styles.filter__label_hot}></div> */}
-              {/* <div className={styles.filter__label_hit}></div> */}
-              {/* <div className={styles.filter__label_new}></div> */}
-            </button>
-          </div>
-        )
-      })}
+      {labelsToRus(labels).map((label) => (
+        <div key={label}
+          className={cn(
+            styles.filter,
+            label === currentLabel && styles.filter_active,
+          )}>
+          <button onClick={getCurrentLabel(label)}>
+            <div className={styles.filter__title}>{label}</div>
+            <div className={styles[`filter__label_${labelToEng(label)}`]}></div>
+          </button>
+        </div>
+      )
+      )}
 
     </div>
   )

@@ -12,8 +12,4 @@ export class TokenService {
     localStorage.removeItem('token')
   }
 
-  // static checkToken() {
-  //   return !!localStorage.getItem('auth')
-  // }
-
 }
