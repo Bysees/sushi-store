@@ -2,12 +2,12 @@ import React from 'react'
 import { CSSTransition } from 'react-transition-group'
 
 import styles from './rotate.module.scss'
-import { useToogle } from '../../hooks/useToogle'
 
-const Rotate = ({ renderFirst, renderSecond, timeout = 200 }) => {
-
-  const [isFirst, showFirstComponent, hideFirstComponent] = useToogle(true)
-  const [isSecond, showSecondComponent, hideSecondComponent] = useToogle(false)
+const Rotate = ({
+  renderFirst, renderSecond, timeout = 200,
+  isFirst, showFirstComponent,
+  isSecond, showSecondComponent,
+}) => {
 
   return (
     <>
@@ -22,7 +22,7 @@ const Rotate = ({ renderFirst, renderSecond, timeout = 200 }) => {
         unmountOnExit
         onExited={showSecondComponent}>
 
-        {renderFirst(hideFirstComponent)}
+        {renderFirst()}
 
       </CSSTransition>
 
@@ -37,7 +37,7 @@ const Rotate = ({ renderFirst, renderSecond, timeout = 200 }) => {
         unmountOnExit
         onExited={showFirstComponent}>
 
-        {renderSecond(hideSecondComponent)}
+        {renderSecond()}
 
       </CSSTransition>
     </>

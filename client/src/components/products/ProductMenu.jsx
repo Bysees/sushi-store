@@ -22,6 +22,9 @@ const ProductMenu = ({ img, price, title, structure, labels, id }) => {
   const [isOrdered, showOrderedHint] = useToogle(false)
   const [isEdit, showEditForm, hideEditForm] = useToogle(false)
 
+  const [isImage, showImage, hideImage] = useToogle(true)
+  const [isDescription, showDescription, hideDescription] = useToogle(false)
+
   const [deleteProduct, { isLoading }] = useDeleteProductMutation()
 
   const removeProduct = async () => {
@@ -36,7 +39,11 @@ const ProductMenu = ({ img, price, title, structure, labels, id }) => {
       <div className={cn(styles.rowOne, styles.rowOne_menu)}>
 
         <Rotate
-          renderFirst={(onHide) => (
+          isFirst={isImage}
+          showFirstComponent={showImage}
+          isSecond={isDescription}
+          showSecondComponent={showDescription}
+          renderFirst={() => (
             <div className={styles.img}>
               <img src={img ? img : emptyImage} alt="sushi" />
 
@@ -48,12 +55,16 @@ const ProductMenu = ({ img, price, title, structure, labels, id }) => {
                   </p>
                 </div>}
 
-              <div className={styles.descriptionPrompt} onClick={onHide} />
+              <div className={styles.descriptionPrompt} onClick={hideImage} />
             </div>
           )}
 
-          renderSecond={(onHide) => (
-            <ProductDescription labels={labels} structure={structure} onHide={onHide} />
+          renderSecond={() => (
+            <ProductDescription
+              labels={labels}
+              structure={structure}
+              onHide={hideDescription}
+            />
           )}
         />
 
