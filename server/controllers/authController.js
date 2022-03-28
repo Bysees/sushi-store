@@ -6,7 +6,7 @@ import { fileURLToPath } from 'url';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const { sign } = jsonwebtoken
 
-const filePathUsers = resolve(__dirname, '..', 'data', 'users.json')
+const filePathUsers = resolve(__dirname, '..', 'data', 'users', 'users.json')
 
 class AuthController {
 
@@ -14,27 +14,27 @@ class AuthController {
     try {
       const clientUser = req.body
       if (!clientUser.login || !clientUser.password) {
-        return res.status(403).json({ message: `You must provide password and login` })
+        return res.status(403).json({ message: 'Не указан логин или пароль' })
       }
 
       const users = getUsersFromDB()
       const hasUser = checkValueInArr(users, 'login', clientUser.login)
 
-      if (!hasUser) {
-        clientUser.name = ''
-        clientUser.description = ''
-        clientUser.img = ''
-
-        addUserToBD(clientUser)
-
-        delete clientUser.password
-        const token = generateJWT(clientUser)
-        return res.status(200).json({ token })
+      if (hasUser) {
+        return res.status(403).json({ message: 'Пользователь с таким логином уже существует' })
       }
 
-      res.status(403).json({ message: `User with login ${clientUser.login} already exists` })
+      clientUser.name = ''
+      clientUser.description = ''
+      clientUser.img = ''
+
+      addUserToBD(clientUser)
+
+      delete clientUser.password
+      const token = generateJWT(clientUser)
+      res.status(200).json({ token })
     } catch (e) {
-      res.status(500).json({ message: `Server error` })
+      res.status(500).json({ message: 'Произошла непредвиденная ошибка' })
     }
   }
 
@@ -43,7 +43,7 @@ class AuthController {
       const clientUser = req.body
 
       if (!clientUser.login || !clientUser.password) {
-        return res.status(403).json({ message: `You must provide password and login` })
+        return res.status(403).json({ message: 'Не указан логин или пароль' })
       }
 
       const users = getUsersFromDB()
@@ -61,13 +61,12 @@ class AuthController {
 
       writeFileSync(filePathUsers, JSON.stringify(updatedUsers, null, 2))
 
-      //! Тут наверное с сервера надо брать юзера
       delete clientUser.password
       const token = generateJWT(clientUser)
 
       res.status(200).json({ token })
     } catch {
-      res.status(403).json({ message: 'something went wrong' })
+      res.status(403).json({ message: 'Произошла непредвиденная ошибка' })
     }
   }
 
@@ -78,21 +77,21 @@ class AuthController {
       const hasUser = checkValueInArr(users, 'login', clientUser.login)
 
       if (!hasUser) {
-        return res.status(403).json({ message: `Login or password incorrect` })
+        return res.status(403).json({ message: 'Неправильный логин или пароль' })
       }
 
       const serverUser = getItemByValueFromArr(users, 'login', clientUser.login)
       const isPasswordCorrect = serverUser.password === clientUser.password
 
       if (!isPasswordCorrect) {
-        return res.status(403).json({ message: `Login or password incorrect` })
+        return res.status(403).json({ message: 'Неправильный логин или пароль' })
       }
 
       delete serverUser.password
       const token = generateJWT(serverUser)
       res.status(200).json({ token })
     } catch (e) {
-      res.status(500).json({ message: `Server error` })
+      res.status(500).json({ message: 'Произошла непредвиденная ошибка' })
     }
   }
 

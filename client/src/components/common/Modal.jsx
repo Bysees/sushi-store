@@ -2,12 +2,12 @@ import React, { useRef } from 'react'
 import Portal from './Portal'
 import appStyles from '../../styles/app.module.scss'
 
-const Modal = ({ children, onHide }) => {
+const Modal = ({ children, onHide = null }) => {
 
   const modalRef = useRef(null)
 
   const onMouseDownHandler = (e) => {
-    if (modalRef.current === e.target) {
+    if (modalRef.current === e.target && onHide !== null) {
       onHide()
     }
   }

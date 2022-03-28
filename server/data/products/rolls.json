@@ -270,11 +270,9 @@
     }
   },
   {
-    "id": "8fce8159",
-    "title": "ТЁПЛЫЙ РОЛЛ С КРЕВЕТКАМИ В СЛИВОЧНОМ СОУСЕ",
-    "price": 290,
-    "labels": [],
     "img": "/picture/teplij_roll_s_krivetkoj.jpg",
+    "price": 290,
+    "title": "ТЁПЛЫЙ РОЛЛ С КРЕВЕТКАМИ В СЛИВОЧНОМ СОУСЕ",
     "structure": {
       "ingredients": [
         "Жареный лосось",
@@ -287,11 +285,13 @@
         "соус унаги",
         "кунжут"
       ],
-      "weight": 180,
+      "weight": "230",
       "calorie": 485,
       "protein": 15,
       "fat": 15,
       "carbohydrates": 66
-    }
+    },
+    "labels": [],
+    "id": "8fce8159"
   }
 ]

@@ -1,10 +1,9 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import cn from 'classnames'
 
 import Input from '../fields/Input'
 import Select from '../fields/Select'
-
-import { useImgPreview } from '../../../hooks/useImgPreview'
+import PreviewFileInput from '../fields/PreviewFileInput'
 
 import styles from '../form.module.scss'
 
@@ -28,17 +27,40 @@ const labels = [
   { value: 'vegan', title: 'Веган' },
 ]
 
-const ProductForm = ({ onSubmit, register, errors, validate, img, isLoading }) => {
+const ProductForm = ({
+  onSubmit, register, errors, validate,
+  successfulMessage, setSuccessfulMessage, serverError,
+  img, setPreviewImg, setImgFile,
+  isLoading, onHide }) => {
 
-  const { previewImg, previewImageHandler } = useImgPreview()
-  const imgSrc = previewImg ? previewImg : img
+  const formRef = useRef(null)
+
+  useEffect(() => {
+    const removeMessage = (e) => {
+      const tagNames = ['INPUT', 'BUTTON', 'OPTION']
+      if (tagNames.includes(e.target.tagName)) {
+        setSuccessfulMessage('')
+      }
+    }
+
+    const formElement = formRef.current
+    formElement.addEventListener('click', removeMessage)
+    return () => {
+      formElement.removeEventListener('click', removeMessage)
+    }
+  }, [setSuccessfulMessage])
 
   return (
     <div className={styles.wrapper__product}>
       <form
         className={cn(styles.form, styles.form__product)}
+        ref={formRef}
         onSubmit={onSubmit}
         autoComplete='off'>
+
+        <button type='button' className={styles.exit} onClick={onHide}>
+          <span>&times;</span>
+        </button>
 
         <div className={styles.column}>
           <h2 className={styles.title}>Описание продукта</h2>
@@ -60,7 +82,7 @@ const ProductForm = ({ onSubmit, register, errors, validate, img, isLoading }) =
             type={'number'}
             placeholder={'~400'}
 
-            validate={validate.positive()}
+            validate={validate.number()}
             register={register}
             errors={errors}
           />
@@ -74,20 +96,14 @@ const ProductForm = ({ onSubmit, register, errors, validate, img, isLoading }) =
 
             register={register}
           />
-          <Input
-            className={styles.field}
-            label={'Фотография: '}
-            name={'img'}
-            type={'file'}
-            accept=".png,.jpg,.jpeg"
-            onChange={previewImageHandler}
-            register={register}
+          <PreviewFileInput
+            className={styles.field__file}
+            label={'Поменять изображение'}
+            setPreviewImg={setPreviewImg}
+            setImgFile={setImgFile}
+            img={img}
+            accept={'.png,.jpg,.jpeg'}
           />
-
-          {imgSrc &&
-            <div className={styles.img}>
-              <img src={imgSrc} alt='sake' />
-            </div>}
         </div>
 
         <div className={styles.column}>
@@ -100,7 +116,7 @@ const ProductForm = ({ onSubmit, register, errors, validate, img, isLoading }) =
             type={'number'}
             placeholder={'~500'}
 
-            validate={validate.structureField()}
+            validate={validate.number()}
             register={register}
             errors={errors}
           />
@@ -111,7 +127,7 @@ const ProductForm = ({ onSubmit, register, errors, validate, img, isLoading }) =
             type={'number'}
             placeholder={'~50'}
 
-            validate={validate.structureField()}
+            validate={validate.number()}
             register={register}
             errors={errors}
           />
@@ -122,7 +138,7 @@ const ProductForm = ({ onSubmit, register, errors, validate, img, isLoading }) =
             type={'number'}
             placeholder={'~50'}
 
-            validate={validate.structureField()}
+            validate={validate.number()}
             register={register}
             errors={errors}
           />
@@ -133,7 +149,7 @@ const ProductForm = ({ onSubmit, register, errors, validate, img, isLoading }) =
             type={'number'}
             placeholder={'~50'}
 
-            validate={validate.structureField()}
+            validate={validate.number()}
             register={register}
             errors={errors}
           />
@@ -144,7 +160,7 @@ const ProductForm = ({ onSubmit, register, errors, validate, img, isLoading }) =
             type={'number'}
             placeholder={'~300'}
 
-            validate={validate.structureField()}
+            validate={validate.number()}
             register={register}
             errors={errors}
           />
@@ -160,8 +176,12 @@ const ProductForm = ({ onSubmit, register, errors, validate, img, isLoading }) =
           />
         </div>
 
-        {/* //! Здесь выводить ошибку с сервера */}
-        {/* //* Здесь выводить сообщение что товар добавлен */}
+        {serverError &&
+          <div className={styles.serverError}>{serverError}</div>}
+
+        {successfulMessage &&
+          <div className={styles.success}>{successfulMessage}</div>}
+
         <div className={styles.button}>
           <button disabled={isLoading}>Подтвердить</button>
         </div>

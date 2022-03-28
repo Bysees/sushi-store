@@ -17,7 +17,7 @@ class ProductsController {
       res.status(200).send(getProductsByType(productType))
 
     } catch {
-      res.status(500).send({ message: 'something went wrong' })
+      res.status(500).send({ message: `Произошла непредвиденная ошибка` })
     }
   }
 
@@ -28,12 +28,12 @@ class ProductsController {
       const product = getAllProducts().find(product => product.id === id)
 
       if (!product) {
-        return res.status(404).send({ message: `Product with id - ${req.productId} doesn't exist` })
+        return res.status(404).send({ message: `Продуст с id - ${req.productId} не существует` })
       }
 
       res.status(200).send({ product })
     } catch {
-      res.status(500).send({ message: `something went wrong` })
+      res.status(500).send({ message: 'Произошла непредвиденная ошибка' })
     }
   }
 
@@ -43,23 +43,19 @@ class ProductsController {
       let { product: editedProduct } = req.body
       editedProduct = JSON.parse(editedProduct)
 
+      const products = getProductsByType(productType)
+      const product = products.find(product => product.id === editedProduct.id)
+
       if (req.file) {
-
-        //! Удаление картинки
-        try {
-          const products = getProductsByType(productType)
-          const imgName = products.find(product => product.id === editedProduct.id).img.split('/')[2]
-          unlinkSync(resolve(__dirname, '..', 'static', productType, imgName))
-        } catch {
-          console.log('Image already not exist')
-        }
-        //! -----------------
-
         const picture = req.file
-        editedProduct = {
-          ...editedProduct,
-          img: `/picture/${picture.filename}`
-        }
+        editedProduct.img = `/picture/${picture.filename}`
+      }
+
+      try {
+        const imgName = product.img.split('/')[2]
+        unlinkSync(resolve(__dirname, '..', 'static', productType, imgName))
+      } catch {
+        console.log('Image already not exist')
       }
 
       const editedProducts = getProductsByType(productType).map((product) => {
@@ -71,9 +67,9 @@ class ProductsController {
 
       writeProductsByType(productType, editedProducts)
 
-      res.status(200).send({ message: `Product has been edited`, editedProduct })
+      res.status(200).send({ message: 'Продукт был успешно отредактирован', editedProduct })
     } catch {
-      res.status(500).send({ message: `something went wrong` })
+      res.status(500).send({ message: 'Произошла непредвиденная ошибка' })
     }
   }
 
@@ -84,22 +80,17 @@ class ProductsController {
       newProduct = JSON.parse(newProduct)
       newProduct.id = generateNewId()
 
-      if (!req.file) {
-        newProduct.img = `/picture/no-image.jpg`
-      }
-
       if (req.file) {
         const picture = req.file
         newProduct.img = `/picture/${picture.filename}`
       }
+
       const editedProducts = [...getProductsByType(productType), newProduct]
-
-
       writeProductsByType(productType, editedProducts)
 
-      res.status(201).send({ message: `Product has been created`, newProduct })
+      res.status(201).send({ message: 'Продукт был успешно добавлен', newProduct })
     } catch (err) {
-      res.status(500).send({ message: `something went wrong` })
+      res.status(500).send({ message: 'Произошла непредвиденная ошибка' })
     }
   }
 
@@ -122,9 +113,9 @@ class ProductsController {
 
       writeProductsByType(productType, editedProducts)
 
-      res.send({ message: `Product has been removed` })
+      res.send({ message: 'Продукт был успешно удалён' })
     } catch {
-      res.status(500).send({ message: `something went wrong` })
+      res.status(500).send({ message: 'Произошла непредвиденная ошибка' })
     }
   }
 }

@@ -17,7 +17,7 @@ const LoginForm = ({ onHide }) => {
   const { formState: { errors }, handleSubmit, register } = useForm({
     defaultValues: {
       login: 'sanechek',
-      password: 'qwer1444',
+      password: 'qweqwe222',
     }
   })
 
@@ -33,17 +33,22 @@ const LoginForm = ({ onHide }) => {
     if (!response.error) {
       const user = response.data
       dispatch(setUser(user))
+      onHide()
       alert(`Добро пожаловать ${user.login}`)
     }
   }
 
   return (
-    <Modal onHide={onHide}>
+    <Modal>
       <div className={styles.wrapper}>
         <form
           className={styles.form}
           onSubmit={handleSubmit(onSubmit)}
           autoComplete='off'>
+
+          <button className={styles.exit} type='button' onClick={onHide}>
+            <span>&times;</span>
+          </button>
 
           <h2 className={styles.title}>Авторизация</h2>
 

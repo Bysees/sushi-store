@@ -1,13 +1,8 @@
 [
   {
-    "id": "208aaf1c",
-    "title": "СУШИ, ЗАПЕЧЕННЫЕ ПОД СОУСОМ СПАЙСИ КРЕВЕТКА (3 ШТ.)",
+    "img": "/picture/1648429922696-spicy_baked.jpg",
     "price": 270,
-    "labels": [
-      "hot",
-      "new"
-    ],
-    "img": "/picture/spicy_baked.jpg",
+    "title": "СУШИ, ЗАПЕЧЕННЫЕ ПОД СОУСОМ СПАЙСИ КРЕВЕТКА (3 ШТ.)",
     "structure": {
       "ingredients": [
         "тигровая креветка",
@@ -20,10 +15,15 @@
       "protein": 12,
       "fat": 12,
       "carbohydrates": 48
-    }
+    },
+    "labels": [
+      "hot",
+      "new"
+    ],
+    "id": "208aaf1c"
   },
   {
-    "img": "/picture/spicy_baked.jpg",
+    "img": "/picture/1648429934335-spicy_baked.jpg",
     "price": 270,
     "title": "СУШИ, ЗАПЕЧЕННЫЕ ПОД СОУСОМ СПАЙСИ ЛОСОСЬ (3 ШТ.)",
     "structure": {
@@ -34,7 +34,7 @@
         "соусы унаги и спайси"
       ],
       "weight": 156,
-      "calorie": 372,
+      "calorie": "3722",
       "protein": 15,
       "fat": 12,
       "carbohydrates": 48
@@ -148,11 +148,9 @@
     }
   },
   {
-    "id": "3f128ed4",
-    "title": "СУШИ, ЗАПЕЧЕННЫЕ ПОД СЫРНЫМ СОУСОМ ЛОСОСЬ (3 ШТ.)",
-    "price": 360,
     "img": "/picture/cheesy_baked.jpg",
-    "labels": [],
+    "price": 360,
+    "title": "СУШИ, ЗАПЕЧЕННЫЕ ПОД СЫРНЫМ СОУСОМ ЛОСОСЬ (3 ШТ.)",
     "structure": {
       "ingredients": [
         "лосось",
@@ -165,16 +163,14 @@
       "protein": 15,
       "fat": 15,
       "carbohydrates": 48
-    }
+    },
+    "labels": [],
+    "id": "3f128ed4"
   },
   {
-    "id": "4c4bb08e",
-    "title": "СПАЙСИ СУШИ КРЕВЕТКА (3 ШТ.)",
+    "img": "/picture/1648438516163-sushi_spicy_shrimp1.jpg",
     "price": 270,
-    "img": "/picture/sushi_spicy_shrimp1.jpg",
-    "labels": [
-      "hot"
-    ],
+    "title": "СПАЙСИ СУШИ КРЕВЕТКА (3 ШТ.)",
     "structure": {
       "ingredients": [
         "тигровая креветка",
@@ -182,21 +178,21 @@
         "водоросли нори",
         "соус спайси"
       ],
-      "weight": 156,
+      "weight": "156",
       "calorie": 330,
       "protein": 12,
       "fat": 21,
       "carbohydrates": 27
-    }
-  },
-  {
-    "id": "b562bac8",
-    "title": "СПАЙСИ СУШИ ЛОСОСЬ (3 ШТ.)",
-    "price": 270,
-    "img": "/picture/sushi_spicy_salmon.jpg",
+    },
     "labels": [
       "hot"
     ],
+    "id": "4c4bb08e"
+  },
+  {
+    "img": "/picture/sushi_spicy_salmon.jpg",
+    "price": 270,
+    "title": "СПАЙСИ СУШИ ЛОСОСЬ (3 ШТ.)",
     "structure": {
       "ingredients": [
         "лосось",
@@ -209,6 +205,10 @@
       "protein": 12,
       "fat": 24,
       "carbohydrates": 27
-    }
+    },
+    "labels": [
+      "hot"
+    ],
+    "id": "b562bac8"
   }
 ]

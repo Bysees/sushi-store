@@ -13,17 +13,16 @@ class ProductsMiddleware {
     const { productType } = req.query
 
     if (!productType) {
-      return res.status(403).send({ message: 'You must provide type of product' })
+      return res.status(403).send({ message: 'Не указан тип продукта' })
     }
 
     const filePath = resolve(__dirname, '..', 'data', 'products', `${productType}.json`)
     try {
-
       await access(filePath)
       req.query = { productType }
       next()
     } catch (e) {
-      res.status(404).json({ message: `Current type of product doesn't exist` })
+      res.status(404).json({ message: 'Указан несуществующий тип продукта' })
     }
   }
 }

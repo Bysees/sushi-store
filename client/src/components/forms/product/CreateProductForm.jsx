@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 
@@ -8,49 +8,71 @@ import ProductForm from './ProductForm'
 import Validate from '../Validate'
 import { useCreateProductMutation } from '../../../redux/RTKquery/product'
 
-const NewProduct = ({ onHide }) => {
 
-  const { formState: { errors }, handleSubmit, register } = useForm({
-    defaultValues: {
-      title: 'qwerty',
-      price: 666,
-      structure: {
-        calorie: 50,
-        carbohydrates: 50,
-        fat: 50,
-        protein: 50,
-        weight: 50
-      }
-    }
+const CreateProductForm = ({ onHide }) => {
+
+  const { formState: { errors }, handleSubmit, register, reset } = useForm({
+    // defaultValues: {
+    //   title: 'qwerty',
+    //   price: 666,
+    //   structure: {
+    //     calorie: 50,
+    //     carbohydrates: 50,
+    //     fat: 50,
+    //     protein: 50,
+    //     weight: 50
+    //   }
+    // }
   })
-  const [createProduct, { isLoading }] = useCreateProductMutation()
-  const { productType } = useParams()
 
-  //  error.data.message //? Ошибка с сервера
+  const [successfulMessage, setSuccessfulMessage] = useState('')
+
+  const [previewImg, setPreviewImg] = useState('')
+  const [imgFile, setImgFile] = useState(null)
+
+  const [createProduct, { isLoading, error: serverError }] = useCreateProductMutation()
+  const { productType } = useParams()
 
   const onSubmit = async (data) => {
     const formData = new FormData()
-    const hasImage = typeof data.img[0] === 'object'
-    if (hasImage) {
-      formData.append('picture', data.img[0])
+
+    if (imgFile) {
+      formData.append('picture', imgFile)
+    } else {
+      data.img = ''
     }
-    data = { ...data, img: null }
+
     formData.append('product', JSON.stringify(data))
 
-    await createProduct({ productType, formData })
+    const response = await createProduct({ productType, formData })
+    if (!response.error) {
+      reset()
+      setPreviewImg('')
+      setImgFile(null)
+      setSuccessfulMessage(response.data.message)
+    }
   }
 
   return (
-    <Modal onHide={onHide}>
+    <Modal>
       <ProductForm
         onSubmit={handleSubmit(onSubmit)}
         register={register}
-        validate={Validate}
         errors={errors}
+        validate={Validate}
+        serverError={serverError?.data?.message}
         isLoading={isLoading}
+
+        setPreviewImg={setPreviewImg}
+        setImgFile={setImgFile}
+        img={previewImg}
+
+        setSuccessfulMessage={setSuccessfulMessage}
+        successfulMessage={successfulMessage}
+        onHide={onHide}
       />
     </Modal>
   )
 }
 
-export default NewProduct
+export default CreateProductForm

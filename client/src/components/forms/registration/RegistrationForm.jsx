@@ -27,18 +27,23 @@ const RegistrationForm = ({ onHide }) => {
     if (!response.error) {
       const user = response.data
       dispatch(setUser(user))
-      alert(`Регистрация прошла успешно!`)
+      onHide()
+      alert(`Регистрация прошла успешно!\nДобро пожаловать ${user.login}!`)
     }
   }
 
   return (
-    <Modal onHide={onHide}>
+    <Modal>
       <div className={styles.wrapper}>
         <form
           className={styles.form}
           onSubmit={handleSubmit(onSubmit)}
           autoComplete='off'>
           <h2 className={styles.title}>Регистрация</h2>
+
+          <button className={styles.exit} type='button' onClick={onHide}>
+            <span>&times;</span>
+          </button>
 
           <Input
             className={styles.field}
@@ -54,6 +59,7 @@ const RegistrationForm = ({ onHide }) => {
           <Input
             className={styles.field}
             name='password'
+            type='password'
             label='Пароль: '
             placeholder='Придумайте пароль...'
 
@@ -64,6 +70,7 @@ const RegistrationForm = ({ onHide }) => {
           <Input
             className={styles.field}
             name='password_repeat'
+            type='password'
             label='Повторите пароль: '
             placeholder='Повторите пароль...'
 

@@ -17,9 +17,7 @@ const ChangePasswordForm = () => {
 
   const { formState: { errors }, handleSubmit, register, getValues } = useForm({
     defaultValues: {
-      login: login,
-      password: 'qwer1555',
-      passwordRepeat: 'qwer1555',
+      login: login
     }
   })
 
@@ -53,6 +51,7 @@ const ChangePasswordForm = () => {
       <Input
         className={styles.field}
         name='password'
+        type='password'
         label='Новый Пароль: '
         placeholder='Придумайте новый пароль...'
 
@@ -63,6 +62,7 @@ const ChangePasswordForm = () => {
       <Input
         className={styles.field}
         name='passwordRepeat'
+        type='password'
         label='Повторите пароль: '
         placeholder='Повторите новый пароль...'
 

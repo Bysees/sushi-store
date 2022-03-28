@@ -26,12 +26,6 @@ export default class Validate {
   static passwordRepeat(getValues) {
     return {
       ...Validate.password(),
-      ...Validate.passwordsEqual(getValues)
-    }
-  }
-
-  static passwordsEqual(getValues) {
-    return {
       validate: value => value === getValues('password') || 'Пароли должны быть одинаковыми'
     }
   }
@@ -55,18 +49,13 @@ export default class Validate {
     }
   }
 
-  static structureField() {
+  static number() {
     return {
-      ...Validate.positive(),
-      maxLength: { value: 5, message: 'Максимум 5 символов' }
-    }
-  }
-
-  static positive() {
-    return {
+      maxLength: { value: 5, message: 'Максимум 5 символов' },
+      required: 'Обязательное поле',
       validate: {
         positive: value => {
-          return parseInt(value) > -1 || 'Значение не может отсутствовать или быть отрицательным'
+          return parseInt(value) > -1 || 'Значение не может быть отрицательным'
         }
       }
     }
@@ -75,5 +64,4 @@ export default class Validate {
   static required() {
     return { required: 'Обязательное поле' }
   }
-
 }

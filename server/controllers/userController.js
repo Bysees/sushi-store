@@ -6,7 +6,7 @@ import { fileURLToPath } from 'url';
 const { sign } = jsonwebtoken
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-const filePathUsers = resolve(__dirname, '..', 'data', 'users.json')
+const filePathUsers = resolve(__dirname, '..', 'data', 'users', 'users.json')
 
 class UserController {
 

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useParams } from 'react-router-dom'
 
@@ -15,30 +15,51 @@ const EditProductForm = ({ onHide, product }) => {
     defaultValues: product
   })
 
-  const { productType } = useParams()
+  const [successfulMessage, setSuccessfulMessage] = useState('')
 
-  const [updateProduct, { isLoading }] = useUpdateProductMutation()
+  const [previewImg, setPreviewImg] = useState(product.img)
+  const [imgFile, setImgFile] = useState(null)
+
+
+  const { productType } = useParams()
+  const [updateProduct, { isLoading, error: serverError }] = useUpdateProductMutation()
 
   const onSubmit = async (data) => {
     const formData = new FormData()
-    const hasImage = typeof data.img[0] === 'object'
-    if (hasImage) {
-      formData.append('picture', data.img[0])
+
+    if (imgFile) {
+      formData.append('picture', imgFile)
     }
-    data = { ...data, img: product.img }
+
+    if (!imgFile && !previewImg) {
+      data.img = ''
+    }
+
     formData.append('product', JSON.stringify(data))
-    await updateProduct({ productType, formData })
+
+    const response = await updateProduct({ productType, formData })
+    if (!response.error) {
+      setSuccessfulMessage(response.data.message)
+    }
   }
 
   return (
-    <Modal onHide={onHide}>
+    <Modal>
       <ProductForm
-        img={product.img}
         onSubmit={handleSubmit(onSubmit)}
         register={register}
         validate={Validate}
         errors={errors}
+        serverError={serverError?.data?.message}
         isLoading={isLoading}
+        onHide={onHide}
+
+        img={previewImg}
+        setPreviewImg={setPreviewImg}
+        setImgFile={setImgFile}
+
+        successfulMessage={successfulMessage}
+        setSuccessfulMessage={setSuccessfulMessage}
       />
     </Modal>
   )

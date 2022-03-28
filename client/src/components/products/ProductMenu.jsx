@@ -11,6 +11,8 @@ import { useToogle } from '../../hooks/useToogle'
 
 import styles from './products.module.scss'
 
+const emptyImage = '/picture/no-image.jpg'
+
 const ProductMenu = ({ img, price, title, structure, labels, id }) => {
   const product = { img, price, title, structure, labels, id }
 
@@ -36,7 +38,7 @@ const ProductMenu = ({ img, price, title, structure, labels, id }) => {
         <Rotate
           renderFirst={(onHide) => (
             <div className={styles.img}>
-              <img src={img} alt="sushi" />
+              <img src={img ? img : emptyImage} alt="sushi" />
 
               {isOrdered &&
                 <div className={styles.orderPrompt}>
