@@ -49,13 +49,16 @@ class ProductsController {
       if (req.file) {
         const picture = req.file
         editedProduct.img = `/picture/${picture.filename}`
+
       }
 
-      try {
-        const imgName = product.img.split('/')[2]
-        unlinkSync(resolve(__dirname, '..', 'static', productType, imgName))
-      } catch {
-        console.log('Image already not exist')
+      if (product.img !== editedProduct.img) {
+        try {
+          const imgName = product.img.split('/')[2]
+          unlinkSync(resolve(__dirname, '..', 'static', productType, imgName))
+        } catch {
+          console.log('Image already not exist')
+        }
       }
 
       const editedProducts = getProductsByType(productType).map((product) => {
