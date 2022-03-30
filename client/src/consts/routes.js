@@ -27,7 +27,7 @@ export const routes = (isLoggedIn) => [
   },
   {
     path: 'cart',
-    element: isLoggedIn ? <CartPage /> : <Navigate to='/' />
+    element: <CartPage />
   },
   {
     path: 'profile',

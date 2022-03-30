@@ -1,4 +1,5 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 
 import Cart from '../../components/cart/Cart'
 import CartEmpty from '../../components/cart/CartEmpty'
@@ -10,14 +11,20 @@ import styles from './cartPage.module.scss'
 
 const CartPage = () => {
 
-  const hasItems = true
+  const { cartItems, totalPrice } = useSelector(state => ({
+    cartItems: state.cart.cartItems,
+    totalPrice: state.cart.totalPrice
+  }))
 
   return (
     <div className={appStyles.cart}>
       <Container>
         <div className={styles.wrapper}>
-          {hasItems
-            ? <Cart />
+          {cartItems.length > 0
+            ? <Cart
+              totalPrice={totalPrice}
+              cartItems={cartItems}
+            />
             : <CartEmpty />
           }
         </div>

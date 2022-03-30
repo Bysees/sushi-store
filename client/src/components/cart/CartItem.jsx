@@ -1,38 +1,51 @@
-import React, { useState } from 'react'
-import cn from 'classnames'
-import image from '../../images/food/sushi_sake.jpg'
+import React from 'react'
+import { useDispatch } from 'react-redux'
+import { addToCart, removeFromCart } from '../../redux/cart'
 
 import styles from './cart.module.scss'
 
-const CartItem = () => {
 
-  const [count, setCount] = useState(0)
-  const increase = () => setCount(count => count + 1)
-  const decrease = () => setCount(count => count - 1)
+const CartItem = ({ id, img, title, price, amount }) => {
+
+  const dispatch = useDispatch()
+
+  const increase = () => {
+    dispatch(addToCart({ id, img, title, price, amount }))
+  }
+  const decrease = () => {
+    dispatch(removeFromCart({ id, amount: 1 }))
+  }
+  const remove = () => {
+    dispatch(removeFromCart({ id, amount }))
+  }
+
+  const totalPrice = price * amount
 
   return (
-    <div className={cn(styles.cart__item, styles.item)}>
-
-      <div className={styles.item__img}>
-        <img src={image} alt="sake" />
+    <div className={styles.cartItem}>
+      <div className={styles.cartItem__img}>
+        <img src={img} alt="sake" />
       </div>
-      <div className={styles.item__title}>Суши унаги</div>
-      <div className={styles.item__price}>490&#8381;</div>
-      <div className={cn(styles.item__quantity, styles.quantity)}>
-        <div className={styles.quantity__count}>{count}</div>
+      <div className={styles.cartItem__title}>{title}</div>
+      <div className={styles.cartItem__price}>{price}&#8381;</div>
+      <div className={styles.amount}>
+        <div className={styles.amount__count}>{amount}</div>
         <button
-          className={styles.quantity__increase}
+          className={styles.amount__increase}
           onClick={increase}
         />
         <button
-          className={styles.quantity__decrease}
+          className={styles.amount__decrease}
           onClick={decrease}
         />
       </div>
-      <div className={styles.item__amount}>980&#8381;</div>
-      <button className={styles.item__remove} />
-
+      <div className={styles.cartItem__totalPrice}>{totalPrice}&#8381;</div>
+      <button
+        className={styles.cartItem__remove}
+        onClick={remove}
+      />
     </div>
+
   )
 }
 export default CartItem

@@ -49,6 +49,13 @@ const Navbar = ({ showLoginForm, showRegistrationForm }) => {
         </div>
       </Dropdown>
 
+      <LinkIcon
+        className={styles.link}
+        path={'/cart'}
+        title={'Корзина '}
+        icon={faShoppingBasket}
+      />
+
       {isLoggedIn
         ? <>
           <LinkIcon
@@ -56,12 +63,6 @@ const Navbar = ({ showLoginForm, showRegistrationForm }) => {
             icon={faUser}
             path={'/profile'}
             title={'Профиль'}
-          />
-          <LinkIcon
-            className={styles.link}
-            path={'/cart'}
-            title={'Корзина '}
-            icon={faShoppingBasket}
           />
           <ButtonIcon
             className={styles.button}

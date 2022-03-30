@@ -4,34 +4,40 @@ import { messagesReducer } from './messages'
 import { productApi } from './RTKquery/product'
 import { authAPI } from './RTKquery/auth'
 import { userAPI } from './RTKquery/user'
+import { cartReducer } from './cart'
+import { cartMiddleware } from './middlewares/cartMiddleware'
+import { combinePreloadedStates } from './utils/combinePreloadedStates'
+import { cartRehydrate } from './rehydrates/cart'
 
 const rootReducer = combineReducers({
   user: userReducer,
   messages: messagesReducer,
+  cart: cartReducer,
   [productApi.reducerPath]: productApi.reducer,
   [authAPI.reducerPath]: authAPI.reducer,
   [userAPI.reducerPath]: userAPI.reducer,
 })
 
+const preloadedState = combinePreloadedStates({
+  cart: cartRehydrate,
+})
+
 const store = configureStore({
   reducer: rootReducer,
+  preloadedState,
   middleware: (getDefaultMiddleware) => (
     getDefaultMiddleware(
       //! Какая-то хрень, чтобы вебсокет объект хранить в сторе, потом разобраться
       // {
       //   serializableCheck: {
-      //     // Ignore these action types
       //     ignoredActions: ['messages/setSocket', 'user/setUser'],
-      //     // Ignore these field paths in all actions
-      //     // ignoredActionPaths: ['meta.arg', 'payload.timestamp'],
-      //     // Ignore these paths in the state
-      //     // ignoredPaths: ['items.dates'],
       //   },
       // }
     )
       .concat(productApi.middleware)
       .concat(authAPI.middleware)
       .concat(userAPI.middleware)
+      .concat(cartMiddleware)
   )
 })
 
