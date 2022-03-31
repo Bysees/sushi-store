@@ -15,7 +15,7 @@ const ChangePasswordForm = () => {
 
   const { login, role } = useSelector(state => state.user)
 
-  const { formState: { errors }, handleSubmit, register, getValues } = useForm({
+  const { formState: { errors }, handleSubmit, register, getValues, resetField } = useForm({
     defaultValues: {
       login: login
     }
@@ -30,6 +30,8 @@ const ChangePasswordForm = () => {
       role: role
     })
     if (!response.error) {
+      resetField('password')
+      resetField('passwordRepeat')
       alert('Password has been changed')
     }
   }

@@ -47,6 +47,11 @@ class AuthController {
       }
 
       const users = getUsersFromDB()
+      const user = users.find(user => user.login === clientUser.login)
+
+      if (user.password === clientUser.password) {
+        return res.status(403).json({ message: 'Новый пароль должен отличаться от прежнего' })
+      }
 
       const updatedUsers = users.map((user) => {
         if (user.login === clientUser.login) {
