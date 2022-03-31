@@ -51,8 +51,10 @@ export default class Validate {
 
   static number() {
     return {
-      maxLength: { value: 5, message: 'Максимум 5 символов' },
       required: 'Обязательное поле',
+      max: { value: 10_000, message: 'Максимум 10 000' },
+      pattern: /^[0-9]$/,
+      valueAsNumber: true,
       validate: {
         positive: value => {
           return parseInt(value) > -1 || 'Значение не может быть отрицательным'
