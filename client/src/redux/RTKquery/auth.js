@@ -1,10 +1,11 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { TokenStorage } from '../../storage/tokenStorage'
 import jwtDecode from 'jwt-decode'
+import { baseUrl } from './http'
 
 export const authAPI = createApi({
   reducerPath: 'authAPI',
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:5000/' }),
+  baseQuery: fetchBaseQuery({ baseUrl }),
   endpoints: (builder) => ({
 
     registration: builder.mutation({

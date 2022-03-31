@@ -19,6 +19,6 @@ pictures.forEach((dirname) => {
 app.use(cors())
 app.use(json())
 app.use(urlencoded({ extended: true }))
-app.use('/', router)
+app.use('/api', router)
 
 app.listen(PORT, () => console.log(`Server started on PORT ${PORT}`))
