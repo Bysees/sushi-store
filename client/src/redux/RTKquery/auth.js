@@ -44,8 +44,6 @@ export const authAPI = createApi({
       }),
       transformResponse: (response) => {
         TokenStorage.set(response.token)
-        const user = jwtDecode(response.token)
-        return user
       }
     }),
 

@@ -1,82 +1,18 @@
 [
   {
     "login": "sanechek",
-    "password": "qweqwe222",
+    "password": "ewqewq111",
     "role": "admin",
-    "name": "Олег Алексеевич",
-    "description": "Я нормальный парень, но бывает едет крыша",
-    "avatar": "/picture/1648438566332-unknown.png"
+    "description": "Я нормальный парень, но бывает едет крыша!",
+    "avatar": "/picture/1648757849277-unknown.png",
+    "name": "Добрый Ким"
   },
   {
     "login": "user1",
-    "password": "qwe",
+    "password": "qwerty12",
     "role": "user",
-    "name": "",
-    "description": "",
-    "avatar": ""
-  },
-  {
-    "login": "user2",
-    "password": "qwe",
-    "role": "user",
-    "name": "",
-    "description": "",
-    "avatar": ""
-  },
-  {
-    "login": "Vasyan111",
-    "password": "pass1234",
-    "role": "user",
-    "name": "",
-    "description": "",
-    "avatar": ""
-  },
-  {
-    "login": "user123",
-    "password": "qweqwe123",
-    "role": "user",
-    "name": "",
-    "description": "",
-    "img": ""
-  },
-  {
-    "login": "new",
-    "password": "12312344q",
-    "role": "user",
-    "name": "",
-    "description": "",
-    "img": ""
-  },
-  {
-    "login": "qwe",
-    "password": "123123ww",
-    "role": "user",
-    "name": "",
-    "description": "",
-    "img": ""
-  },
-  {
-    "login": "qwer",
-    "password": "123123qq",
-    "role": "user",
-    "name": "",
-    "description": "",
-    "img": ""
-  },
-  {
-    "login": "qwe44",
-    "password": "123123qwe",
-    "role": "user",
-    "name": "",
-    "description": "",
-    "img": ""
-  },
-  {
-    "login": "qwe123",
-    "password": "qweqwe123",
-    "role": "user",
-    "name": "",
-    "description": "",
-    "img": ""
+    "description": "Всё идёт по плану!",
+    "avatar": "",
+    "name": "Виктор"
   }
 ]

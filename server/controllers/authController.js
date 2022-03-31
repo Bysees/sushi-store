@@ -6,39 +6,40 @@ import { fileURLToPath } from 'url';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const { sign } = jsonwebtoken
 
-const filePathUsers = resolve(__dirname, '..', 'data', 'users', 'users.json')
+
 
 class AuthController {
 
-  async create(req, res, next) {
+  create(req, res) {
     try {
       const clientUser = req.body
       if (!clientUser.login || !clientUser.password) {
         return res.status(403).json({ message: 'Не указан логин или пароль' })
       }
 
-      const users = getUsersFromDB()
-      const hasUser = checkValueInArr(users, 'login', clientUser.login)
+      const usersDB = getUsersFromDB()
+      const userDB = usersDB.find(userDB => userDB.login.toLowerCase() === clientUser.login.toLowerCase())
 
-      if (hasUser) {
+      if (userDB) {
         return res.status(403).json({ message: 'Пользователь с таким логином уже существует' })
       }
 
+      clientUser.role = clientUser.role || 'user'
       clientUser.name = ''
       clientUser.description = ''
-      clientUser.img = ''
+      clientUser.avatar = ''
 
-      addUserToBD(clientUser)
+      addUserToDB(clientUser)
 
       delete clientUser.password
       const token = generateJWT(clientUser)
       res.status(200).json({ token })
-    } catch (e) {
+    } catch {
       res.status(500).json({ message: 'Произошла непредвиденная ошибка' })
     }
   }
 
-  changePassword(req, res, next) {
+  changePassword(req, res) {
     try {
       const clientUser = req.body
 
@@ -46,28 +47,28 @@ class AuthController {
         return res.status(403).json({ message: 'Не указан логин или пароль' })
       }
 
-      const users = getUsersFromDB()
-      const user = users.find(user => user.login === clientUser.login)
+      const usersDB = getUsersFromDB()
+      const userDB = usersDB.find(userDB => userDB.login.toLowerCase() === clientUser.login.toLowerCase())
 
-      if (user.password === clientUser.password) {
+      if (userDB.password === clientUser.password) {
         return res.status(403).json({ message: 'Новый пароль должен отличаться от прежнего' })
       }
 
-      const updatedUsers = users.map((user) => {
-        if (user.login === clientUser.login) {
+      const updatedUsers = usersDB.map((userDB) => {
+        if (userDB.login.toLowerCase() === clientUser.login.toLowerCase()) {
           const editedUser = {
-            ...user,
+            ...userDB,
             password: clientUser.password
           }
           return editedUser
         }
-        return user
+        return userDB
       })
 
-      writeFileSync(filePathUsers, JSON.stringify(updatedUsers, null, 2))
+      writeUsersToDB(updatedUsers)
 
-      delete clientUser.password
-      const token = generateJWT(clientUser)
+      delete userDB.password
+      const token = generateJWT(userDB)
 
       res.status(200).json({ token })
     } catch {
@@ -75,33 +76,32 @@ class AuthController {
     }
   }
 
-  login(req, res, next) {
+  login(req, res) {
     try {
       const clientUser = req.body
-      let users = getUsersFromDB()
-      const hasUser = checkValueInArr(users, 'login', clientUser.login)
+      const usersDB = getUsersFromDB()
+      const userDB = usersDB.find(userDB => userDB.login.toLowerCase() === clientUser.login.toLowerCase())
 
-      if (!hasUser) {
+      if (!userDB) {
         return res.status(403).json({ message: 'Неправильный логин или пароль' })
       }
 
-      const serverUser = getItemByValueFromArr(users, 'login', clientUser.login)
-      const isPasswordCorrect = serverUser.password === clientUser.password
+      const isPasswordCorrect = userDB.password === clientUser.password
 
       if (!isPasswordCorrect) {
         return res.status(403).json({ message: 'Неправильный логин или пароль' })
       }
 
-      delete serverUser.password
-      const token = generateJWT(serverUser)
+      delete userDB.password
+      const token = generateJWT(userDB)
       res.status(200).json({ token })
-    } catch (e) {
+    } catch {
       res.status(500).json({ message: 'Произошла непредвиденная ошибка' })
     }
   }
 
-  check(req, res, next) {
-    const clientUser = req.user
+  check(req, res) {
+    const clientUser = req.clientUser
     delete clientUser.exp
     delete clientUser.iat
     const token = generateJWT(clientUser)
@@ -110,40 +110,25 @@ class AuthController {
   }
 }
 
-function checkValueInArr(arr, field, value) {
-  let result = false
-  arr.forEach(item => {
-    if (item[field] === value) {
-      result = true
-    }
-  })
-  return result
-}
-
-function getItemByValueFromArr(arr, field, value) {
-  let result
-  arr.forEach(item => {
-    if (item[field] === value) {
-      result = item
-    }
-  })
-  return result
-}
+const filePathUsers = resolve(__dirname, '..', 'data', 'users', 'users.json')
 
 function getUsersFromDB() {
-  const users = readFileSync(filePathUsers, { encoding: 'utf8' })
-  return JSON.parse(users)
+  const usersDB = readFileSync(filePathUsers, { encoding: 'utf8' })
+  return JSON.parse(usersDB)
 }
 
-function addUserToBD(clientUser) {
-  const users = getUsersFromDB()
-  users.push(clientUser)
+function writeUsersToDB(users) {
   writeFileSync(filePathUsers, JSON.stringify(users, null, 2))
+}
+
+function addUserToDB(user) {
+  const usersDB = getUsersFromDB()
+  usersDB.push(user)
+  writeFileSync(filePathUsers, JSON.stringify(usersDB, null, 2))
 }
 
 function generateJWT(user) {
   return sign(user, process.env.SECRET_KEY, { expiresIn: '24h' })
 }
-
 
 export default new AuthController()

@@ -6,77 +6,45 @@ import { fileURLToPath } from 'url';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 class ProductsController {
-  async getAll(req, res, next) {
+
+  getAll(req, res) {
     try {
       const { productType } = req.query
 
       if (!productType) {
-        return res.status(200).send(getAllProducts())
+        const allProducts = getAllProducts()
+        return res.status(200).send(allProducts)
       }
 
-      res.status(200).send(getProductsByType(productType))
+      const productsByType = getProductsByType(productType)
 
+      if (!productsByType) {
+        return res.status(404).send({ message: `Продуктов типа ${productType} не существует` })
+      }
+
+      res.status(200).send(productsByType)
     } catch {
       res.status(500).send({ message: `Произошла непредвиденная ошибка` })
     }
   }
 
-  async getOne(req, res, next) {
+  getOne(req, res) {
     try {
       const { id } = req.params
-
-      const product = getAllProducts().find(product => product.id === id)
+      const allProducts = getAllProducts()
+      const product = allProducts.find(product => product.id === id)
 
       if (!product) {
-        return res.status(404).send({ message: `Продуст с id - ${req.productId} не существует` })
+        return res.status(404).send({ message: `Продукт с id - ${req.productId} не существует` })
       }
 
-      res.status(200).send({ product })
+      res.status(200).send(product)
     } catch {
       res.status(500).send({ message: 'Произошла непредвиденная ошибка' })
     }
   }
 
-  async edit(req, res, next) {
-    try {
-      const { productType } = req.query
-      let { product: editedProduct } = req.body
-      editedProduct = JSON.parse(editedProduct)
-
-      const products = getProductsByType(productType)
-      const product = products.find(product => product.id === editedProduct.id)
-
-      if (req.file) {
-        const picture = req.file
-        editedProduct.img = `/picture/${picture.filename}`
-
-      }
-
-      if (product.img !== editedProduct.img) {
-        try {
-          const imgName = product.img.split('/')[2]
-          unlinkSync(resolve(__dirname, '..', 'static', productType, imgName))
-        } catch {
-          console.log('Image already not exist')
-        }
-      }
-
-      const editedProducts = getProductsByType(productType).map((product) => {
-        if (product.id === editedProduct.id) {
-          return editedProduct
-        }
-        return product
-      })
-
-      writeProductsByType(productType, editedProducts)
-
-      res.status(200).send({ message: 'Продукт был успешно отредактирован', editedProduct })
-    } catch {
-      res.status(500).send({ message: 'Произошла непредвиденная ошибка' })
-    }
-  }
-
-  async create(req, res, next) {
+  create(req, res) {
     try {
       const { productType } = req.query
       let { product: newProduct } = req.body
@@ -88,35 +56,65 @@ class ProductsController {
         newProduct.img = `/picture/${picture.filename}`
       }
 
-      const editedProducts = [...getProductsByType(productType), newProduct]
-      writeProductsByType(productType, editedProducts)
+      const productsByType = getProductsByType(productType)
+      const updatedProducts = [...productsByType, newProduct]
+      writeProductsByType(productType, updatedProducts)
 
       res.status(201).send({ message: 'Продукт был успешно добавлен', newProduct })
-    } catch (err) {
+    } catch {
       res.status(500).send({ message: 'Произошла непредвиденная ошибка' })
     }
   }
 
-  async remove(req, res, next) {
+  edit(req, res) {
+    try {
+      const { productType } = req.query
+      let { product: editedProduct } = req.body
+      editedProduct = JSON.parse(editedProduct)
+
+      const productsByType = getProductsByType(productType)
+      const product = productsByType.find(product => product.id === editedProduct.id)
+
+      if (req.file) {
+        const picture = req.file
+        editedProduct.img = `/picture/${picture.filename}`
+      }
+
+      if (product.img !== editedProduct.img) {
+        const imgName = product.img.split('/')[2]
+        deleteCurrentPicture(productType, imgName)
+      }
+
+      const updatedProducts = productsByType.map((product) => {
+        if (product.id === editedProduct.id) {
+          return editedProduct
+        }
+        return product
+      })
+
+      writeProductsByType(productType, updatedProducts)
+
+      res.status(200).send({ message: 'Продукт был успешно отредактирован', editedProduct })
+    } catch {
+      res.status(500).send({ message: 'Произошла непредвиденная ошибка' })
+    }
+  }
+
+  remove(req, res) {
     try {
       const { productType } = req.query
       const { id } = req.params
 
-      const products = getProductsByType(productType)
-      const editedProducts = products.filter(product => product.id !== id)
+      const productsByType = getProductsByType(productType)
+      const updatedProducts = productsByType.filter(product => product.id !== id)
+      const product = productsByType.find(product => product.id === id)
 
-      //! Удаление картинки
-      try {
-        const imgName = products.find(product => product.id === id).img.split('/')[2]
-        unlinkSync(resolve(__dirname, '..', 'static', productType, imgName))
-      } catch {
-        console.log('Image already not exist')
-      }
-      //! -----------------
+      const imgName = product.img.split('/')[2]
+      deleteCurrentPicture(productType, imgName)
 
-      writeProductsByType(productType, editedProducts)
+      writeProductsByType(productType, updatedProducts)
 
-      res.send({ message: 'Продукт был успешно удалён' })
+      res.status(200).send({ message: 'Продукт был успешно удалён' })
     } catch {
       res.status(500).send({ message: 'Произошла непредвиденная ошибка' })
     }
@@ -147,9 +145,19 @@ function writeProductsByType(type, products) {
   writeFileSync(filePath, JSON.stringify(products, null, 2))
 }
 
+function deleteCurrentPicture(productType, fileName) {
+  try {
+    const filePathPictures = resolve(__dirname, '..', 'static', productType, fileName)
+    unlinkSync(filePathPictures)
+  } catch {
+    console.log('Image already not exist')
+  }
+}
+
 function generateNewId() {
   const id = randomBytes(4).toString('hex')
-  const IdExistYet = getAllProducts().some(item => item.id === id)
+  const allProducts = getAllProducts()
+  const IdExistYet = allProducts.some(item => item.id === id)
   if (IdExistYet) {
     return generateNewId()
   }

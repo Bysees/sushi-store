@@ -21,8 +21,8 @@ class ProductsMiddleware {
       await access(filePath)
       req.query = { productType }
       next()
-    } catch (e) {
-      res.status(404).json({ message: 'Указан несуществующий тип продукта' })
+    } catch {
+      res.status(404).send({ message: 'Указан несуществующий тип продукта' })
     }
   }
 }

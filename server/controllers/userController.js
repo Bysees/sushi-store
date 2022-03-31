@@ -6,24 +6,25 @@ import { fileURLToPath } from 'url';
 const { sign } = jsonwebtoken
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-const filePathUsers = resolve(__dirname, '..', 'data', 'users', 'users.json')
 
 class UserController {
 
-  editInfo(req, res, next) {
+  editInfo(req, res) {
     try {
-      const clientUser = req.user
-      const { description, name } = req.body
+      const clientUser = req.clientUser
+      const { description = '', name = '' } = req.body
 
-      const users = getUsersFromDB()
-      const user = users.find((user) => user.login === clientUser.login)
+      const usersDB = getUsersFromDB()
+      const userDB = usersDB.find(userDB => userDB.login.toLowerCase() === clientUser.login.toLowerCase())
+      const editedUser = {
+        ...userDB, name, description
+      }
 
-      const editedUser = { ...user, name, description }
-      const updatedUsers = users.map((user) => {
-        if (user.login === clientUser.login) {
+      const updatedUsers = usersDB.map((userDB) => {
+        if (userDB.login.toLowerCase() === clientUser.login.toLowerCase()) {
           return editedUser
         }
-        return user
+        return userDB
       })
 
       writeUsersToDB(updatedUsers)
@@ -32,51 +33,52 @@ class UserController {
 
       res.status(200).send({ token })
     } catch {
-      res.status(403).send({ message: 'something went wrong' })
+      res.status(500).send({ message: 'Произошла непредвиденная ошибка' })
     }
   }
 
-  async editImage(req, res, next) {
+  async editImage(req, res) {
     try {
-      const clientUser = req.user
+      const clientUser = req.clientUser
       const avatar = req.file
 
       const avatarUrl = `/picture/${avatar.filename}`
 
-      const users = getUsersFromDB()
-      const user = users.find(user => user.id === clientUser.id)
+      const usersDB = getUsersFromDB()
+      const userDB = usersDB.find(userDB => userDB.login.toLowerCase() === clientUser.login.toLowerCase())
 
-      const avatarFileName = user.avatar.split('/')[2]
+      const avatarFileName = userDB.avatar.split('/')[2]
 
       if (avatarFileName) {
         deleteCurrentPicture(avatarFileName)
       }
 
       const editedUser = {
-        ...user,
-        avatar: avatarUrl
+        ...userDB, avatar: avatarUrl
       }
 
-      const updatedUsers = users.map((user) => {
-        if (user.login === clientUser.login) {
+      const updatedUsers = usersDB.map((userDB) => {
+        if (userDB.login.toLowerCase() === clientUser.login.toLowerCase()) {
           return editedUser
         }
-        return user
+        return userDB
       })
 
       writeUsersToDB(updatedUsers)
 
       const token = generateJWT(editedUser)
       res.status(200).json({ token })
-    } catch (err) {
-      res.status(403).send({ message: 'something went wrong' })
+    } catch {
+      res.status(500).send({ message: 'Произошла непредвиденная ошибка' })
     }
   }
 }
 
+const filePathUsers = resolve(__dirname, '..', 'data', 'users', 'users.json')
+
 function getUsersFromDB() {
-  const users = readFileSync(filePathUsers, { encoding: 'utf8' })
-  return JSON.parse(users)
+  const usersDB = readFileSync(filePathUsers, { encoding: 'utf8' })
+  return JSON.parse(usersDB)
 }
 
 function writeUsersToDB(users) {
@@ -87,8 +89,8 @@ function deleteCurrentPicture(fileName) {
   try {
     const filePathPictures = resolve(__dirname, '..', 'static', 'users', fileName)
     unlinkSync(filePathPictures)
-  } catch (err) {
-    console.log(err)
+  } catch {
+    console.log('Image already not exist')
   }
 }
 

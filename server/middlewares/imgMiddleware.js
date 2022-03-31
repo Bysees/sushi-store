@@ -3,16 +3,17 @@ import multer, { diskStorage } from 'multer'
 function imgMiddleware(field, path = '') {
 
   const storage = diskStorage({
-    destination: function (req, file, cb) {
 
+    destination: function (req, file, cb) {
       const { productType } = req.query
       const filePath = path ? path : productType
-
       cb(null, `./static/${filePath}`)
     },
+
     filename: function (req, file, cb) {
       cb(null, Date.now() + '-' + file.originalname)
     }
+
   })
 
   const types = ['image/png', 'image/jpg', 'image/jpeg']
