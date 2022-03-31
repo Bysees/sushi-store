@@ -23,6 +23,10 @@ export const routes = (isLoggedIn) => [
         path: ':productType',
         element: <ProductsMenu />
       },
+      {
+        path: ':productType?id',
+        element: <ProductsMenu />
+      },
     ]
   },
   {

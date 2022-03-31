@@ -72,6 +72,19 @@
   flex-direction: column;
 }
 
+@keyframes blink {
+  0% {
+    box-shadow: 0px 0px 6px 3px orange;
+  }
+  100% {
+    box-shadow: 0px 0px 0px 0px orange;
+  }
+}
+
+.highlight {
+  animation: blink 0.5s 0.4s ease-in infinite;
+}
+
 .rowOne {
   margin: 3px;
   height: 250px;

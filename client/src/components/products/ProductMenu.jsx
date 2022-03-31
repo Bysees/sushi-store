@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom'
+import { useSearchParams } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import cn from 'classnames'
 
@@ -11,18 +11,20 @@ import { addToCart } from '../../redux/cart'
 import { useToogle } from '../../hooks/useToogle'
 
 import styles from './products.module.scss'
+import { useEffect, useRef } from 'react'
 
 const emptyImage = '/picture/no-image.jpg'
 
-const ProductMenu = ({ img, price, title, structure, labels, id }) => {
-  const product = { img, price, title, structure, labels, id }
+const ProductMenu = ({ img, price, title, structure, labels, id, type }) => {
+  const product = { img, price, title, structure, labels, id, type }
 
   const dispatch = useDispatch()
-
   const isAdmin = useSelector(state => state.user.role === 'admin')
   const amount = useSelector(state => state.cart.cartItems.find(item => item.id === id)?.amount || 0)
 
-  const { productType } = useParams()
+  const [searchParams, setSeachParams] = useSearchParams()
+  const searchId = searchParams.get('id')
+  const clearSearchParams = () => setSeachParams('')
 
   const [isEdit, showEditForm, hideEditForm] = useToogle(false)
   const [isImage, showImage, hideImage] = useToogle(true)
@@ -33,7 +35,7 @@ const ProductMenu = ({ img, price, title, structure, labels, id }) => {
   const removeProduct = async () => {
     const isRemove = window.confirm(`Вы действительно хотите удалить "${title}"`)
     if (isRemove) {
-      await deleteProduct({ productType, id })
+      await deleteProduct({ productType: type, id })
     }
   }
 
@@ -41,8 +43,25 @@ const ProductMenu = ({ img, price, title, structure, labels, id }) => {
     dispatch(addToCart({ id, title, img, price }))
   }
 
+  const productRef = useRef()
+
+  useEffect(() => {
+    if (searchId === id) {
+      setTimeout(() => {
+        productRef.current.scrollIntoView({
+          behavior: 'smooth',
+          block: 'center'
+        })
+      }, 400)
+    }
+  }, [searchId, id])
+
   return (
-    <div className={styles.product}>
+    <div
+      className={cn(styles.product, searchId === id && styles.highlight)}
+      onMouseOver={searchId === id ? clearSearchParams : undefined}
+      ref={productRef}
+    >
       <div className={cn(styles.rowOne, styles.rowOne_menu)}>
 
         <Rotate

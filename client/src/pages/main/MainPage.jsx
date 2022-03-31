@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import Container from '../../components/common/Container'
@@ -11,9 +11,54 @@ import appStyles from '../../styles/app.module.scss'
 import styles from './mainPage.module.scss'
 
 
+const mixArray = (arr) => {
+
+  const list = {}
+
+  arr.forEach(item => {
+    if (!Array.isArray(list[item.type])) {
+      list[item.type] = []
+    }
+    list[item.type].push({ ...item })
+  })
+
+  for (const key in list) {
+    list[key] = [...list[key]].reverse()
+  }
+
+  let maxLength = 0;
+
+  for (const key in list) {
+    const length = list[key].length
+    maxLength = Math.max(length, maxLength)
+  }
+
+  const mixedArray = []
+
+  for (let i = 0; i < maxLength; i++) {
+    for (const key in list) {
+      const items = list[key]
+      if (items[i] !== undefined) {
+        mixedArray.push(items[i])
+      }
+    }
+  }
+
+  return mixedArray
+}
+
 const MainPage = () => {
 
-  const { data: products, isLoading } = useGetAllProductsQuery()
+  const [products, setProducts] = useState([])
+  const { data: initialProducts, isLoading } = useGetAllProductsQuery()
+
+  useEffect(() => {
+    if (initialProducts) {
+      const mixedProducts = mixArray(initialProducts)
+      setProducts(mixedProducts)
+    }
+  }, [initialProducts])
+
 
   if (isLoading) {
     return <div>Loading...</div>
@@ -28,7 +73,7 @@ const MainPage = () => {
             width={1000}
             slides={2}
             renderSlides={(width) => (
-              products.map(({ img, id, labels, structure }) => (
+              products.map(({ img, id, labels, structure, type }) => (
                 <ProductSlide
                   key={id}
                   id={id}
@@ -36,8 +81,9 @@ const MainPage = () => {
                   labels={labels}
                   structure={structure}
                   width={width}
-                />)
-              ))}
+                  type={type}
+                />
+              )))}
           />
 
           <div className={styles.description}>

@@ -7,9 +7,10 @@ import ProductDescription from './description/ProductDescription'
 import { useToogle } from '../../hooks/useToogle'
 
 import styles from './products.module.scss'
+import { Link } from 'react-router-dom'
 
 
-const ProductSlide = ({ img, labels, structure, width }) => {
+const ProductSlide = ({ img, labels, structure, width, id, type }) => {
 
   const [isImage, showImage, hideImage] = useToogle(true)
   const [isDescription, showDescription, hideDescription] = useToogle(false)
@@ -42,9 +43,9 @@ const ProductSlide = ({ img, labels, structure, width }) => {
           renderFirst={() => (
             <div className={styles.img}>
               <img src={img} alt="sushi" draggable={false} />
-              <button className={styles.findPrompt} onClick={() => { }}>
+              <Link className={styles.findPrompt} to={`menu/${type}?id=${id}`}>
                 Найти в меню!
-              </button>
+              </Link>
               <button className={styles.descriptionPrompt} onClick={hideImage} />
             </div>
           )}
