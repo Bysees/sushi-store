@@ -6,10 +6,11 @@ import SliderTool from './sliderTool'
 import mainStyles from '../../pages/main/mainPage.module.scss'
 import styles from './slider.module.scss'
 
-const wrapperWidth = { width: 800 }
-const slideWidth = { width: wrapperWidth.width / 2 }
 
-const Slider = ({ renderSlides }) => {
+const Slider = ({ renderSlides, width = 800, slides = 2 }) => {
+
+  const wrapperWidth = { width: width }
+  const slideWidth = { width: wrapperWidth.width / slides }
 
   const sliderRef = useRef(null)
 
@@ -19,9 +20,8 @@ const Slider = ({ renderSlides }) => {
       sliderRef.current,
       slideWidth.width
     )
-
     return () => slider.unsubscribe()
-  }, [])
+  })
 
   return (
     <div className={cn(styles.wrapper, mainStyles.slider)} style={wrapperWidth}>

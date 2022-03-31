@@ -25,6 +25,8 @@ const MainPage = () => {
         <div className={styles.wrapper}>
 
           <Slider
+            width={1000}
+            slides={2}
             renderSlides={(width) => (
               products.map(({ img, id, labels, structure }) => (
                 <ProductSlide

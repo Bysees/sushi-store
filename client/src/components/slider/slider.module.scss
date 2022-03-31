@@ -1,11 +1,7 @@
-$slider-width: 800px;
-$block-width: calc($slider-width / 2);
-
 .wrapper {
   overflow: hidden;
   position: relative;
   height: 200px;
-  width: 800px;
 
   .slider {
     position: absolute;
