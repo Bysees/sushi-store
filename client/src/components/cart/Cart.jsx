@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux'
 
 import CartItem from './CartItem'
 
-import { clearCart } from '../../redux/cart'
+import { clearCart } from '../../redux/slices/cart'
 
 import styles from './cart.module.scss'
 import productStyles from '../../components/products/products.module.scss'

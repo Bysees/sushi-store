@@ -1,18 +1,18 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit'
-import { userReducer } from './user'
-import { messagesReducer } from './messages'
+import { messagesReducer } from './slices/messages'
+import { userReducer } from './slices/user'
+import { cartReducer } from './slices/cart'
 import { productApi } from './RTKquery/product'
 import { authAPI } from './RTKquery/auth'
 import { userAPI } from './RTKquery/user'
-import { cartReducer } from './cart'
 import { cartMiddleware } from './middlewares/cartMiddleware'
 import { combinePreloadedStates } from './utils/combinePreloadedStates'
 import { cartRehydrate } from './rehydrates/cart'
 
 const rootReducer = combineReducers({
   user: userReducer,
-  messages: messagesReducer,
   cart: cartReducer,
+  messages: messagesReducer,
   [productApi.reducerPath]: productApi.reducer,
   [authAPI.reducerPath]: authAPI.reducer,
   [userAPI.reducerPath]: userAPI.reducer,

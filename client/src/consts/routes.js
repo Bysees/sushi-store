@@ -1,5 +1,5 @@
 import { Navigate } from "react-router-dom";
-import ProductsMenu from "../components/products/ProductsMenu";
+import Products from "../components/products/Products";
 import CartPage from "../pages/cart/CartPage";
 import MainPage from "../pages/main/MainPage";
 import MenuPage from "../pages/menu/MenuPage";
@@ -21,11 +21,11 @@ export const routes = (isLoggedIn) => [
       },
       {
         path: ':productType',
-        element: <ProductsMenu />
+        element: <Products />
       },
       {
         path: ':productType?id',
-        element: <ProductsMenu />
+        element: <Products />
       },
     ]
   },

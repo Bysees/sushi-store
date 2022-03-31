@@ -7,7 +7,7 @@ import EditProductForm from '../forms/product/EditProductForm'
 import ProductDescription from './description/ProductDescription'
 
 import { useDeleteProductMutation } from '../../redux/RTKquery/product'
-import { addToCart } from '../../redux/cart'
+import { addToCart } from '../../redux/slices/cart'
 import { useToogle } from '../../hooks/useToogle'
 
 import styles from './products.module.scss'
@@ -15,7 +15,7 @@ import { useEffect, useRef } from 'react'
 
 const emptyImage = '/picture/no-image.jpg'
 
-const ProductMenu = ({ img, price, title, structure, labels, id, type }) => {
+const Product = ({ img, price, title, structure, labels, id, type }) => {
   const product = { img, price, title, structure, labels, id, type }
 
   const dispatch = useDispatch()
@@ -124,4 +124,4 @@ const ProductMenu = ({ img, price, title, structure, labels, id, type }) => {
   )
 }
 
-export default ProductMenu
+export default Product

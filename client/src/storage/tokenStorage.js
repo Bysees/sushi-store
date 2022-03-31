@@ -1,4 +1,4 @@
-export class TokenService {
+export class TokenStorage {
 
   static set(token) {
     localStorage.setItem('token', token)

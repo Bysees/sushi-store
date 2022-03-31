@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query/react";
-import { TokenService } from "../../storage/tokenService";
+import { TokenStorage } from "../../storage/tokenStorage";
 import jwtDecode from "jwt-decode";
 
 export const userAPI = createApi({
@@ -13,11 +13,11 @@ export const userAPI = createApi({
         method: 'PUT',
         body: body,
         headers: {
-          authorization: `Bearer ${TokenService.get()}`
+          authorization: `Bearer ${TokenStorage.get()}`
         }
       }),
       transformResponse: (response) => {
-        TokenService.set(response.token)
+        TokenStorage.set(response.token)
         const user = jwtDecode(response.token)
         return {
           name: user.name,
@@ -32,11 +32,11 @@ export const userAPI = createApi({
         method: 'PUT',
         body: body,
         headers: {
-          authorization: `Bearer ${TokenService.get()}`
+          authorization: `Bearer ${TokenStorage.get()}`
         }
       }),
       transformResponse: (response) => {
-        TokenService.set(response.token)
+        TokenStorage.set(response.token)
         const user = jwtDecode(response.token)
         return { avatar: user.avatar }
       }

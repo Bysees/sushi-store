@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { TokenService } from '../../storage/tokenService'
+import { TokenStorage } from '../../storage/tokenStorage'
 import jwtDecode from 'jwt-decode'
 
 export const authAPI = createApi({
@@ -14,7 +14,7 @@ export const authAPI = createApi({
         body: body
       }),
       transformResponse: (response) => {
-        TokenService.set(response.token)
+        TokenStorage.set(response.token)
         const user = jwtDecode(response.token)
         return user
       }
@@ -27,7 +27,7 @@ export const authAPI = createApi({
         body: body
       }),
       transformResponse: (response) => {
-        TokenService.set(response.token)
+        TokenStorage.set(response.token)
         const user = jwtDecode(response.token)
         return user
       }
@@ -39,11 +39,11 @@ export const authAPI = createApi({
         method: 'PUT',
         body: body,
         headers: {
-          authorization: `Bearer ${TokenService.get()}`
+          authorization: `Bearer ${TokenStorage.get()}`
         }
       }),
       transformResponse: (response) => {
-        TokenService.set(response.token)
+        TokenStorage.set(response.token)
         const user = jwtDecode(response.token)
         return user
       }
@@ -54,10 +54,11 @@ export const authAPI = createApi({
         url: 'auth/',
         method: 'GET',
         headers: {
-          authorization: `Bearer ${TokenService.get()}`
+          authorization: `Bearer ${TokenStorage.get()}`
         }
       }),
       transformResponse: (response) => {
+        TokenStorage.set(response.token)
         const user = jwtDecode(response.token)
         return user
       }

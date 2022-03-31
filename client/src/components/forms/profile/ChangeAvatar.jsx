@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser } from '@fortawesome/free-solid-svg-icons'
 
 import { useUpdateImgMutation } from '../../../redux/RTKquery/user'
-import { setUserAvatar } from '../../../redux/user'
+import { setUserAvatar } from '../../../redux/slices/user'
 
 import profileStyles from './profileForms.module.scss'
 import formStyles from './../form.module.scss'

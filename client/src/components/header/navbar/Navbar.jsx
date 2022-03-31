@@ -10,8 +10,8 @@ import LinkIcon from '../../common/LinkIcon'
 import Dropdown from '../../common/Dropdown'
 import ButtonIcon from '../../common/ButtonIcon'
 
-import { TokenService } from '../../../storage/tokenService'
-import { removeUser } from '../../../redux/user'
+import { TokenStorage } from '../../../storage/tokenStorage'
+import { removeUser } from '../../../redux/slices/user'
 import { navbarLinks } from '../../../consts/links'
 
 import styles from './navbar.module.scss'
@@ -22,7 +22,7 @@ const Navbar = ({ showLoginForm, showRegistrationForm }) => {
   const isLoggedIn = useSelector(state => !!state.user.login)
 
   const logout = () => {
-    TokenService.remove()
+    TokenStorage.remove()
     dispatch(removeUser())
   }
 

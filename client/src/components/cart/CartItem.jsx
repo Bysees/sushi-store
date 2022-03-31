@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
-import { addToCart, removeFromCart } from '../../redux/cart'
+import { addToCart, removeFromCart } from '../../redux/slices/cart'
 
 import styles from './cart.module.scss'
 

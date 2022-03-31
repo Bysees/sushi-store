@@ -7,7 +7,7 @@ import Footer from './components/footer/Footer';
 import AppRouter from './AppRouter';
 
 import { useCheckAuthQuery } from './redux/RTKquery/auth';
-import { setUser } from './redux/user';
+import { setUser } from './redux/slices/user';
 
 import './styles/styles_clear.css'
 import './styles/portal.css'

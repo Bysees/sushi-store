@@ -8,7 +8,7 @@ import ButtonIcon from '../common/ButtonIcon'
 import Container from '../common/Container'
 import FilterLabels from '../filters/FilterLabels'
 import CreateProductForm from '../forms/product/CreateProductForm'
-import ProductMenu from './ProductMenu'
+import Product from './Product'
 
 import { labelTitles } from '../../consts/labels'
 import { useToogle } from '../../hooks/useToogle'
@@ -16,7 +16,7 @@ import { useGetProductsByTypeQuery } from '../../redux/RTKquery/product'
 
 import styles from './products.module.scss'
 
-const ProductsMenu = () => {
+const Products = () => {
 
   const isAdmin = useSelector(state => state.user.role === 'admin')
 
@@ -59,7 +59,7 @@ const ProductsMenu = () => {
         <div className={styles.products}>
 
           {products.map((product) => (
-            <ProductMenu key={product.id} {...product} />
+            <Product key={product.id} {...product} />
           ))}
 
           {isAdmin &&
@@ -78,4 +78,4 @@ const ProductsMenu = () => {
   )
 }
 
-export default ProductsMenu
+export default Products

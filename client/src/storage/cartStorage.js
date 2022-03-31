@@ -1,4 +1,4 @@
-export class CartService {
+export class CartStorage {
 
   static set(cartItems) {
     sessionStorage.setItem('cart', cartItems)
