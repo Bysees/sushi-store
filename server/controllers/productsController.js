@@ -8,7 +8,6 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 class ProductsController {
 
   getAll(req, res) {
-
     try {
       const { productType, label = 'all' } = req.query
 

@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { TokenStorage } from '../../storage/tokenStorage'
 import { baseUrl } from './http'
 
 export const productApi = createApi({
@@ -19,6 +20,9 @@ export const productApi = createApi({
         url: `products?productType=${productType}`,
         method: 'POST',
         body: formData,
+        headers: {
+          authorization: `Bearer ${TokenStorage.get()}`
+        }
       }),
       invalidatesTags: ['product']
     }),
@@ -27,7 +31,10 @@ export const productApi = createApi({
       query: ({ productType, formData }) => ({
         url: `products?productType=${productType}`,
         method: 'PUT',
-        body: formData
+        body: formData,
+        headers: {
+          authorization: `Bearer ${TokenStorage.get()}`
+        }
       }),
       invalidatesTags: ['product']
     }),
@@ -36,6 +43,9 @@ export const productApi = createApi({
       query: ({ productType, id }) => ({
         url: `products/${id}?productType=${productType}`,
         method: 'DELETE',
+        headers: {
+          authorization: `Bearer ${TokenStorage.get()}`
+        }
       }),
       invalidatesTags: ['product']
     }),

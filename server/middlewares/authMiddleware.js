@@ -15,6 +15,7 @@ const authMiddeware = async (req, res, next) => {
     }
 
     const clientUser = verify(token, process.env.SECRET_KEY)
+
     req.clientUser = clientUser
     next()
   } catch {
