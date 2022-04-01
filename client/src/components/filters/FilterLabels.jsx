@@ -5,10 +5,12 @@ import { labelsToRus, labelToEng, labelToRus } from './label-translater'
 
 import styles from './filter.module.scss'
 
-const FilterLabels = ({ labels, setFilterLabel, filterLabel }) => {
+const FilterLabels = ({ labels, setFilterLabel, setDisplayLabel, currentLabel }) => {
 
   const getCurrentLabel = (label) => () => {
-    setFilterLabel(labelToEng(label))
+    const engLabel = labelToEng(label)
+    setFilterLabel(engLabel)
+    setDisplayLabel(engLabel)
   }
 
   return (
@@ -18,7 +20,7 @@ const FilterLabels = ({ labels, setFilterLabel, filterLabel }) => {
         <div key={label}
           className={cn(
             styles.filter,
-            label === labelToRus(filterLabel) && styles.filter_active,
+            label === labelToRus(currentLabel) && styles.filter_active,
           )}>
           <button onClick={getCurrentLabel(label)}>
             <div className={styles.filter__title}>{label}</div>

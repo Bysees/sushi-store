@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useState } from 'react'
+import React, { useLayoutEffect, useRef, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { faCirclePlus } from '@fortawesome/free-solid-svg-icons'
@@ -23,55 +23,72 @@ const Products = () => {
   const [isCreateProduct, showProductForm, hideProductForm] = useToogle(false)
 
   const { productType } = useParams()
+  const [currentProductType, setCurrentProductType] = useState(productType)
+  const prevProductType = useRef('')
+
   const [labels, setLabels] = useState([])
   const [filterLabel, setFilterLabel] = useState(labelTitles.eng.all)
+  const [displayLabel, setDisplayLabel] = useState(labelTitles.eng.all)
+
   const [animationTrigger, setAnimationTrigger] = useState(false)
 
-  const { data: products, isLoading } = useGetProductsQuery({ productType, label: filterLabel })
+  const { data: products = [], isLoading, isFetching } = useGetProductsQuery({
+    productType: currentProductType,
+    label: filterLabel
+  })
 
   useLayoutEffect(() => {
     setFilterLabel(labelTitles.eng.all)
-    setAnimationTrigger(trigger => !trigger)
+    setCurrentProductType(productType)
   }, [productType])
 
   useLayoutEffect(() => {
-    if (products && filterLabel === labelTitles.eng.all) {
+    const isProductTypeChanged = prevProductType.current !== productType
+    if (!isFetching && isProductTypeChanged) {
+      setAnimationTrigger(trigger => !trigger)
+      prevProductType.current = productType
+    }
+  }, [productType, isFetching])
+
+  useLayoutEffect(() => {
+    if (!isFetching && filterLabel === labelTitles.eng.all) {
+      setDisplayLabel(labelTitles.eng.all)
       setLabels([...new Set(products.flatMap((product) => product.labels))])
     }
-  }, [products, filterLabel])
+  }, [products, filterLabel, isFetching])
 
 
-  if (isLoading) {
-    return <div>Loading...</div>
-  }
+  return (<>
+    {!isLoading &&
+      <div key={animationTrigger} className={styles.translate}>
+        <FilterLabels
+          labels={labels}
+          currentLabel={displayLabel}
+          setFilterLabel={setFilterLabel}
+          setDisplayLabel={setDisplayLabel}
+        />
+        <Container>
+          <div className={styles.products}>
 
-  return (
-    <div key={animationTrigger} className={styles.translate}>
-      <FilterLabels
-        labels={labels}
-        setFilterLabel={setFilterLabel}
-        filterLabel={filterLabel} />
-      <Container>
-        <div className={styles.products}>
+            {products.map((product) => (
+              <Product key={product.id} {...product} />
+            ))}
 
-          {products.map((product) => (
-            <Product key={product.id} {...product} />
-          ))}
+            {isAdmin &&
+              <ButtonIcon
+                className={cn(styles.product, styles.addProduct)}
+                onClick={showProductForm}
+                icon={faCirclePlus}
+                title={'Добавить новый продукт'}
+              />}
 
-          {isAdmin &&
-            <ButtonIcon
-              className={cn(styles.product, styles.addProduct)}
-              onClick={showProductForm}
-              icon={faCirclePlus}
-              title={'Добавить новый продукт'}
-            />}
+          </div>
+        </Container>
 
-        </div>
-      </Container>
-
-      {isCreateProduct && <CreateProductForm onHide={hideProductForm} />}
-    </div>
-  )
+        {isCreateProduct && <CreateProductForm onHide={hideProductForm} />}
+      </div>
+    }
+  </>)
 }
 
 export default Products
