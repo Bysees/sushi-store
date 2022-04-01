@@ -8,18 +8,30 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 class ProductsController {
 
   getAll(req, res) {
+
     try {
-      const { productType } = req.query
+      const { productType, label = 'all' } = req.query
 
       if (!productType) {
-        const allProducts = getAllProducts()
-        return res.status(200).send(allProducts)
+        let products = getAllProducts()
+
+        if (label === 'all') {
+          return res.status(200).send(products)
+        } else {
+          products = products.filter(product => product.labels.includes(label))
+          return res.status(200).send(allProductsByLabel)
+        }
       }
 
-      const productsByType = getProductsByType(productType)
+      if (productType) {
+        let products = getProductsByType(productType)
 
-      if (!productsByType) {
-        return res.status(404).send({ message: `Продуктов типа ${productType} не существует` })
+        if (label === 'all') {
+          return res.status(200).send(products)
+        } else {
+          products = products.filter(product => product.labels.includes(label))
+          return res.status(200).send(products)
+        }
       }
 
       res.status(200).send(productsByType)

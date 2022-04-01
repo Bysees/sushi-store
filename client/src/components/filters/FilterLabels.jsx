@@ -1,18 +1,14 @@
-import React, { useState } from 'react'
+import React from 'react'
 import cn from 'classnames'
 
-import { labelsToRus, labelToEng } from './label-translater'
-import { labelTitles } from '../../consts/labels'
+import { labelsToRus, labelToEng, labelToRus } from './label-translater'
 
 import styles from './filter.module.scss'
 
-const FilterLabels = ({ labels, filterHandler }) => {
-
-  const [currentLabel, setCurrentLabel] = useState(labelTitles.rus.all)
+const FilterLabels = ({ labels, setFilterLabel, filterLabel }) => {
 
   const getCurrentLabel = (label) => () => {
-    setCurrentLabel(label)
-    filterHandler(labelToEng(label))
+    setFilterLabel(labelToEng(label))
   }
 
   return (
@@ -22,7 +18,7 @@ const FilterLabels = ({ labels, filterHandler }) => {
         <div key={label}
           className={cn(
             styles.filter,
-            label === currentLabel && styles.filter_active,
+            label === labelToRus(filterLabel) && styles.filter_active,
           )}>
           <button onClick={getCurrentLabel(label)}>
             <div className={styles.filter__title}>{label}</div>

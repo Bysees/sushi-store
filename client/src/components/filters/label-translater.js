@@ -17,3 +17,13 @@ export const labelToEng = (label) => {
   }
   return result
 }
+
+export const labelToRus = (label) => {
+  let result = labelTitles.rus.all;
+  for (let keyEng in labelTitles.rus) {
+    if (keyEng === label) {
+      result = labelTitles.rus[keyEng]
+    }
+  }
+  return result
+}

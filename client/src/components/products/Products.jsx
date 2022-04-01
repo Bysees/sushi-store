@@ -12,7 +12,7 @@ import Product from './Product'
 
 import { labelTitles } from '../../consts/labels'
 import { useToogle } from '../../hooks/useToogle'
-import { useGetProductsByTypeQuery } from '../../redux/RTKquery/product'
+import { useGetProductsQuery } from '../../redux/RTKquery/product'
 
 import styles from './products.module.scss'
 
@@ -23,38 +23,34 @@ const Products = () => {
   const [isCreateProduct, showProductForm, hideProductForm] = useToogle(false)
 
   const { productType } = useParams()
-  const { data: initialProducts } = useGetProductsByTypeQuery(productType)
-  const [products, setProducts] = useState([])
   const [labels, setLabels] = useState([])
+  const [filterLabel, setFilterLabel] = useState(labelTitles.eng.all)
   const [animationTrigger, setAnimationTrigger] = useState(false)
 
-  useLayoutEffect(() => {
-    if (initialProducts) {
-      setProducts(initialProducts)
-      setLabels([...new Set(initialProducts.flatMap((product) => product.labels))])
-    }
-  }, [initialProducts])
+  const { data: products, isLoading } = useGetProductsQuery({ productType, label: filterLabel })
 
   useLayoutEffect(() => {
+    setFilterLabel(labelTitles.eng.all)
     setAnimationTrigger(trigger => !trigger)
   }, [productType])
 
-
-  const filterByLabel = (label) => {
-    if (label === labelTitles.eng.all) {
-      return setProducts(initialProducts)
+  useLayoutEffect(() => {
+    if (products && filterLabel === labelTitles.eng.all) {
+      setLabels([...new Set(products.flatMap((product) => product.labels))])
     }
+  }, [products, filterLabel])
 
-    const filtredProducts = initialProducts.filter(
-      (product) => product.labels.includes(label)
-    )
 
-    setProducts(filtredProducts)
+  if (isLoading) {
+    return <div>Loading...</div>
   }
 
   return (
     <div key={animationTrigger} className={styles.translate}>
-      <FilterLabels labels={labels} filterHandler={filterByLabel} />
+      <FilterLabels
+        labels={labels}
+        setFilterLabel={setFilterLabel}
+        filterLabel={filterLabel} />
       <Container>
         <div className={styles.products}>
 

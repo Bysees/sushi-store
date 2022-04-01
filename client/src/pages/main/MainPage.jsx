@@ -5,7 +5,7 @@ import Container from '../../components/common/Container'
 import ProductSlide from '../../components/products/ProductSlide'
 import Slider from '../../components/slider/Slider'
 
-import { useGetAllProductsQuery } from '../../redux/RTKquery/product'
+import { useGetProductsQuery } from '../../redux/RTKquery/product'
 
 import appStyles from '../../styles/app.module.scss'
 import styles from './mainPage.module.scss'
@@ -50,7 +50,7 @@ const mixArray = (arr) => {
 const MainPage = () => {
 
   const [products, setProducts] = useState([])
-  const { data: initialProducts, isLoading } = useGetAllProductsQuery()
+  const { data: initialProducts, isLoading } = useGetProductsQuery({})
 
   useEffect(() => {
     if (initialProducts) {
