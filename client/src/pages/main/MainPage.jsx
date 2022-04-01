@@ -13,6 +13,10 @@ import styles from './mainPage.module.scss'
 
 const mixArray = (arr) => {
 
+  if (!Array.isArray(arr) || arr.length <= 4) {
+    return
+  }
+
   const list = {}
 
   arr.forEach(item => {
@@ -50,7 +54,7 @@ const mixArray = (arr) => {
 const MainPage = () => {
 
   const [products, setProducts] = useState([])
-  const { data: initialProducts, isLoading } = useGetProductsQuery({})
+  const { data: initialProducts } = useGetProductsQuery({})
 
   useEffect(() => {
     if (initialProducts) {
@@ -58,11 +62,6 @@ const MainPage = () => {
       setProducts(mixedProducts)
     }
   }, [initialProducts])
-
-
-  if (isLoading) {
-    return <div>Loading...</div>
-  }
 
   return (
     <div className={appStyles.main}>

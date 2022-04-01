@@ -17,23 +17,24 @@ import styles from './styles/app.module.scss'
 const App = () => {
 
   const dispatch = useDispatch()
-  const { data: user, isLoading, isSuccess } = useCheckAuthQuery()
+  const { data: user, isSuccess, isLoading } = useCheckAuthQuery()
 
   if (isSuccess) {
     dispatch(setUser(user))
   }
 
-  if (isLoading) {
-    return <div>Loading...</div>
-  }
-
   return (
     <div className={styles.app}>
-      <Header />
-      <AppRouter />
-      <Footer />
+      {!isLoading &&
+        <>
+          <Header />
+          <AppRouter />
+          <Footer />
+        </>
+      }
     </div>
-  );
+  )
+
 }
 
 export default App;
