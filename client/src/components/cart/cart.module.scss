@@ -145,21 +145,21 @@
 
 .cartEmpty {
   &__background {
+    opacity: 0.8;
     min-width: 300px;
-    min-height: 400px;
-
-    background: url('https://www.junamaprams.com/pub/static/version1644545779/frontend/MageBig/martfury_layout01/en_US/images/empty-cart.svg')
-      center center no-repeat;
-    background-size: contain;
+    min-height: 550px;
+    border-radius: 20px;
+    background: url('../../images/backgrounds/background-cart-empty.png') no-repeat 50% 20%, rgb(255, 255, 255);
   }
 
   &__linkWrap {
+    margin-top: 20px;
+
     display: flex;
     justify-content: center;
-    margin-top: 70px;
   }
+}
 
-  &__link {
-    font-size: 3rem;
-  }
+.cartEmpty .cartEmpty__link {
+  font-size: 3rem;
 }
