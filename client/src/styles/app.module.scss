@@ -32,7 +32,8 @@ html {
   z-index: 999;
 }
 
-.main {
+.main,
+.notFound {
   //! border-top предотвращает схлопывание
   border-top: 1px solid transparent;
   min-height: 100%;

@@ -4,7 +4,7 @@ import CartPage from "../pages/cart/CartPage";
 import MainPage from "../pages/main/MainPage";
 import MenuPage from "../pages/menu/MenuPage";
 import ProfilePage from "../pages/profile/ProfilePage";
-import Test from "../pages/TEST/Test";
+import NotFound from "../pages/not-found/NotFound";
 
 export const routes = (isLoggedIn) => [
   {
@@ -38,7 +38,7 @@ export const routes = (isLoggedIn) => [
     element: isLoggedIn ? <ProfilePage /> : <Navigate to='/' />
   },
   {
-    path: 'test',
-    element: <Test />
+    path: '*',
+    element: <NotFound />
   },
 ]
