@@ -1,5 +1,5 @@
 import { unlinkSync, readdirSync, readFileSync, writeFileSync } from 'fs'
-import { resolve, dirname } from 'path'
+import { resolve, dirname, parse } from 'path'
 import { randomBytes } from 'crypto'
 import { fileURLToPath } from 'url';
 
@@ -22,18 +22,23 @@ class ProductsController {
         }
       }
 
-      if (productType) {
-        let products = getProductsByType(productType)
+      const productFiles = readdirSync(resolve(__dirname, '..', 'data', 'products'))
+      const productFileNames = productFiles.map(filename => parse(filename).name)
+      const isProductTypeCorrect = productFileNames.includes(productType)
 
-        if (label === 'all') {
-          return res.status(200).send(products)
-        } else {
-          products = products.filter(product => product.labels.includes(label))
-          return res.status(200).send(products)
-        }
+      if (!isProductTypeCorrect) {
+        return res.status(404).send({ message: `Тип товаров "${productType}" не существует` })
       }
 
-      res.status(200).send(productsByType)
+      let products = getProductsByType(productType)
+
+      if (label === 'all') {
+        return res.status(200).send(products)
+      } else {
+        products = products.filter(product => product.labels.includes(label))
+        return res.status(200).send(products)
+      }
+
     } catch {
       res.status(500).send({ message: `Произошла непредвиденная ошибка` })
     }
