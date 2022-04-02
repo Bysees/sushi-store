@@ -46,9 +46,10 @@ const Product = ({ img, price, title, structure, labels, id, type }) => {
   const productRef = useRef()
 
   useEffect(() => {
+    const productElement = productRef.current
     if (searchId === id) {
       setTimeout(() => {
-        productRef.current.scrollIntoView({
+        productElement.scrollIntoView({
           behavior: 'smooth',
           block: 'center'
         })
