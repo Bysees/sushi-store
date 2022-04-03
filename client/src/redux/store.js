@@ -1,5 +1,5 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit'
-import { messagesReducer } from './slices/messages'
+// import { messagesReducer } from './slices/messages'
 import { userReducer } from './slices/user'
 import { cartReducer } from './slices/cart'
 import { productApi } from './RTKquery/product'
@@ -8,11 +8,13 @@ import { userAPI } from './RTKquery/user'
 import { cartMiddleware } from './middlewares/cartMiddleware'
 import { combinePreloadedStates } from './utils/combinePreloadedStates'
 import { cartRehydrate } from './rehydrates/cart'
+import { productsReducer } from './slices/products'
 
 const rootReducer = combineReducers({
   user: userReducer,
   cart: cartReducer,
-  messages: messagesReducer,
+  // messages: messagesReducer,
+  products: productsReducer,
   [productApi.reducerPath]: productApi.reducer,
   [authAPI.reducerPath]: authAPI.reducer,
   [userAPI.reducerPath]: userAPI.reducer,
@@ -27,7 +29,6 @@ const store = configureStore({
   preloadedState,
   middleware: (getDefaultMiddleware) => (
     getDefaultMiddleware(
-      //! Какая-то хрень, чтобы вебсокет объект хранить в сторе, потом разобраться
       // {
       //   serializableCheck: {
       //     ignoredActions: ['messages/setSocket', 'user/setUser'],

@@ -15,6 +15,7 @@ import { useToogle } from '../../hooks/useToogle'
 import { useGetProductsQuery } from '../../redux/RTKquery/product'
 
 import styles from './products.module.scss'
+import NotFound from '../../pages/not-found/NotFound'
 
 const Products = () => {
 
@@ -32,7 +33,7 @@ const Products = () => {
 
   const [animationTrigger, setAnimationTrigger] = useState(false)
 
-  const { data: products = [], isLoading, isFetching } = useGetProductsQuery({
+  const { data: products, isLoading, isFetching, isError, error } = useGetProductsQuery({
     productType: currentProductType,
     label: filterLabel
   })
@@ -44,19 +45,27 @@ const Products = () => {
 
   useLayoutEffect(() => {
     const isProductTypeChanged = prevProductType.current !== productType
-    if (!isFetching && isProductTypeChanged) {
-      setAnimationTrigger(trigger => !trigger)
-      prevProductType.current = productType
+    if (!isFetching && !isError) {
+      if (isProductTypeChanged) {
+        setAnimationTrigger(trigger => !trigger)
+        prevProductType.current = productType
+      }
     }
-  }, [productType, isFetching])
+  }, [productType, isFetching, isError])
 
   useLayoutEffect(() => {
-    if (!isFetching && filterLabel === labelTitles.eng.all) {
-      setDisplayLabel(labelTitles.eng.all)
-      setLabels([...new Set(products.flatMap((product) => product.labels))])
+    if (!isFetching && !isError) {
+      if (filterLabel === labelTitles.eng.all) {
+        setDisplayLabel(labelTitles.eng.all)
+        setLabels([...new Set(products.flatMap((product) => product.labels))])
+      }
     }
-  }, [products, filterLabel, isFetching])
+  }, [products, filterLabel, isFetching, isError])
 
+
+  if (isError) {
+    return <NotFound />
+  }
 
   return (<>
     {!isLoading &&

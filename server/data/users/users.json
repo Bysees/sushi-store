@@ -1,15 +1,15 @@
 [
   {
-    "login": "sanechek",
-    "password": "ewqewq111",
+    "login": "master",
+    "password": "qwerty12",
     "role": "admin",
-    "description": "Я нормальный парень, но бывает едет крыша!",
+    "description": "Хорошо делай, хорошо будет!",
     "avatar": "/picture/1648757849277-unknown.png",
-    "name": "Добрый Ким"
+    "name": "Добряк Ким"
   },
   {
-    "login": "user1",
-    "password": "qwerty12",
+    "login": "vimpel",
+    "password": "1234wwww",
     "role": "user",
     "description": "Всё идёт по плану!",
     "avatar": "",
