@@ -8,13 +8,11 @@ import { userAPI } from './RTKquery/user'
 import { cartMiddleware } from './middlewares/cartMiddleware'
 import { combinePreloadedStates } from './utils/combinePreloadedStates'
 import { cartRehydrate } from './rehydrates/cart'
-import { productsReducer } from './slices/products'
 
 const rootReducer = combineReducers({
   user: userReducer,
   cart: cartReducer,
   // messages: messagesReducer,
-  products: productsReducer,
   [productApi.reducerPath]: productApi.reducer,
   [authAPI.reducerPath]: authAPI.reducer,
   [userAPI.reducerPath]: userAPI.reducer,
