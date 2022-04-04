@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import cn from 'classnames'
 
 import Rotate from '../animation/Rotate'
@@ -24,6 +24,10 @@ const ProductSlide = ({ img, labels, structure, width, id, type }) => {
   const onMouseOverHandler = () => {
     clearTimeout(timeoutId.current)
   }
+
+  useEffect(() => {
+    return () => clearTimeout(timeoutId.current)
+  })
 
   return (
     <div
