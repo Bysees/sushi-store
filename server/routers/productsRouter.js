@@ -1,11 +1,12 @@
-import { Router } from 'express'
+import Router from 'express'
 import { roles } from '../consts/roles.js'
 import productsController from '../controllers/productsController.js'
 import authMiddeware from '../middlewares/authMiddleware.js'
 import checkRole from '../middlewares/checkRole.js'
 import imgMiddleware from '../middlewares/imgMiddleware.js'
 import productsMiddleware from '../middlewares/productsMiddleware.js'
-const router = Router()
+
+const router = new Router()
 
 router.get('/', productsController.getAll)
 router.get('/:id', productsController.getOne)

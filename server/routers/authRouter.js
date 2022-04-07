@@ -1,7 +1,7 @@
-import { Router } from 'express'
+import Router from 'express'
 import authController from '../controllers/authController.js'
 import authMiddeware from '../middlewares/authMiddleware.js'
-const router = Router()
+const router = new Router()
 
 router.post('/registration', authController.create)
 router.post('/login', authController.login)
