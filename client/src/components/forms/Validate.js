@@ -57,9 +57,25 @@ export default class Validate {
       valueAsNumber: true,
       validate: {
         positive: value => {
-          return parseInt(value) > -1 || 'Значение не может быть отрицательным'
+          return parseInt(value) > 0 || 'Значение должно быть положительным'
         }
       }
+    }
+  }
+
+  static categoryRus() {
+    return {
+      required: 'Обязательное поле',
+      pattern: { value: /^[а-яёА-ЯЁ ]+$/, message: 'Только кириллические буквы' },
+      maxLength: { value: 16, message: 'Максимум 16 символов' }
+    }
+  }
+
+  static categoryEng() {
+    return {
+      required: 'Обязательное поле',
+      pattern: { value: /^[a-zA-Z ]+$/, message: 'Только латинские буквы' },
+      maxLength: { value: 16, message: 'Максимум 16 символов' }
     }
   }
 

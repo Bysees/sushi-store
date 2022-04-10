@@ -1,15 +1,10 @@
-export const productLinks = {
-  sushi: 'sushi',
-  rolls: 'rolls',
+export const appRoutes = {
+  main: '/',
+  profile: '/profile',
+  cart: '/cart',
+  menu: '/menu'
 }
 
-export const navbarLinks = [
-  {
-    path: `menu/${productLinks.sushi}`,
-    title: 'Суши'
-  },
-  {
-    path: `menu/${productLinks.rolls}`,
-    title: 'Ролы'
-  },
-]
+export const menuRoutes = {
+  category: ':category'
+}

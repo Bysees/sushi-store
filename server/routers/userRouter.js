@@ -1,16 +1,16 @@
 import Router from 'express'
 import userController from '../controllers/userController.js'
-import authMiddeware from '../middlewares/authMiddleware.js'
-import imgMiddleware from '../middlewares/imgMiddleware.js'
+import checkAuth from '../middlewares/checkAuth.js'
+import imgHandler from '../middlewares/imgHandler.js'
 const router = new Router()
 
 router.put('/info',
-  authMiddeware,
+  checkAuth,
   userController.editInfo)
 
 router.put('/avatar',
-  authMiddeware,
-  imgMiddleware('avatar', 'users'),
+  checkAuth,
+  imgHandler('avatar', 'users'),
   userController.editImage)
 
 export default router

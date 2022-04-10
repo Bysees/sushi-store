@@ -6,16 +6,16 @@ import cn from 'classnames'
 
 import ButtonIcon from '../common/ButtonIcon'
 import Container from '../common/Container'
-import FilterLabels from '../filters/FilterLabels'
+import FilterByLabel from '../filters/FilterByLabel'
 import CreateProductForm from '../forms/product/CreateProductForm'
 import Product from './Product'
+import NotFound from '../../pages/not-found/NotFound'
 
 import { labelTitles } from '../../consts/labels'
 import { useToogle } from '../../hooks/useToogle'
 import { useGetProductsQuery } from '../../redux/RTKquery/product'
 
 import styles from './products.module.scss'
-import NotFound from '../../pages/not-found/NotFound'
 
 const Products = () => {
 
@@ -23,9 +23,9 @@ const Products = () => {
 
   const [isCreateProduct, showProductForm, hideProductForm] = useToogle(false)
 
-  const { productType } = useParams()
-  const [currentProductType, setCurrentProductType] = useState(productType)
-  const prevProductType = useRef('')
+  const { category } = useParams()
+  const [currentCategory, setCurrentCategory] = useState(category)
+  const prevCategory = useRef('')
 
   const [labels, setLabels] = useState([])
   const [filterLabel, setFilterLabel] = useState(labelTitles.eng.all)
@@ -33,34 +33,38 @@ const Products = () => {
 
   const [animationTrigger, setAnimationTrigger] = useState(false)
 
-  const { data: products, isLoading, isFetching, isError, error } = useGetProductsQuery({
-    productType: currentProductType,
+  const { data, isLoading, isFetching, isError } = useGetProductsQuery({
+    category: currentCategory,
     label: filterLabel
   })
 
+  const products = data?.items
+
   useLayoutEffect(() => {
     setFilterLabel(labelTitles.eng.all)
-    setCurrentProductType(productType)
-  }, [productType])
+    setCurrentCategory(category)
+  }, [category])
 
   useLayoutEffect(() => {
-    const isProductTypeChanged = prevProductType.current !== productType
+    const isCategoryChanged = prevCategory.current !== category
     if (!isFetching && !isError) {
-      if (isProductTypeChanged) {
+      if (isCategoryChanged) {
         setAnimationTrigger(trigger => !trigger)
-        prevProductType.current = productType
+        prevCategory.current = category
       }
     }
-  }, [productType, isFetching, isError])
+  }, [category, isFetching, isError])
+
+  const isLabelEqualAll = filterLabel === labelTitles.eng.all
 
   useLayoutEffect(() => {
     if (!isFetching && !isError) {
-      if (filterLabel === labelTitles.eng.all) {
+      if (isLabelEqualAll) {
         setDisplayLabel(labelTitles.eng.all)
         setLabels([...new Set(products.flatMap((product) => product.labels))])
       }
     }
-  }, [products, filterLabel, isFetching, isError])
+  }, [products, isLabelEqualAll, isFetching, isError])
 
 
   if (isError) {
@@ -70,12 +74,15 @@ const Products = () => {
   return (<>
     {!isLoading &&
       <div key={animationTrigger} className={styles.translate}>
-        <FilterLabels
-          labels={labels}
-          currentLabel={displayLabel}
-          setFilterLabel={setFilterLabel}
-          setDisplayLabel={setDisplayLabel}
-        />
+        {products.length > 0 &&
+          <FilterByLabel
+            labels={labels}
+            currentLabel={displayLabel}
+            setFilterLabel={setFilterLabel}
+            setDisplayLabel={setDisplayLabel}
+          />
+        }
+
         <Container>
           <div className={styles.products}>
 
@@ -83,7 +90,13 @@ const Products = () => {
               <Product key={product.id} {...product} />
             ))}
 
-            {isAdmin &&
+            {!isAdmin && products.length === 0 &&
+              <div className={styles.zeroProductsTitle}>
+                Товары пока не добавлены...
+              </div>
+            }
+
+            {isAdmin && isLabelEqualAll &&
               <ButtonIcon
                 className={cn(styles.product, styles.addProduct)}
                 onClick={showProductForm}

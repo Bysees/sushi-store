@@ -1,7 +1,7 @@
 import jsonwebtoken from 'jsonwebtoken'
 const { verify } = jsonwebtoken
 
-const authMiddeware = async (req, res, next) => {
+const checkAuth = async (req, res, next) => {
 
   if (req.method === "OPTIONS") {
     return next()
@@ -23,4 +23,4 @@ const authMiddeware = async (req, res, next) => {
   }
 }
 
-export default authMiddeware
+export default checkAuth

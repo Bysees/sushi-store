@@ -4,44 +4,90 @@
   margin-top: 50px;
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
 
-  & > div {
-    & a {
-      padding: 10px 30px 10px;
-      height: 100%;
-      width: 100%;
+  & a {
+    margin-top: 20px;
+    padding: 10px 30px 10px;
+    height: 45px;
+    min-width: 140px;
 
-      border-radius: 45px;
-      border: 1px solid transparent;
+    border-radius: 45px;
+    border: 1px solid transparent;
 
-      background: #000000a6;
-      color: #fff;
+    background: #000000a6;
+    color: #fff;
 
-      font-weight: 700;
-      font-size: 1.4rem;
-      letter-spacing: 2px;
-      text-transform: uppercase;
+    font-weight: 700;
+    font-size: 1.4rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-align: center;
 
-      transition: 0.3s;
+    transition: 0.3s;
 
-      &:hover {
-        color: $btn-color-red;
-      }
-
-      &:focus {
-        box-shadow: 0 0px 20px rgba(255, 255, 255, 0.99);
-      }
-    }
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     &:not(:first-child) {
       margin-left: 10px;
     }
+
+    &:hover {
+      color: $btn-color-red;
+    }
+
+    &:focus {
+      box-shadow: 0 0px 20px rgba(255, 255, 255, 0.99);
+    }
+
+    .remove,
+    .update {
+      visibility: hidden;
+      transition: 0.2s;
+    }
+
+    .update {
+      & > button {
+        background-color: transparent;
+        & > svg {
+          margin-top: 3px;
+          margin-left: 4px;
+          color: rgb(0 255 255 / 79%);
+          font-size: 0;
+        }
+      }
+
+      &:hover {
+        box-shadow: 0px 0px 2px 1px rgb(0 255 255 / 79%);
+      }
+    }
+
+    .remove {
+      border-radius: 50px;
+      box-shadow: 0px 0px 2px 2px rgb(255, 255, 255, 0);
+      background-color: rgb(117, 1, 1);
+      color: #fff;
+      & > span {
+        line-height: 1.35rem;
+        font-weight: 700;
+        font-size: 0rem;
+      }
+
+      &:hover {
+        box-shadow: 0px 0px 2px 2px rgb(255, 255, 255);
+      }
+    }
   }
-  .active a {
-    background: $btn-color-red;
+
+  .active {
     box-shadow: 0 15px 20px rgb(0 0 0 / 99%);
+    background: $btn-color-red;
     color: white;
+
     transform: translateY(-7px);
+
     &:hover {
       color: white;
     }
@@ -49,22 +95,85 @@
     &:focus {
       box-shadow: 0 15px 20px rgb(0 0 0 / 99%);
     }
+
+    .remove,
+    .update {
+      flex: 0 0 30px;
+      height: 30px;
+      visibility: visible;
+    }
+
+    .update {
+      margin-right: 15px;
+      margin-left: 5px;
+      & > button {
+        background-color: transparent;
+        & > svg {
+          font-size: 1.4rem;
+        }
+      }
+    }
+
+    .remove {
+      margin-left: 15px;
+      margin-right: 5px;
+      & > span {
+        font-size: 2rem;
+      }
+    }
+  }
+
+  .createCategory {
+    margin-top: 20px;
+    margin-left: 10px;
+    padding: 3px 0px;
+    height: 44px;
+    width: 140px;
+
+    border-radius: 45px;
+    border: 1px solid transparent;
+    background: #000000a6;
+    box-shadow: 0px 0px 1px 1px $color-edit;
+
+    transition: 0.2s;
+    & > button {
+      width: 100%;
+      height: 100%;
+      background-color: transparent;
+
+      & > svg {
+        height: 100%;
+        color: $color-edit;
+
+        transition: 0.3s;
+      }
+    }
+    &:hover {
+      box-shadow: 0px 0px 2px 2px $color-edit-hover;
+      & svg {
+        color: $color-edit-hover;
+      }
+    }
   }
 }
 
 //! FILTER LABEL
 .filters {
   margin-top: 50px;
+  height: 45px;
 
   background-color: rgba(255, 255, 255, 0.212);
 
   display: flex;
   justify-content: center;
-
   .filter {
     position: relative;
-    border: 1px solid #fff;
     min-width: 170px;
+    border-width: 1px;
+    border-left-width: 4px;
+    border-right-width: 4px;
+    border-style: solid;
+    border-color: rgb(255, 255, 255);
 
     & button {
       position: relative;
@@ -82,15 +191,19 @@
       align-items: center;
 
       transition: 0.3s;
+
       &:hover {
-        box-shadow: inset 0px 0px 5px 1px #fff;
+        color: #be4949;
       }
     }
 
     &__title {
-      padding-left: 10px;
       flex: auto 1 0;
       height: 100%;
+    }
+
+    &:not(:first-child) .filter__title {
+      padding-left: 10px;
     }
 
     &__label_new,
@@ -122,6 +235,9 @@
 
     &_active {
       background-color: rgb(251, 76, 76);
+      & button:hover {
+        color: #fff;
+      }
     }
 
     &:not(:first-child) {

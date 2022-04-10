@@ -6,8 +6,6 @@ import { fileURLToPath } from 'url';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const { sign } = jsonwebtoken
 
-
-
 class AuthController {
 
   create(req, res) {

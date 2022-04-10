@@ -1,4 +1,5 @@
 import React, { useRef } from 'react'
+import { convertAlt } from '../../../helpers/converter'
 
 const PreviewFileInput = ({ className, label, img, setImgFile, setPreviewImg, ...input }) => {
 
@@ -29,7 +30,7 @@ const PreviewFileInput = ({ className, label, img, setImgFile, setPreviewImg, ..
       <button type='button' onClick={openFile}>{label}</button>
       {img &&
         <div>
-          <img src={img} alt="kolobus" />
+          <img src={img} alt={convertAlt(img)} />
           <button type='button' onClick={removeFile}>
             <span>&times;</span>
           </button>

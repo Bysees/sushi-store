@@ -14,12 +14,7 @@ import styles from '../form.module.scss'
 const LoginForm = ({ onHide }) => {
 
   const dispatch = useDispatch()
-  const { formState: { errors }, handleSubmit, register } = useForm({
-    defaultValues: {
-      login: 'sanechek',
-      password: 'qweqwe222',
-    }
-  })
+  const { formState: { errors }, handleSubmit, register } = useForm()
 
   const [login, { isLoading, error: serverError }] = useLoginMutation()
 
@@ -62,6 +57,7 @@ const LoginForm = ({ onHide }) => {
             register={register}
             errors={errors}
           />
+
           <Input
             className={styles.field}
             type='password'
@@ -74,9 +70,11 @@ const LoginForm = ({ onHide }) => {
             register={register}
             serverError={serverError?.data?.message}
           />
+
           <div className={styles.button}>
             <button disabled={isLoading}>Войти</button>
           </div>
+
         </form>
       </div>
     </Modal>

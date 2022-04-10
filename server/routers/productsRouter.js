@@ -1,10 +1,10 @@
 import Router from 'express'
 import { roles } from '../consts/roles.js'
 import productsController from '../controllers/productsController.js'
-import authMiddeware from '../middlewares/authMiddleware.js'
+import checkAuth from '../middlewares/checkAuth.js'
 import checkRole from '../middlewares/checkRole.js'
-import imgMiddleware from '../middlewares/imgMiddleware.js'
-import productsMiddleware from '../middlewares/productsMiddleware.js'
+import imgHandler from '../middlewares/imgHandler.js'
+import checkCategory from '../middlewares/checkCategory.js'
 
 const router = new Router()
 
@@ -12,23 +12,23 @@ router.get('/', productsController.getAll)
 router.get('/:id', productsController.getOne)
 
 router.post('/',
-  authMiddeware,
+  checkAuth,
   checkRole(roles.admin),
-  productsMiddleware.typeCheck,
-  imgMiddleware('picture'),
+  checkCategory,
+  imgHandler('picture'),
   productsController.create)
 
 router.put('/',
-  authMiddeware,
+  checkAuth,
   checkRole(roles.admin),
-  productsMiddleware.typeCheck,
-  imgMiddleware('picture'),
+  checkCategory,
+  imgHandler('picture'),
   productsController.edit)
 
 router.delete('/:id',
-  authMiddeware,
+  checkAuth,
   checkRole(roles.admin),
-  productsMiddleware.typeCheck,
+  checkCategory,
   productsController.remove)
 
 export default router

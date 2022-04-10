@@ -1,12 +1,12 @@
 import multer, { diskStorage } from 'multer'
 
-function imgMiddleware(field, path = '') {
+function imgHandler(filedname, path = '') {
 
   const storage = diskStorage({
 
     destination: function (req, file, cb) {
-      const { productType } = req.query
-      const filePath = path ? path : productType
+      const { category } = req.query
+      const filePath = path ? path : category
       cb(null, `./static/${filePath}`)
     },
 
@@ -26,8 +26,8 @@ function imgMiddleware(field, path = '') {
     cb(null, false)
   }
 
-  return multer({ storage, fileFilter }).single(field)
+  return multer({ storage, fileFilter }).single(filedname)
 }
 
 
-export default imgMiddleware
+export default imgHandler

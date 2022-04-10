@@ -67,6 +67,7 @@ const RegistrationForm = ({ onHide }) => {
             register={register}
             errors={errors}
           />
+
           <Input
             className={styles.field}
             name='password_repeat'
@@ -83,6 +84,7 @@ const RegistrationForm = ({ onHide }) => {
           <div className={styles.button}>
             <button disabled={isLoading}>Войти</button>
           </div>
+
         </form>
       </div>
     </Modal>

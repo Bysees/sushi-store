@@ -1,4 +1,5 @@
-import { useSearchParams } from 'react-router-dom'
+import { useEffect, useRef } from 'react'
+import { useParams, useSearchParams } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import cn from 'classnames'
 
@@ -6,28 +7,32 @@ import Rotate from '../animation/Rotate'
 import EditProductForm from '../forms/product/EditProductForm'
 import ProductDescription from './description/ProductDescription'
 
+import { convertAlt, orderedMessage } from '../../helpers/converter'
 import { useDeleteProductMutation } from '../../redux/RTKquery/product'
 import { addToCart } from '../../redux/slices/cart'
 import { useToogle } from '../../hooks/useToogle'
 
 import styles from './products.module.scss'
-import { useEffect, useRef } from 'react'
 
-const emptyImage = '/picture/no-image.jpg'
 
-const Product = ({ img, price, title, structure, labels, id, type }) => {
-  const product = { img, price, title, structure, labels, id, type }
+const emptyImg = '/picture/no_image.jpg'
+
+const Product = ({ img, price, title, structure, labels, id }) => {
+  const product = { img, price, title, structure, labels, id }
+  const imgSrc = img ? img : emptyImg
 
   const dispatch = useDispatch()
   const isAdmin = useSelector(state => state.user.role === 'admin')
   const amount = useSelector(state => state.cart.cartItems.find(item => item.id === id)?.amount || 0)
 
+  const { category } = useParams()
   const [searchParams, setSeachParams] = useSearchParams()
   const searchId = searchParams.get('id')
   const clearSearchParams = () => setSeachParams('')
 
   const [isEdit, showEditForm, hideEditForm] = useToogle(false)
   const [isImage, showImage, hideImage] = useToogle(true)
+
   const [isDescription, showDescription, hideDescription] = useToogle(false)
 
   const [deleteProduct, { isLoading }] = useDeleteProductMutation()
@@ -35,7 +40,7 @@ const Product = ({ img, price, title, structure, labels, id, type }) => {
   const removeProduct = async () => {
     const isRemove = window.confirm(`Вы действительно хотите удалить "${title}"`)
     if (isRemove) {
-      await deleteProduct({ productType: type, id })
+      await deleteProduct({ category, id })
     }
   }
 
@@ -43,7 +48,7 @@ const Product = ({ img, price, title, structure, labels, id, type }) => {
     dispatch(addToCart({ id, title, img, price }))
   }
 
-  const productRef = useRef()
+  const productRef = useRef(null)
 
   useEffect(() => {
     const productElement = productRef.current
@@ -72,13 +77,13 @@ const Product = ({ img, price, title, structure, labels, id, type }) => {
           showSecondComponent={showDescription}
           renderFirst={() => (
             <div className={styles.img}>
-              <img src={img ? img : emptyImage} alt="sushi" />
+              <img src={imgSrc} alt={convertAlt(imgSrc)} />
 
               {amount > 0 &&
                 <div className={styles.orderPrompt}>
                   <div className={styles.orderPrompt__icon} />
                   <p className={styles.orderPrompt__title}>
-                    Добавлен {amount} набор
+                    {orderedMessage(amount)}
                   </p>
                 </div>}
 

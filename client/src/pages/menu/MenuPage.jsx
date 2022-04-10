@@ -1,7 +1,7 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom'
 
-import FilterProducts from '../../components/filters/FilterProducts'
+import FilterByCategory from '../../components/filters/FilterByCategory'
 
 import appStyles from '../../styles/app.module.scss'
 
@@ -9,7 +9,7 @@ const MenuPage = () => {
 
   return (
     <div className={appStyles.menu}>
-      <FilterProducts />
+      <FilterByCategory />
       <Outlet /> {/* //* Products*/}
     </div>
   )

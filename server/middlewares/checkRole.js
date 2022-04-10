@@ -9,7 +9,6 @@ const checkRole = (role) => async (req, res, next) => {
     if (clientUser.role !== role) {
       return res.status(403).send({ message: 'У вас недостаточно прав для совершения этой операции' })
     }
-
     next()
   } catch {
     res.status(500).send({ message: 'Произошла непредвиденная ошибка' })

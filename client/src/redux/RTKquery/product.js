@@ -9,15 +9,15 @@ export const productApi = createApi({
   endpoints: (builder) => ({
 
     getProducts: builder.query({
-      query: ({ productType = '', label = 'all' }) => (
-        `products?productType=${productType}&label=${label}`
+      query: ({ category = '', label = 'all' }) => (
+        `products?category=${category}&label=${label}`
       ),
       providesTags: () => ['product']
     }),
 
     createProduct: builder.mutation({
-      query: ({ productType, formData }) => ({
-        url: `products?productType=${productType}`,
+      query: ({ category, formData }) => ({
+        url: `products?category=${category}`,
         method: 'POST',
         body: formData,
         headers: {
@@ -28,8 +28,8 @@ export const productApi = createApi({
     }),
 
     updateProduct: builder.mutation({
-      query: ({ productType, formData }) => ({
-        url: `products?productType=${productType}`,
+      query: ({ category, formData }) => ({
+        url: `products?category=${category}`,
         method: 'PUT',
         body: formData,
         headers: {
@@ -40,8 +40,8 @@ export const productApi = createApi({
     }),
 
     deleteProduct: builder.mutation({
-      query: ({ productType, id }) => ({
-        url: `products/${id}?productType=${productType}`,
+      query: ({ category, id }) => ({
+        url: `products/${id}?category=${category}`,
         method: 'DELETE',
         headers: {
           authorization: `Bearer ${TokenStorage.get()}`

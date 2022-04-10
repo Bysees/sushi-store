@@ -5,36 +5,37 @@ import MainPage from "../pages/main/MainPage";
 import MenuPage from "../pages/menu/MenuPage";
 import ProfilePage from "../pages/profile/ProfilePage";
 import NotFound from "../pages/not-found/NotFound";
+import { appRoutes, menuRoutes } from "./links";
 
-export const routes = (isLoggedIn) => [
+export const routes = (isLoggedIn, initialMenuLink = '') => [
   {
-    path: '/',
+    path: appRoutes.main,
     element: <MainPage />
   },
   {
-    path: 'menu',
+    path: appRoutes.menu,
     element: <MenuPage />,
     children: [
       {
         path: '',
-        element: <Navigate to='sushi' />
+        element: <Navigate to={initialMenuLink} />
       },
       {
-        path: ':productType',
+        path: menuRoutes.category,
         element: <Products />
       },
       {
-        path: ':productType?id',
+        path: `${menuRoutes.category}?id`,
         element: <Products />
       },
     ]
   },
   {
-    path: 'cart',
+    path: appRoutes.cart,
     element: <CartPage />
   },
   {
-    path: 'profile',
+    path: appRoutes.profile,
     element: isLoggedIn ? <ProfilePage /> : <Navigate to='/' />
   },
   {

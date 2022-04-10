@@ -1,5 +1,7 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
+
+import { convertAlt } from '../../helpers/converter'
 import { addToCart, removeFromCart } from '../../redux/slices/cart'
 
 import styles from './cart.module.scss'
@@ -12,9 +14,11 @@ const CartItem = ({ id, img, title, price, amount }) => {
   const increase = () => {
     dispatch(addToCart({ id, img, title, price, amount }))
   }
+
   const decrease = () => {
     dispatch(removeFromCart({ id, amount: 1 }))
   }
+
   const remove = () => {
     dispatch(removeFromCart({ id, amount }))
   }
@@ -24,7 +28,7 @@ const CartItem = ({ id, img, title, price, amount }) => {
   return (
     <div className={styles.cartItem}>
       <div className={styles.cartItem__img}>
-        <img src={img} alt="sake" />
+        <img src={img} alt={convertAlt(img)} />
       </div>
       <div className={styles.cartItem__title}>{title}</div>
       <div className={styles.cartItem__price}>{price}&#8381;</div>

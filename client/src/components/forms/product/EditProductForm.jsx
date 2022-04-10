@@ -21,7 +21,7 @@ const EditProductForm = ({ onHide, product }) => {
   const [imgFile, setImgFile] = useState(null)
 
 
-  const { productType } = useParams()
+  const { category } = useParams()
   const [updateProduct, { isLoading, error: serverError }] = useUpdateProductMutation()
 
   const onSubmit = async (data) => {
@@ -37,7 +37,7 @@ const EditProductForm = ({ onHide, product }) => {
 
     formData.append('product', JSON.stringify(data))
 
-    const response = await updateProduct({ productType, formData })
+    const response = await updateProduct({ category, formData })
     if (!response.error) {
       setSuccessfulMessage(response.data.message)
     }

@@ -3,9 +3,9 @@
     "login": "master",
     "password": "qwerty12",
     "role": "admin",
-    "description": "Хорошо делай, хорошо будет!",
-    "avatar": "/picture/1648757849277-unknown.png",
-    "name": "Добряк Ким"
+    "description": "Я нормальный парень, но бывает едет крыша",
+    "avatar": "/picture/1649547316205-kolobus.jpg",
+    "name": "Добряк Боб"
   },
   {
     "login": "vimpel",
@@ -14,5 +14,13 @@
     "description": "Всё идёт по плану!",
     "avatar": "",
     "name": "Виктор"
+  },
+  {
+    "login": "user2d",
+    "password": "qwerty12",
+    "role": "user",
+    "name": "",
+    "description": "",
+    "avatar": ""
   }
 ]

@@ -9,33 +9,36 @@ class ProductsController {
 
   getAll(req, res) {
     try {
-      const { productType, label = 'all' } = req.query
+      const { category, label = 'all' } = req.query
 
-      if (!productType) {
+      if (!category) {
         let products = getAllProducts()
+
 
         if (label === 'all') {
           return res.status(200).send(products)
         } else {
-          products = products.filter(product => product.labels.includes(label))
-          return res.status(200).send(allProductsByLabel)
+          const filtredItems = products.items.filter(product => product.labels.includes(label))
+          products = { ...products, items: filtredItems }
+          return res.status(200).send(products)
         }
       }
 
       const productFiles = readdirSync(resolve(__dirname, '..', 'data', 'products'))
       const productFileNames = productFiles.map(filename => parse(filename).name)
-      const isProductTypeCorrect = productFileNames.includes(productType)
+      const isCategoryCorrect = productFileNames.includes(category)
 
-      if (!isProductTypeCorrect) {
-        return res.status(404).send({ message: `Тип товаров "${productType}" не существует` })
+      if (!isCategoryCorrect) {
+        return res.status(404).send({ message: `Тип товаров "${category}" не существует` })
       }
 
-      let products = getProductsByType(productType)
+      let products = getProductsByCategory(category)
 
       if (label === 'all') {
         return res.status(200).send(products)
       } else {
-        products = products.filter(product => product.labels.includes(label))
+        const filtredItems = products.items.filter(product => product.labels.includes(label))
+        products = { ...products, items: filtredItems }
         return res.status(200).send(products)
       }
 
@@ -47,7 +50,8 @@ class ProductsController {
   getOne(req, res) {
     try {
       const { id } = req.params
-      const allProducts = getAllProducts()
+      let allProducts = getAllProducts()
+      allProducts = allProducts.flatMap(({ items }) => items)
       const product = allProducts.find(product => product.id === id)
 
       if (!product) {
@@ -62,19 +66,28 @@ class ProductsController {
 
   create(req, res) {
     try {
-      const { productType } = req.query
+      const { category } = req.query
       let { product: newProduct } = req.body
       newProduct = JSON.parse(newProduct)
-      newProduct.id = generateNewId()
+
+      const allProducts = getAllProducts()
+      const allProductItems = allProducts.flatMap(products => products.items)
+      const isProductTitleExist = allProductItems.find(item => item.title.toLowerCase() === newProduct.title.toLowerCase())
+
+      if (isProductTitleExist) {
+        return res.status(403).send({ message: `Продукт с названием "${newProduct.title}" уже существует` })
+      }
 
       if (req.file) {
         const picture = req.file
         newProduct.img = `/picture/${picture.filename}`
       }
 
-      const productsByType = getProductsByType(productType)
-      const updatedProducts = [...productsByType, newProduct]
-      writeProductsByType(productType, updatedProducts)
+      newProduct.id = generateNewId()
+      const productsByCategory = getProductsByCategory(category)
+      const updatedProducts = { ...productsByCategory, items: [...productsByCategory.items, newProduct] }
+
+      writeProductsByCategory(category, updatedProducts)
 
       res.status(201).send({ message: 'Продукт был успешно добавлен', newProduct })
     } catch {
@@ -84,12 +97,21 @@ class ProductsController {
 
   edit(req, res) {
     try {
-      const { productType } = req.query
+      const { category } = req.query
       let { product: editedProduct } = req.body
       editedProduct = JSON.parse(editedProduct)
 
-      const productsByType = getProductsByType(productType)
-      const product = productsByType.find(product => product.id === editedProduct.id)
+      const productsByCategory = getProductsByCategory(category)
+      const productEqualTitle = productsByCategory.items.find(item => (
+        (item.title.toLowerCase() === editedProduct.title.toLowerCase())
+      ))
+      const isTheSameProduct = productEqualTitle?.id === editedProduct.id
+
+      if (productEqualTitle && !isTheSameProduct) {
+        return res.status(403).send({ message: `Продукт с названием "${editedProduct.title}" уже существует` })
+      }
+
+      const product = productsByCategory.items.find(product => product.id === editedProduct.id)
 
       if (req.file) {
         const picture = req.file
@@ -98,17 +120,22 @@ class ProductsController {
 
       if (product.img !== editedProduct.img) {
         const imgName = product.img.split('/')[2]
-        deleteCurrentPicture(productType, imgName)
+        deleteCurrentPicture(category, imgName)
       }
 
-      const updatedProducts = productsByType.map((product) => {
+      const updatedItems = productsByCategory.items.map((product) => {
         if (product.id === editedProduct.id) {
           return editedProduct
         }
         return product
       })
 
-      writeProductsByType(productType, updatedProducts)
+      const updatedProducts = {
+        ...productsByCategory,
+        items: updatedItems
+      }
+
+      writeProductsByCategory(category, updatedProducts)
 
       res.status(200).send({ message: 'Продукт был успешно отредактирован', editedProduct })
     } catch {
@@ -118,17 +145,23 @@ class ProductsController {
 
   remove(req, res) {
     try {
-      const { productType } = req.query
+      const { category } = req.query
       const { id } = req.params
 
-      const productsByType = getProductsByType(productType)
-      const updatedProducts = productsByType.filter(product => product.id !== id)
-      const product = productsByType.find(product => product.id === id)
+      const productsByCategory = getProductsByCategory(category)
+      const product = productsByCategory.items.find(product => product.id === id)
 
       const imgName = product.img.split('/')[2]
-      deleteCurrentPicture(productType, imgName)
+      deleteCurrentPicture(category, imgName)
 
-      writeProductsByType(productType, updatedProducts)
+      const updatedItems = productsByCategory.items.filter(product => product.id !== id)
+
+      const updatedProducts = {
+        ...productsByCategory,
+        items: updatedItems
+      }
+
+      writeProductsByCategory(category, updatedProducts)
 
       res.status(200).send({ message: 'Продукт был успешно удалён' })
     } catch {
@@ -144,26 +177,26 @@ function getAllProducts() {
   const fileNames = readdirSync(resolve(__dirname, '..', 'data', 'products'))
   fileNames.forEach(filename => {
     const items = readFileSync(resolve(__dirname, '..', 'data', 'products', filename), { encoding: 'utf-8' })
-    products = [...products, ...JSON.parse(items)]
+    products = [...products, { ...JSON.parse(items) }]
   })
   return products
 }
 
-function getProductsByType(type) {
-  const filePath = resolve(__dirname, '..', 'data', 'products', `${type}.json`)
+function getProductsByCategory(category) {
+  const filePath = resolve(__dirname, '..', 'data', 'products', `${category}.json`)
   let products = readFileSync(filePath, { encoding: 'utf-8' })
   products = JSON.parse(products)
   return products
 }
 
-function writeProductsByType(type, products) {
-  const filePath = resolve(__dirname, '..', 'data', 'products', `${type}.json`)
+function writeProductsByCategory(category, products) {
+  const filePath = resolve(__dirname, '..', 'data', 'products', `${category}.json`)
   writeFileSync(filePath, JSON.stringify(products, null, 2))
 }
 
-function deleteCurrentPicture(productType, fileName) {
+function deleteCurrentPicture(categoryDir, fileName) {
   try {
-    const filePathPictures = resolve(__dirname, '..', 'static', productType, fileName)
+    const filePathPictures = resolve(__dirname, '..', 'static', categoryDir, fileName)
     unlinkSync(filePathPictures)
   } catch {
     console.log('Image already not exist')
@@ -173,9 +206,12 @@ function deleteCurrentPicture(productType, fileName) {
 function generateNewId() {
   const id = randomBytes(4).toString('hex')
   const allProducts = getAllProducts()
-  const IdExistYet = allProducts.some(item => item.id === id)
+  const allProductItems = allProducts.flatMap(products => products.items)
+  const IdExistYet = allProductItems.some(item => item.id === id)
+
   if (IdExistYet) {
     return generateNewId()
   }
+
   return id
 }

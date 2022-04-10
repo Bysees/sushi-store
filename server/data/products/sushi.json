@@ -1,224 +1,220 @@
-[
-  {
-    "img": "/picture/1648429922696-spicy_baked.jpg",
-    "price": 270,
-    "title": "СУШИ, ЗАПЕЧЕННЫЕ ПОД СОУСОМ СПАЙСИ КРЕВЕТКА (3 ШТ.)",
-    "structure": {
-      "ingredients": [
-        "тигровая креветка",
-        "рис",
-        "водоросли нори",
-        "соусы унаги и спайси"
-      ],
-      "weight": 156,
-      "calorie": 345,
-      "protein": 12,
-      "fat": 12,
-      "carbohydrates": 48
-    },
-    "labels": [
-      "hot",
-      "new"
-    ],
-    "id": "208aaf1c",
-    "type": "sushi"
+{
+  "category": {
+    "eng": "rolls",
+    "rus": "роллы"
   },
-  {
-    "img": "/picture/1648429934335-spicy_baked.jpg",
-    "price": 270,
-    "title": "СУШИ, ЗАПЕЧЕННЫЕ ПОД СОУСОМ СПАЙСИ ЛОСОСЬ (3 ШТ.)",
-    "structure": {
-      "ingredients": [
-        "лосось",
-        "рис",
-        "водоросли нори",
-        "соусы унаги и спайси"
+  "items": [
+    {
+      "img": "/picture/1648429922696-spicy_baked.jpg",
+      "price": 270,
+      "title": "СУШИ, ЗАПЕЧЕННЫЕ ПОД СОУСОМ СПАЙСИ КРЕВЕТКА (3 ШТ.)",
+      "structure": {
+        "ingredients": [
+          "тигровая креветка",
+          "рис",
+          "водоросли нори",
+          "соусы унаги и спайси"
+        ],
+        "weight": 156,
+        "calorie": 345,
+        "protein": 12,
+        "fat": 12,
+        "carbohydrates": 48
+      },
+      "labels": [
+        "hot",
+        "new"
       ],
-      "weight": 156,
-      "calorie": 372,
-      "protein": 15,
-      "fat": 12,
-      "carbohydrates": 48
+      "id": "208aaf1c"
     },
-    "labels": [
-      "hot"
-    ],
-    "id": "2f4d5528",
-    "type": "sushi"
-  },
-  {
-    "img": "/picture/sushi_chukka1.jpg",
-    "price": 180,
-    "title": "СУШИ ЧУКА (3 ШТ.)",
-    "structure": {
-      "ingredients": [
-        "cалат чука",
-        "рис",
-        "кунжут",
-        "водоросли нори"
+    {
+      "img": "/picture/1648429934335-spicy_baked.jpg",
+      "price": 270,
+      "title": "СУШИ, ЗАПЕЧЕННЫЕ ПОД СОУСОМ СПАЙСИ ЛОСОСЬ (3 ШТ.)",
+      "structure": {
+        "ingredients": [
+          "лосось",
+          "рис",
+          "водоросли нори",
+          "соусы унаги и спайси"
+        ],
+        "weight": 156,
+        "calorie": 372,
+        "protein": 15,
+        "fat": 12,
+        "carbohydrates": 48
+      },
+      "labels": [
+        "hot"
       ],
-      "weight": 126,
-      "calorie": 297,
-      "protein": 9,
-      "fat": 6,
-      "carbohydrates": 54
+      "id": "2f4d5528"
     },
-    "labels": [
-      "vegan"
-    ],
-    "id": "eac1232e",
-    "type": "sushi"
-  },
-  {
-    "img": "/picture/sushi_sake.jpg",
-    "price": 180,
-    "title": "СУШИ САКЕ (3 ШТ.)",
-    "structure": {
-      "ingredients": [
-        "лосось",
-        "рис"
+    {
+      "img": "/picture/sushi_chukka1.jpg",
+      "price": 180,
+      "title": "СУШИ ЧУКА (3 ШТ.)",
+      "structure": {
+        "ingredients": [
+          "cалат чука",
+          "рис",
+          "кунжут",
+          "водоросли нори"
+        ],
+        "weight": 126,
+        "calorie": 297,
+        "protein": 9,
+        "fat": 6,
+        "carbohydrates": 54
+      },
+      "labels": [
+        "vegan"
       ],
-      "weight": 141,
-      "calorie": 327,
-      "protein": 15,
-      "fat": 9,
-      "carbohydrates": 48
+      "id": "eac1232e"
     },
-    "labels": [
-      "hit"
-    ],
-    "id": "eca786cf",
-    "type": "sushi"
-  },
-  {
-    "img": "/picture/sushi_ebi.jpg",
-    "price": 270,
-    "title": "СУШИ ЭБИ (3 ШТ.)",
-    "structure": {
-      "ingredients": [
-        "тигровая криветка",
-        "рис"
+    {
+      "img": "/picture/sushi_sake.jpg",
+      "price": 180,
+      "title": "СУШИ САКЕ (3 ШТ.)",
+      "structure": {
+        "ingredients": [
+          "лосось",
+          "рис"
+        ],
+        "weight": 141,
+        "calorie": 327,
+        "protein": 15,
+        "fat": 9,
+        "carbohydrates": 48
+      },
+      "labels": [
+        "hit"
       ],
-      "weight": 126,
-      "calorie": 288,
-      "protein": 15,
-      "fat": 3,
-      "carbohydrates": 48
+      "id": "eca786cf"
     },
-    "labels": [],
-    "id": "aced771e",
-    "type": "sushi"
-  },
-  {
-    "img": "/picture/cheesy_baked.jpg",
-    "price": 270,
-    "title": "СУШИ, ЗАПЕЧЕННЫЕ ПОД СЫРНЫМ СОУСОМ КРЕВЕТКА (3 ШТ.)",
-    "structure": {
-      "ingredients": [
-        "Тигровая креветка",
-        "рис",
-        "водоросли нори",
-        "соусы унаги и сырный"
+    {
+      "img": "/picture/sushi_ebi.jpg",
+      "price": 270,
+      "title": "СУШИ ЭБИ (3 ШТ.)",
+      "structure": {
+        "ingredients": [
+          "тигровая криветка",
+          "рис"
+        ],
+        "weight": 126,
+        "calorie": 288,
+        "protein": 15,
+        "fat": 3,
+        "carbohydrates": 48
+      },
+      "labels": [],
+      "id": "aced771e"
+    },
+    {
+      "img": "/picture/cheesy_baked.jpg",
+      "price": 270,
+      "title": "СУШИ, ЗАПЕЧЕННЫЕ ПОД СЫРНЫМ СОУСОМ КРЕВЕТКА (3 ШТ.)",
+      "structure": {
+        "ingredients": [
+          "Тигровая креветка",
+          "рис",
+          "водоросли нори",
+          "соусы унаги и сырный"
+        ],
+        "weight": 156,
+        "calorie": 345,
+        "protein": 12,
+        "fat": 12,
+        "carbohydrates": 48
+      },
+      "labels": [],
+      "id": "90928d45"
+    },
+    {
+      "img": "/picture/sushi_unagi.jpg",
+      "price": 360,
+      "title": "СУШИ УНАГИ (3 ШТ.)",
+      "structure": {
+        "ingredients": [
+          "угорь",
+          "рис",
+          "водоросли нори",
+          "кунжут",
+          "соус унаги"
+        ],
+        "weight": 141,
+        "calorie": 372,
+        "protein": 15,
+        "fat": 12,
+        "carbohydrates": 51
+      },
+      "labels": [
+        "hit"
       ],
-      "weight": 156,
-      "calorie": 345,
-      "protein": 12,
-      "fat": 12,
-      "carbohydrates": 48
+      "id": "0bb6da98"
     },
-    "labels": [],
-    "id": "90928d45",
-    "type": "sushi"
-  },
-  {
-    "img": "/picture/sushi_unagi.jpg",
-    "price": 360,
-    "title": "СУШИ УНАГИ (3 ШТ.)",
-    "structure": {
-      "ingredients": [
-        "угорь",
-        "рис",
-        "водоросли нори",
-        "кунжут",
-        "соус унаги"
+    {
+      "img": "/picture/cheesy_baked.jpg",
+      "price": 360,
+      "title": "СУШИ, ЗАПЕЧЕННЫЕ ПОД СЫРНЫМ СОУСОМ ЛОСОСЬ (3 ШТ.)",
+      "structure": {
+        "ingredients": [
+          "лосось",
+          "рис",
+          "водоросли нори",
+          "соусы унаги и сырный"
+        ],
+        "weight": 156,
+        "calorie": 381,
+        "protein": 15,
+        "fat": 15,
+        "carbohydrates": 48
+      },
+      "labels": [],
+      "id": "3f128ed4"
+    },
+    {
+      "img": "/picture/1648438516163-sushi_spicy_shrimp1.jpg",
+      "price": 270,
+      "title": "СПАЙСИ СУШИ КРЕВЕТКА (3 ШТ.)",
+      "structure": {
+        "ingredients": [
+          "тигровая креветка",
+          "рис",
+          "водоросли нори",
+          "соус спайси"
+        ],
+        "weight": 156,
+        "calorie": 330,
+        "protein": 12,
+        "fat": 21,
+        "carbohydrates": 27
+      },
+      "labels": [
+        "hot"
       ],
-      "weight": 141,
-      "calorie": 372,
-      "protein": 15,
-      "fat": 12,
-      "carbohydrates": 51
+      "id": "4c4bb08e"
     },
-    "labels": [
-      "hit"
-    ],
-    "id": "0bb6da98",
-    "type": "sushi"
-  },
-  {
-    "img": "/picture/cheesy_baked.jpg",
-    "price": 360,
-    "title": "СУШИ, ЗАПЕЧЕННЫЕ ПОД СЫРНЫМ СОУСОМ ЛОСОСЬ (3 ШТ.)",
-    "structure": {
-      "ingredients": [
-        "лосось",
-        "рис",
-        "водоросли нори",
-        "соусы унаги и сырный"
+    {
+      "img": "/picture/sushi_spicy_salmon.jpg",
+      "price": 270,
+      "title": "СПАЙСИ СУШИ ЛОСОСЬ (3 ШТ.)",
+      "structure": {
+        "ingredients": [
+          "лосось",
+          "рис",
+          "водоросли нори",
+          "соус спайси"
+        ],
+        "weight": 156,
+        "calorie": 360,
+        "protein": 12,
+        "fat": 24,
+        "carbohydrates": 27
+      },
+      "labels": [
+        "hot"
       ],
-      "weight": 156,
-      "calorie": 381,
-      "protein": 15,
-      "fat": 15,
-      "carbohydrates": 48
-    },
-    "labels": [],
-    "id": "3f128ed4",
-    "type": "sushi"
-  },
-  {
-    "img": "/picture/1648438516163-sushi_spicy_shrimp1.jpg",
-    "price": 270,
-    "title": "СПАЙСИ СУШИ КРЕВЕТКА (3 ШТ.)",
-    "structure": {
-      "ingredients": [
-        "тигровая креветка",
-        "рис",
-        "водоросли нори",
-        "соус спайси"
-      ],
-      "weight": 156,
-      "calorie": 330,
-      "protein": 12,
-      "fat": 21,
-      "carbohydrates": 27
-    },
-    "labels": [
-      "hot"
-    ],
-    "id": "4c4bb08e",
-    "type": "sushi"
-  },
-  {
-    "img": "/picture/sushi_spicy_salmon.jpg",
-    "price": 270,
-    "title": "СПАЙСИ СУШИ ЛОСОСЬ (3 ШТ.)",
-    "structure": {
-      "ingredients": [
-        "лосось",
-        "рис",
-        "водоросли нори",
-        "соус спайси"
-      ],
-      "weight": 156,
-      "calorie": 360,
-      "protein": 12,
-      "fat": 24,
-      "carbohydrates": 27
-    },
-    "labels": [
-      "hot"
-    ],
-    "id": "b562bac8",
-    "type": "sushi"
-  }
-]
+      "id": "b562bac8"
+    }
+  ]
+}

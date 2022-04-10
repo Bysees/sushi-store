@@ -10,11 +10,21 @@ import { useCreateProductMutation } from '../../../redux/RTKquery/product'
 
 
 const CreateProductForm = ({ onHide }) => {
-  const { productType } = useParams()
+  const { category } = useParams()
 
   const { formState: { errors }, handleSubmit, register, reset } = useForm({
     defaultValues: {
-      type: productType
+      title: '',
+      price: null,
+      labels: [],
+      structure: {
+        calorie: null,
+        carbohydrates: null,
+        fat: null,
+        protein: null,
+        weight: null,
+        ingredients: []
+      }
     }
   })
 
@@ -24,7 +34,6 @@ const CreateProductForm = ({ onHide }) => {
   const [imgFile, setImgFile] = useState(null)
 
   const [createProduct, { isLoading, error: serverError }] = useCreateProductMutation()
-
 
   const onSubmit = async (data) => {
     const formData = new FormData()
@@ -37,7 +46,7 @@ const CreateProductForm = ({ onHide }) => {
 
     formData.append('product', JSON.stringify(data))
 
-    const response = await createProduct({ productType, formData })
+    const response = await createProduct({ category, formData })
     if (!response.error) {
       reset()
       setPreviewImg('')

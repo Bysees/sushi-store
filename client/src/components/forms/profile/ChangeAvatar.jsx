@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser } from '@fortawesome/free-solid-svg-icons'
 
+import { convertAlt } from '../../../helpers/converter'
 import { useUpdateImgMutation } from '../../../redux/RTKquery/user'
 import { setUserAvatar } from '../../../redux/slices/user'
 
@@ -44,7 +45,7 @@ const ChangeAvatar = () => {
       <label className={profileStyles.labelFile} htmlFor="imgFile" tabIndex={0}>
         <div className={profileStyles.avatar}>
           {avatar
-            ? <img src={avatar} alt="avatar" />
+            ? <img src={avatar} alt={'profile avatar - ' + convertAlt(avatar)} />
             : <FontAwesomeIcon className={profileStyles.avatar__icon} icon={faUser} />
           }
         </div>

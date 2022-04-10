@@ -12,14 +12,19 @@ import ButtonIcon from '../../common/ButtonIcon'
 
 import { TokenStorage } from '../../../storage/tokenStorage'
 import { removeUser } from '../../../redux/slices/user'
-import { navbarLinks } from '../../../consts/links'
+import { appRoutes } from '../../../consts/links'
+import { useGetCategoriesQuery } from '../../../redux/RTKquery/category'
 
 import styles from './navbar.module.scss'
+
 
 const Navbar = ({ showLoginForm, showRegistrationForm }) => {
 
   const dispatch = useDispatch()
   const isLoggedIn = useSelector(state => !!state.user.login)
+
+  const { data, isLoading } = useGetCategoriesQuery()
+  const categories = data?.categories
 
   const logout = () => {
     TokenStorage.remove()
@@ -28,8 +33,7 @@ const Navbar = ({ showLoginForm, showRegistrationForm }) => {
 
   return (
     <nav className={styles.navbar}>
-      <Link to={'/'} className={styles.logo}>
-      </Link>
+      <Link to={appRoutes.main} className={styles.logo} />
 
       <Dropdown
         className={styles.dropdown}
@@ -41,9 +45,11 @@ const Navbar = ({ showLoginForm, showRegistrationForm }) => {
           />)}>
 
         <div className={styles.dropdown__list}>
-          {navbarLinks.map(({ path, title }) => (
-            <Link key={title} to={path}>
-              {title}
+          {!isLoading && categories.map((category) => (
+            <Link
+              key={category.eng}
+              to={`${appRoutes.menu}/${category.eng}`}>
+              {category.rus}
             </Link>
           ))}
         </div>
@@ -51,7 +57,7 @@ const Navbar = ({ showLoginForm, showRegistrationForm }) => {
 
       <LinkIcon
         className={styles.link}
-        path={'/cart'}
+        path={appRoutes.cart}
         title={'Корзина '}
         icon={faShoppingBasket}
       />
@@ -61,7 +67,7 @@ const Navbar = ({ showLoginForm, showRegistrationForm }) => {
           <LinkIcon
             className={styles.link}
             icon={faUser}
-            path={'/profile'}
+            path={appRoutes.profile}
             title={'Профиль'}
           />
           <ButtonIcon
