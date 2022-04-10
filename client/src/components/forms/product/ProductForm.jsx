@@ -5,27 +5,10 @@ import Input from '../fields/Input'
 import Select from '../fields/Select'
 import PreviewFileInput from '../fields/PreviewFileInput'
 
+import { ingredients, labels } from './defaultValues'
+
 import styles from '../form.module.scss'
 
-const ingredients = [
-  { value: 'угорь' },
-  { value: 'авокадо' },
-  { value: 'рис' },
-  { value: 'сливочный сыр' },
-  { value: 'водоросли нори' },
-  { value: 'огурец' },
-  { value: 'омлет' },
-  { value: 'тамаго' },
-  { value: 'соус унаги' },
-  { value: 'кунжут' }
-]
-
-const labels = [
-  { value: 'new', title: 'Новинка' },
-  { value: 'hit', title: 'Хит' },
-  { value: 'hot', title: 'Острое' },
-  { value: 'vegan', title: 'Веган' },
-]
 
 const ProductForm = ({
   onSubmit, register, errors, validate,
@@ -170,7 +153,7 @@ const ProductForm = ({
             name={'structure.ingredients'}
             values={ingredients}
             multiple
-            size={3}
+            size={5}
 
             register={register}
           />
