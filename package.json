@@ -1,0 +1,24 @@
+{
+  "name": "food-online",
+  "version": "1.0.0",
+  "description": "attempt to deploy",
+  "main": "index.js",
+  "scripts": {
+    "heroku-postbuild": "cd client && yarn install && yarn build",
+    "start": "cd server && yarn install && yarn start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Bysees/food-online.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Bysees/food-online/issues"
+  },
+  "homepage": "https://github.com/Bysees/food-online#readme",
+  "engines": {
+    "node": "16.14.0"
+  }
+}

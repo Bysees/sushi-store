@@ -12,7 +12,7 @@ staticEmiter.on('static-dirs-changed', setExpressStaticFiles)
 dotenv.config()
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const app = express()
-const PORT = 5000
+const PORT = process.env.PORT
 
 function setExpressStaticFiles() {
   const pictures = readdirSync(resolve(__dirname, 'static'))
