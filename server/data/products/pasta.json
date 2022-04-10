@@ -1,0 +1,152 @@
+{
+  "category": {
+    "eng": "pasta",
+    "rus": "паста"
+  },
+  "items": [
+    {
+      "img": "/picture/1649554116421-pasta_tomat.jpg",
+      "price": 295,
+      "title": "паста с томатами",
+      "structure": {
+        "calorie": 645,
+        "carbohydrates": 23,
+        "fat": 9,
+        "protein": 119,
+        "weight": 325,
+        "ingredients": [
+          "пенне",
+          "томаты",
+          "пармезан",
+          "масло",
+          "базелик",
+          "специи"
+        ]
+      },
+      "labels": [
+        "hit",
+        "hot"
+      ],
+      "id": "91499b74"
+    },
+    {
+      "img": "/picture/1649554707821-pasta_nioki_crab.jpg",
+      "price": 335,
+      "title": "КАРТОФЕЛЬНЫЕ НЬОККИ СО СНЕЖНЫМ КРАБОМ",
+      "structure": {
+        "calorie": 574,
+        "carbohydrates": 15,
+        "fat": 27,
+        "protein": 67,
+        "weight": 270,
+        "ingredients": [
+          "ньюокки",
+          "снежный краб",
+          "сливки",
+          "сыр пармезан"
+        ]
+      },
+      "labels": [
+        "new",
+        "hit"
+      ],
+      "id": "883880d8"
+    },
+    {
+      "img": "/picture/1649554808652-pasta_carbonara.jpg",
+      "price": 390,
+      "title": "спагетти карбонара",
+      "structure": {
+        "calorie": 928,
+        "carbohydrates": 26,
+        "fat": 67,
+        "protein": 55,
+        "weight": 350,
+        "ingredients": [
+          "пармезан",
+          "сыр пармезан",
+          "бекон",
+          "яйцо",
+          "сливки"
+        ]
+      },
+      "labels": [],
+      "id": "a8d71f92"
+    },
+    {
+      "title": "грин сальмон",
+      "price": 390,
+      "labels": [
+        "hit",
+        "vegan"
+      ],
+      "structure": {
+        "calorie": 691,
+        "carbohydrates": 60,
+        "fat": 41,
+        "protein": 21,
+        "weight": 320,
+        "ingredients": [
+          "масло",
+          "специи",
+          "сыр пармезан",
+          "спагетти",
+          "брокколи",
+          "лук репчатый",
+          "чеснок"
+        ]
+      },
+      "img": "/picture/1649555065366-pasta_green_salmon.jpg",
+      "id": "24b25114"
+    },
+    {
+      "title": "паста с морепродуктами",
+      "price": 410,
+      "labels": [
+        "new",
+        "hot"
+      ],
+      "structure": {
+        "calorie": 380,
+        "carbohydrates": 63,
+        "fat": 15,
+        "protein": 30,
+        "weight": 506,
+        "ingredients": [
+          "кунжут",
+          "базелик",
+          "сыр пармезан",
+          "спагетти",
+          "лук репчатый",
+          "мидии",
+          "кальмар"
+        ]
+      },
+      "img": "/picture/1649555193121-pasta_seafoods.jpg",
+      "id": "9f79b2ad"
+    },
+    {
+      "title": "паста с цыплёнком",
+      "price": 435,
+      "labels": [],
+      "structure": {
+        "calorie": 642,
+        "carbohydrates": 61,
+        "fat": 30,
+        "protein": 33,
+        "weight": 310,
+        "ingredients": [
+          "сыр пармезан",
+          "яйцо",
+          "сливки",
+          "чеснок",
+          "цыплёнок",
+          "шампиньоны",
+          "кальмар"
+        ]
+      },
+      "img": "/picture/1649555304954-pasta_chick.jpg",
+      "id": "5a19e52e"
+    }
+  ]
+}
