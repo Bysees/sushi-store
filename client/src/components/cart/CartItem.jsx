@@ -28,7 +28,7 @@ const CartItem = ({ id, img, title, price, amount }) => {
   return (
     <div className={styles.cartItem}>
       <div className={styles.cartItem__img}>
-        <img src={img} alt={convertAlt(img)} />
+        <img src={process.env.REACT_APP_BASE_URL + img} alt={convertAlt(img)} />
       </div>
       <div className={styles.cartItem__title}>{title}</div>
       <div className={styles.cartItem__price}>{price}&#8381;</div>

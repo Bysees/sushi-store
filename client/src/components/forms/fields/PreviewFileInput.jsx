@@ -30,7 +30,7 @@ const PreviewFileInput = ({ className, label, img, setImgFile, setPreviewImg, ..
       <button type='button' onClick={openFile}>{label}</button>
       {img &&
         <div>
-          <img src={img} alt={convertAlt(img)} />
+          <img src={process.env.REACT_APP_BASE_URL + img} alt={convertAlt(img)} />
           <button type='button' onClick={removeFile}>
             <span>&times;</span>
           </button>

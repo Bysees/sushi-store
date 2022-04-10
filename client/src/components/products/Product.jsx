@@ -77,7 +77,7 @@ const Product = ({ img, price, title, structure, labels, id }) => {
           showSecondComponent={showDescription}
           renderFirst={() => (
             <div className={styles.img}>
-              <img src={imgSrc} alt={convertAlt(imgSrc)} />
+              <img src={process.env.REACT_APP_BASE_URL + imgSrc} alt={convertAlt(imgSrc)} />
 
               {amount > 0 &&
                 <div className={styles.orderPrompt}>

@@ -37,7 +37,7 @@ const ProductSlide = ({ img, labels, structure, width, id, category }) => {
 
           renderFirst={() => (
             <div className={styles.img}>
-              <img src={img} alt={convertAlt(img)} draggable={false} />
+              <img src={process.env.REACT_APP_BASE_URL + img} alt={convertAlt(img)} draggable={false} />
               <Link className={styles.findPrompt} to={`${appRoutes.menu}/${category}?id=${id}`}>
                 Найти в меню!
               </Link>
