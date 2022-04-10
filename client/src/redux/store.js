@@ -1,5 +1,4 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit'
-// import { messagesReducer } from './slices/messages'
 import { userReducer } from './slices/user'
 import { cartReducer } from './slices/cart'
 import { productApi } from './RTKquery/product'
@@ -14,7 +13,6 @@ import { cartRehydrate } from './rehydrates/cart'
 const rootReducer = combineReducers({
   user: userReducer,
   cart: cartReducer,
-  // messages: messagesReducer,
   [productApi.reducerPath]: productApi.reducer,
   [categoryApi.reducerPath]: categoryApi.reducer,
   [authAPI.reducerPath]: authAPI.reducer,
@@ -29,13 +27,7 @@ const store = configureStore({
   reducer: rootReducer,
   preloadedState,
   middleware: (getDefaultMiddleware) => (
-    getDefaultMiddleware(
-      // {
-      //   serializableCheck: {
-      //     ignoredActions: ['messages/setSocket', 'user/setUser'],
-      //   },
-      // }
-    )
+    getDefaultMiddleware()
       .concat(productApi.middleware)
       .concat(authAPI.middleware)
       .concat(userAPI.middleware)

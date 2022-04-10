@@ -4,10 +4,8 @@
     "cors": "^2.8.5",
     "dotenv": "^16.0.0",
     "express": "^4.17.2",
-    "express-ws": "^5.0.2",
     "jsonwebtoken": "^8.5.1",
-    "multer": "^1.4.4",
-    "ws": "^8.5.0"
+    "multer": "^1.4.4"
   },
   "type": "module",
   "name": "server",
@@ -16,10 +14,9 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon index.js",
-    "start": "node index.js",
-    "socket": "nodemon socket.js"
+    "start": "node index.js"
   },
-  "author": "myseld",
+  "author": "sashka",
   "license": "ISC",
   "devDependencies": {
     "nodemon": "^2.0.15"
