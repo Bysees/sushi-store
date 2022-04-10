@@ -14,6 +14,13 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const app = express()
 const PORT = process.env.PORT
 
+if (process.env.NODE_ENV?.trim() === 'production') {
+  app.use(express.static(resolve(__dirname, '..', 'client', 'build')))
+  app.get('/*', (req, res) => {
+    res.sendFile(resolve(__dirname, '..', 'client', 'build', 'index.html'))
+  })
+}
+
 function setExpressStaticFiles() {
   const pictures = readdirSync(resolve(__dirname, 'static'))
   pictures.forEach((dirname) => {
