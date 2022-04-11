@@ -45,7 +45,7 @@ const ChangeAvatar = () => {
       <label className={profileStyles.labelFile} htmlFor="imgFile" tabIndex={0}>
         <div className={profileStyles.avatar}>
           {avatar
-            ? <img src={process.env.REACT_APP_BASE_URL + avatar} alt={'profile avatar - ' + convertAlt(avatar)} />
+            ? <img src={avatar} alt={'profile avatar - ' + convertAlt(avatar)} />
             : <FontAwesomeIcon className={profileStyles.avatar__icon} icon={faUser} />
           }
         </div>
