@@ -21,7 +21,7 @@ function setExpressStaticFiles() {
   })
 }
 
-setExpressStaticFiles()
+// setExpressStaticFiles()
 app.use(cors())
 app.use(json())
 app.use(urlencoded({ extended: true }))
