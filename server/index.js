@@ -17,7 +17,7 @@ const PORT = process.env.PORT
 function setExpressStaticFiles() {
   const pictures = readdirSync(resolve(__dirname, 'static'))
   pictures.forEach((dirname) => {
-    app.use('/api/picture', express.static(resolve(__dirname, 'static', dirname)))
+    app.use('/picture', express.static(resolve(__dirname, 'static', dirname)))
   })
 }
 
@@ -29,7 +29,7 @@ app.use('/api', router)
 
 if (process.env.NODE_ENV?.trim() === 'production') {
   app.use(express.static(resolve(__dirname, '..', 'client', 'build')))
-  app.get('*', (req, res) => {
+  app.get('/*', (req, res) => {
     res.sendFile(resolve(__dirname, '..', 'client', 'build', 'index.html'))
   })
 }
