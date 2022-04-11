@@ -21,7 +21,12 @@ function setExpressStaticFiles() {
   })
 }
 
-setExpressStaticFiles()
+// setExpressStaticFiles()
+const pictures = readdirSync(resolve(__dirname, 'static'))
+pictures.forEach((dirname) => {
+  app.use('/picture', express.static(resolve(__dirname, 'static', dirname)))
+})
+
 app.use(cors())
 app.use(json())
 app.use(urlencoded({ extended: true }))
