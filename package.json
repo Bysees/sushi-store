@@ -12,12 +12,8 @@
     "url": "git+https://github.com/Bysees/food-online.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "alexander",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Bysees/food-online/issues"
-  },
-  "homepage": "/",
   "engines": {
     "node": "16.14.0"
   }
