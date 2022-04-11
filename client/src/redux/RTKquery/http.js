@@ -1,1 +1,1 @@
-export const baseUrl = 'https://food-shop-online.herokuapp.com/'
+export const baseUrl = '/'
