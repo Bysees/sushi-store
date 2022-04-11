@@ -22,16 +22,16 @@ function setExpressStaticFiles() {
 }
 
 // setExpressStaticFiles()
-app.use(cors())
-app.use(json())
-app.use(urlencoded({ extended: true }))
-app.use('/api', router)
-
 if (process.env.NODE_ENV?.trim() === 'production') {
   app.use(express.static(resolve(__dirname, '..', 'client', 'build')))
   app.get('/*', (req, res) => {
     res.sendFile(resolve(__dirname, '..', 'client', 'build', 'index.html'))
   })
 }
+
+app.use(cors())
+app.use(json())
+app.use(urlencoded({ extended: true }))
+app.use('/api', router)
 
 app.listen(PORT, () => console.log(`Server started on PORT ${PORT}`))
