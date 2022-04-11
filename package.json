@@ -4,7 +4,6 @@
   "description": "attempt to deploy",
   "main": "index.js",
   "scripts": {
-    "heroku-postbuild": "set REACT_APP_ENV=production && cd client && npm install && npm run build",
     "start": "set NODE_ENV=production && cd server && npm install && node index.js"
   },
   "repository": {
