@@ -24,7 +24,7 @@ const Navbar = ({ showLoginForm, showRegistrationForm }) => {
   const isLoggedIn = useSelector(state => !!state.user.login)
 
   const { data, isLoading } = useGetCategoriesQuery()
-  const categories = data?.categories
+  const categories = data?.categories || []
 
   const logout = () => {
     TokenStorage.remove()

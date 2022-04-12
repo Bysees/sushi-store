@@ -16,7 +16,12 @@ const CreateCategoryForm = ({ onHide }) => {
   const [successfulMessage, setSuccessfulMessage] = useState('')
   const { formState: { errors }, handleSubmit, register, reset } = useForm()
 
-  const [createCategory, { isLoading, error: serverError }] = useCreateCategoryMutation()
+  const [createCategory, { isLoading, error, isError }] = useCreateCategoryMutation()
+
+  let serverError = null
+  if (isError) {
+    serverError = error?.data?.message || 'Какие-то неполадки, в данный момент невозможно создать категорию'
+  }
 
   const onSubmit = async (formData) => {
     const response = await createCategory(formData)
@@ -63,7 +68,7 @@ const CreateCategoryForm = ({ onHide }) => {
             validate={Validate.categoryRus()}
             register={register}
             errors={errors}
-            serverError={serverError?.data?.message}
+            serverError={serverError}
           />
 
           {successfulMessage &&

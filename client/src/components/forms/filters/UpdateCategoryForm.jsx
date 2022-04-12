@@ -24,7 +24,12 @@ const UpdateCategoryForm = ({ onHide, currentCategory, categories }) => {
 
   const [successfulMessage, setSuccessfulMessage] = useState('')
 
-  const [updateCategory, { isLoading, error: serverError }] = useUpdateCategoryMutation()
+  const [updateCategory, { isLoading, error, isError }] = useUpdateCategoryMutation()
+
+  let serverError = null
+  if (isError) {
+    serverError = error?.data?.message || 'Какие-то неполадки, в данный момент невозможно обновить категорию'
+  }
 
   const onSubmit = async (formData) => {
 
@@ -69,7 +74,7 @@ const UpdateCategoryForm = ({ onHide, currentCategory, categories }) => {
             validate={Validate.categoryRus()}
             register={register}
             errors={errors}
-            serverError={serverError?.data?.message}
+            serverError={serverError}
           />
 
           {successfulMessage &&

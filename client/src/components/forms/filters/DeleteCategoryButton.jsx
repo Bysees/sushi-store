@@ -39,7 +39,7 @@ const DeleteCategoryButton = ({ className, category }) => {
         navigate(appRoutes.menu)
         deleteOrderedProductsFromCart()
       } else {
-        alert(response.error.data.message)
+        alert(response.error?.data?.message || 'Какие-то неполадки, в данный момент невозможно удалить категорию')
       }
     }
   }
