@@ -16,7 +16,6 @@ const NotFound = ({ title }) => {
   const menuPaths = categories.map(category => category.eng)
   const appPaths = Object.values(appRoutes)
 
-  //? В будущем сделать через RegExp
   let path = ''
 
   appPaths.forEach(route => {

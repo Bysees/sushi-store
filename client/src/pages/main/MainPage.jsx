@@ -6,21 +6,21 @@ import ProductSlide from '../../components/products/ProductSlide'
 import Slider from '../../components/slider/Slider'
 
 import { appRoutes } from '../../consts/links'
-import { useGetProductsQuery } from '../../redux/RTKquery/product'
+import { useGetAllProductsQuery } from '../../redux/RTKquery/product'
 
 import appStyles from '../../styles/app.module.scss'
 import styles from './mainPage.module.scss'
 
 const MainPage = () => {
 
-  const { data: initialProducts, isLoading } = useGetProductsQuery({})
+  const { data: initialProducts = [], isSuccess } = useGetAllProductsQuery()
 
   return (
     <div className={appStyles.main}>
       <Container>
         <div className={styles.wrapper}>
 
-          {!isLoading &&
+          {isSuccess &&
             <Slider
               width={1000}
               slides={2}

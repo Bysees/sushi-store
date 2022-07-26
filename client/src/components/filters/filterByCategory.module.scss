@@ -1,0 +1,227 @@
+@import '../../styles/variables.scss';
+
+@keyframes appear {
+  0% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+
+.filters {
+  min-height: 87.5vh;
+  margin: 0 auto;
+  max-width: 100%;
+
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+
+  column-gap: 15px;
+  row-gap: 15px;
+
+  transition: all 0.5s, min-height 0.8s;
+  animation: appear ease-in-out 0.4s both;
+
+  &__item {
+    height: 200px;
+    flex: calc(25% - 15px) 0 0;
+    min-width: 220px;
+    position: relative;
+    transition: all 0.5s;
+
+    & a {
+      & img {
+        object-fit: cover;
+        height: 100%;
+        width: 100%;
+      }
+
+      & span {
+        display: block;
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        height: 60px;
+        width: 100%;
+
+        background-color: rgba(34, 34, 34, 0.95);
+        color: white;
+
+        text-align: center;
+        line-height: 50px;
+        font-size: 2.2rem;
+        font-weight: 500;
+        letter-spacing: 1.5px;
+
+        transition: all 0.5s, color 0.3s, background-color 0.3s;
+      }
+
+      &:hover {
+        & span {
+          color: #be4949;
+        }
+      }
+    }
+
+    .link_active {
+      & span {
+        //? Потом убрать импортант
+        color: white !important;
+        background-color: rgba(131, 58, 58, 0.95) !important;
+      }
+    }
+
+    .update {
+      position: absolute;
+      top: 0px;
+      left: 0;
+
+      transition: all 0.5s, box-shadow 0.3s;
+
+      &>button {
+        background-color: rgba(0, 0, 0, 0.7);
+
+        &>svg {
+          color: rgb(0 255 255 / 79%);
+          font-size: 2.5rem;
+
+          transition: all 0.5s;
+        }
+      }
+
+      &:hover {
+        box-shadow: 0px 0px 2px 1px rgb(0 255 255 / 79%);
+      }
+    }
+
+    .remove {
+      position: absolute;
+      top: 0px;
+      right: 0;
+
+      height: 42px;
+      width: 42px;
+      border-radius: 5px;
+      box-shadow: 0px 0px 2px 2px rgb(255, 255, 255, 0);
+      background-color: rgb(117, 1, 1, 0.9);
+      color: #fff;
+
+      transition: all 0.5s, box-shadow 0.3s;
+
+      &>span {
+        line-height: 1.35rem;
+        font-weight: 700;
+        font-size: 2.5rem;
+
+        transition: all 0.5s;
+      }
+
+      &:hover {
+        box-shadow: 0px 0px 2px 2px rgb(255, 255, 255);
+      }
+    }
+
+  }
+
+  .create {
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.45);
+
+    &>button {
+      background-color: transparent;
+      height: 100%;
+      width: 100%;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      &>svg {
+        flex: 125px 1 0;
+        z-index: 1;
+        color: $color-edit;
+        width: 125px;
+
+        transition: all 0.5s;
+      }
+
+      &>div {
+        color: #fff;
+        font-weight: 500;
+        font-size: 2.2rem;
+        margin-bottom: 15px;
+
+        transition: all 0.5s;
+      }
+    }
+
+    &:hover svg {
+      color: $color-edit-hover;
+    }
+  }
+
+
+  &_mini {
+    margin: 30px auto;
+    min-height: 0;
+    max-width: 950px;
+
+    .filters__item {
+      height: 100px;
+      min-width: 120px;
+
+      & a {
+        & span {
+          height: 35px;
+          font-size: 1.5rem;
+          line-height: 30px;
+        }
+      }
+
+      .update {
+        &>button {
+          &>svg {
+            color: rgb(0 255 255 / 79%);
+            font-size: 1.6rem;
+          }
+        }
+      }
+
+      .remove {
+        height: 27px;
+        width: 27px;
+
+        &>span {
+          font-size: 1.6rem;
+        }
+      }
+
+      .create {
+        &>button {
+          background-color: rgba(77, 77, 77, 0.1);
+
+          &>svg {
+            flex: 50px 1 0;
+            width: 50px;
+          }
+
+          &>div {
+            margin-bottom: 3px;
+            font-size: 1.4rem;
+          }
+        }
+
+      }
+    }
+
+  }
+}

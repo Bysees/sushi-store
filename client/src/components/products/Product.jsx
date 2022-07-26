@@ -7,9 +7,9 @@ import Rotate from '../animation/Rotate'
 import EditProductForm from '../forms/product/EditProductForm'
 import ProductDescription from './description/ProductDescription'
 
-import { convertAlt, orderedMessage } from '../../helpers/converter'
+import { convertAlt, orderedMessage } from '../../utils/converter'
 import { useDeleteProductMutation } from '../../redux/RTKquery/product'
-import { addToCart } from '../../redux/slices/cart'
+import { addToCart, removeFromCart } from '../../redux/slices/cart'
 import { useToogle } from '../../hooks/useToogle'
 
 import styles from './products.module.scss'
@@ -23,7 +23,9 @@ const Product = ({ img, price, title, structure, labels, id }) => {
 
   const dispatch = useDispatch()
   const isAdmin = useSelector(state => state.user.role === 'admin')
-  const amount = useSelector(state => state.cart.cartItems.find(item => item.id === id)?.amount || 0)
+
+  const productInCart = useSelector(state => state.cart.cartItems.find(item => item.id === id))
+  const amount = productInCart?.amount || 0
 
   const { category } = useParams()
   const [searchParams, setSeachParams] = useSearchParams()
@@ -35,17 +37,19 @@ const Product = ({ img, price, title, structure, labels, id }) => {
 
   const [isDescription, showDescription, hideDescription] = useToogle(false)
 
+  const addProductInCart = () => dispatch(addToCart({ id, title, img, price }))
+  const removeProductFromCart = () => dispatch(removeFromCart({ amount, id }))
+
   const [deleteProduct, { isLoading }] = useDeleteProductMutation()
 
   const removeProduct = async () => {
     const isRemove = window.confirm(`Вы действительно хотите удалить "${title}"`)
     if (isRemove) {
-      await deleteProduct({ category, id })
+      const response = await deleteProduct({ category, id })
+      if (!response.error && productInCart) {
+        removeProductFromCart()
+      }
     }
-  }
-
-  const addProductInCart = () => {
-    dispatch(addToCart({ id, title, img, price }))
   }
 
   const productRef = useRef(null)

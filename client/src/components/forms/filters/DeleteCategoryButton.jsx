@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom'
 
 import { appRoutes } from '../../../consts/links'
 import { useDeleteCategoryMutation } from '../../../redux/RTKquery/category'
-import { useGetProductsQuery } from '../../../redux/RTKquery/product'
 import { removeFromCart } from '../../../redux/slices/cart'
 
 
@@ -13,17 +12,13 @@ const DeleteCategoryButton = ({ className, category }) => {
   const dispatch = useDispatch()
   const cartItems = useSelector(state => state.cart.cartItems)
   const navigate = useNavigate()
-  const { data: products } = useGetProductsQuery(category)
   const [deleteCategory, { isLoading }] = useDeleteCategoryMutation()
 
-  const deleteOrderedProductsFromCart = () => {
-    const categoryProducts = products?.find(({ category: itemsCategory }) => itemsCategory.eng === category)
-    const productItems = categoryProducts?.items
-
+  const deleteOrderedProductsFromCart = (productItems) => {
     cartItems.forEach(cartItem => {
       const productItem = productItems.find(productItem => productItem.id === cartItem.id)
 
-      if (!!productItem) {
+      if (productItem) {
         dispatch(removeFromCart({ id: cartItem.id, amount: cartItem.amount }))
       }
     })
@@ -36,8 +31,9 @@ const DeleteCategoryButton = ({ className, category }) => {
       const response = await deleteCategory(category)
 
       if (!response.error) {
+        const deletedItems = response.data.products.items
+        deleteOrderedProductsFromCart(deletedItems)
         navigate(appRoutes.menu)
-        deleteOrderedProductsFromCart()
       } else {
         alert(response.error?.data?.message || 'Какие-то неполадки, в данный момент невозможно удалить категорию')
       }

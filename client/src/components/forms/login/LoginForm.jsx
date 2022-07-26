@@ -14,7 +14,12 @@ import styles from '../form.module.scss'
 const LoginForm = ({ onHide }) => {
 
   const dispatch = useDispatch()
-  const { formState: { errors }, handleSubmit, register } = useForm()
+  const { formState: { errors }, handleSubmit, register } = useForm({
+    defaultValues: {
+      login: 'admin',
+      password: 'qwerty12'
+    }
+  })
 
   const [login, { isLoading, error: serverError }] = useLoginMutation()
 

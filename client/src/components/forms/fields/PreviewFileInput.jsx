@@ -1,5 +1,5 @@
 import React, { useRef } from 'react'
-import { convertAlt } from '../../../helpers/converter'
+import { convertAlt } from '../../../utils/converter'
 
 const PreviewFileInput = ({ className, label, img, setImgFile, setPreviewImg, ...input }) => {
 

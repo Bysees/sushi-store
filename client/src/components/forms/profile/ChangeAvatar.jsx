@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser } from '@fortawesome/free-solid-svg-icons'
 
-import { convertAlt } from '../../../helpers/converter'
+import { convertAlt } from '../../../utils/converter'
 import { useUpdateImgMutation } from '../../../redux/RTKquery/user'
 import { setUserAvatar } from '../../../redux/slices/user'
 

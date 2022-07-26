@@ -1,7 +1,7 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
 
-import { convertAlt } from '../../helpers/converter'
+import { convertAlt } from '../../utils/converter'
 import { addToCart, removeFromCart } from '../../redux/slices/cart'
 
 import styles from './cart.module.scss'

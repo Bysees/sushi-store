@@ -169,7 +169,7 @@ class CategoryController {
       let { type } = req.params
       type = type.toLowerCase()
 
-      if (type === 'sushi' || type === 'rolls') {
+      if (type === 'sushi') {
         return res.status(403).send({ message: 'Эту категорию запрещено удалять' })
       }
 
@@ -180,13 +180,16 @@ class CategoryController {
         return res.status(404).send({ message: `Категории ${type} не существует` })
       }
 
+      const deletedProducts = getProductsByCategory(type) ?? []
+
       const updatedCategories = categories.filter(category => category.eng !== type)
       reWriteCategories(updatedCategories)
 
       deleteCategoryFromProducts(type)
       deleteDirFromStatic(type)
 
-      res.status(200).send({ message: 'Категория была успешно удалёна' })
+
+      res.status(200).send({ products: deletedProducts })
     } catch {
       res.status(500).send({ message: 'Произошла непредвиденная ошибка' })
     }
@@ -241,4 +244,11 @@ function renameDirInStatic(dirname, newDirname) {
 
 function deleteCategoryFromProducts(filename) {
   unlinkSync(resolve(__dirname, '..', 'data', 'products', `${filename}.json`))
+}
+
+function getProductsByCategory(category) {
+  const filePath = resolve(__dirname, '..', 'data', 'products', `${category}.json`)
+  let products = readFileSync(filePath, { encoding: 'utf-8' })
+  products = JSON.parse(products)
+  return products
 }

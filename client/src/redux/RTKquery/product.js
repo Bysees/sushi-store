@@ -8,11 +8,16 @@ export const productApi = createApi({
   tagTypes: ['product'],
   endpoints: (builder) => ({
 
+    getAllProducts: builder.query({
+      query: () => `products`
+    }),
+
     getProducts: builder.query({
       query: ({ category = '', label = 'all' }) => (
         `products?category=${category}&label=${label}`
       ),
-      providesTags: () => ['product']
+      providesTags: () => ['product'],
+      keepUnusedDataFor: 60 * 60
     }),
 
     createProduct: builder.mutation({
@@ -53,6 +58,7 @@ export const productApi = createApi({
 })
 
 export const {
+  useGetAllProductsQuery,
   useGetProductsQuery,
   useCreateProductMutation,
   useDeleteProductMutation,

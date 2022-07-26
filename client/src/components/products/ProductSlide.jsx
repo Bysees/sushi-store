@@ -5,7 +5,7 @@ import cn from 'classnames'
 import Rotate from '../animation/Rotate'
 import ProductDescription from './description/ProductDescription'
 
-import { convertAlt } from '../../helpers/converter'
+import { convertAlt } from '../../utils/converter'
 import { appRoutes } from '../../consts/links'
 import { useToogle } from '../../hooks/useToogle'
 import { useMouseDebounce } from '../../hooks/useMouseDebounce'

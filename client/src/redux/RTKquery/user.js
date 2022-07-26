@@ -3,8 +3,8 @@ import { TokenStorage } from "../../storage/tokenStorage";
 import jwtDecode from "jwt-decode";
 import { baseUrl } from "./http";
 
-export const userAPI = createApi({
-  reducerPath: 'userAPI',
+export const userApi = createApi({
+  reducerPath: 'userApi',
   baseQuery: fetchBaseQuery({ baseUrl }),
   endpoints: (builder) => ({
 
@@ -48,6 +48,6 @@ export const userAPI = createApi({
 export const {
   useUpdateInfoMutation,
   useUpdateImgMutation
-} = userAPI
+} = userApi
 
 

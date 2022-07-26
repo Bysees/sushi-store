@@ -3,14 +3,13 @@ import cn from 'classnames'
 
 import { labelsToRus, labelToEng, labelToRus } from './label-translater'
 
-import styles from './filter.module.scss'
+import styles from './filterByLabel.module.scss'
 
-const FilterByLabel = ({ labels, setFilterLabel, setDisplayLabel, currentLabel }) => {
+const FilterByLabel = ({ labels, setFilterLabel, currentLabel }) => {
 
   const getCurrentLabel = (label) => () => {
     const engLabel = labelToEng(label)
     setFilterLabel(engLabel)
-    setDisplayLabel(engLabel)
   }
 
   return (

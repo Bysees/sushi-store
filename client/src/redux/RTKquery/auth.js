@@ -3,8 +3,8 @@ import { TokenStorage } from '../../storage/tokenStorage'
 import jwtDecode from 'jwt-decode'
 import { baseUrl } from './http'
 
-export const authAPI = createApi({
-  reducerPath: 'authAPI',
+export const authApi = createApi({
+  reducerPath: 'authApi',
   baseQuery: fetchBaseQuery({ baseUrl }),
   endpoints: (builder) => ({
 
@@ -71,4 +71,4 @@ export const {
   useLoginMutation,
   useChangePasswordMutation,
   useCheckAuthQuery
-} = authAPI
+} = authApi

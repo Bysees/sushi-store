@@ -48,6 +48,9 @@ export const cartSlice = createSlice({
     */
     removeFromCart: (state, { payload }) => {
       const cartItem = state.cartItems.find(item => item.id === payload.id)
+      if (!cartItem) {
+        return
+      }
       if (cartItem.amount >= 1) {
         cartItem.amount -= payload.amount
       }

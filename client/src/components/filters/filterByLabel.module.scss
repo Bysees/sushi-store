@@ -1,0 +1,90 @@
+@import '../../styles/variables.scss';
+
+.filters {
+  margin-top: 50px;
+  height: 45px;
+
+  background-color: rgba(255, 255, 255, 0.212);
+
+  display: flex;
+  justify-content: center;
+
+  .filter {
+    position: relative;
+    min-width: 170px;
+    border-width: 1px;
+    border-left-width: 4px;
+    border-right-width: 4px;
+    border-style: solid;
+    border-color: rgb(255, 255, 255);
+
+    & button {
+      position: relative;
+      height: 100%;
+      width: 100%;
+
+      background-color: $black-transparent-color-strong;
+      color: #fff;
+
+      font-size: 1.6rem;
+      font-weight: 500;
+
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+
+      transition: 0.3s;
+
+      &:hover {
+        color: #be4949;
+      }
+    }
+
+    &__title {
+      flex: auto 1 0;
+      height: 100%;
+    }
+
+    &:not(:first-child) .filter__title {
+      padding-left: 10px;
+    }
+
+    &__label_new,
+    &__label_hit,
+    &__label_hot,
+    &__label_vegan {
+      flex: 44px 0 0;
+      height: 44px;
+
+      background: url('../../images/icons/labels/new.png') center center no-repeat;
+    }
+
+    &__label_new {
+      background: url('../../images/icons/labels/new.png') center center no-repeat;
+    }
+
+    &__label_hit {
+      background: url('../../images/icons/labels/hit.png') center center no-repeat;
+    }
+
+    &__label_hot {
+      background: url('../../images/icons/labels/spicy.png') center center no-repeat;
+    }
+
+    &__label_vegan {
+      background: url('../../images/icons/labels/vegan.png') center center no-repeat;
+    }
+
+    &_active {
+      background-color: rgb(251, 76, 76);
+
+      & button:hover {
+        color: #fff;
+      }
+    }
+
+    &:not(:first-child) {
+      margin-left: 15px;
+    }
+  }
+}

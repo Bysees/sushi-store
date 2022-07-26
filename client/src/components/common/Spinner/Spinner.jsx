@@ -1,17 +1,26 @@
 import React from 'react'
-import cn from 'classnames'
-import styles from './spinner.module.scss'
+import styles from './spinner.module.css'
 import appStyles from './../../../styles/app.module.scss'
 
 const Spinner = () => (
-  <div className={cn(appStyles.spinner, styles.spinner)}>
-    <span className={styles.let1}>l</span>
-    <span className={styles.let2}>o</span>
-    <span className={styles.let3}>a</span>
-    <span className={styles.let4}>d</span>
-    <span className={styles.let5}>i</span>
-    <span className={styles.let6}>n</span>
-    <span className={styles.let7}>g</span>
+  <div className={appStyles.spinner}>
+    <div className={styles.circles}>
+      <div className={styles.circle1}></div>
+      <div className={styles.circle2}></div>
+      <div className={styles.circle3}></div>
+      <div className={styles.circle4}></div>
+      <div className={styles.circle5}></div>
+      <div className={styles.circle6}></div>
+      <div className={styles.circle7}></div>
+      <div className={styles.circle8}></div>
+      <div className={styles.circle9}></div>
+      <div className={styles.circle10}></div>
+      <div className={styles.circle11}></div>
+      <div className={styles.circle12}></div>
+      <div className={styles.circle13}></div>
+      <div className={styles.circle14}></div>
+      <div className={styles.circle15}></div>
+    </div>
   </div>
 )
 
