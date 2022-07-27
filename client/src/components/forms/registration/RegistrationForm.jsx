@@ -5,7 +5,7 @@ import Modal from '../../common/Modal'
 import Input from '../fields/Input'
 
 import { useRegistrationMutation } from '../../../redux/RTKquery/auth'
-import { setUser } from '../../../redux/slices/user'
+import { setUser } from '../../../redux/slices/userSlice'
 import Validate from '../Validate'
 
 import styles from '../form.module.scss'

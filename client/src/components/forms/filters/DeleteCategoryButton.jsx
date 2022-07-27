@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 
 import { appRoutes } from '../../../consts/links'
 import { useDeleteCategoryMutation } from '../../../redux/RTKquery/category'
-import { removeFromCart } from '../../../redux/slices/cart'
+import { removeFromCart } from '../../../redux/slices/cartSlice'
 
 
 const DeleteCategoryButton = ({ className, category }) => {

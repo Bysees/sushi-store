@@ -37,7 +37,7 @@ const EditProductForm = ({ onHide, product }) => {
 
     formData.append('product', JSON.stringify(data))
 
-    const response = await updateProduct({ category, formData })
+    const response = await updateProduct({ category, body: formData })
     if (!response.error) {
       setSuccessfulMessage(response.data.message)
     }

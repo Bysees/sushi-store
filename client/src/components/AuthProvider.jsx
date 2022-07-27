@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux'
 import { useCheckAuthQuery } from '../redux/RTKquery/auth'
-import { setUser } from '../redux/slices/user'
+import { setUser } from '../redux/slices/userSlice'
 import Spinner from './common/Spinner/Spinner'
 
 const AuthProvider = ({ children }) => {

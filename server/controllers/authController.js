@@ -23,9 +23,9 @@ class AuthController {
       }
 
       clientUser.role = clientUser.role || 'user'
-      clientUser.name = ''
-      clientUser.description = ''
-      clientUser.avatar = ''
+      clientUser.name = null
+      clientUser.description = null
+      clientUser.avatar = null
 
       addUserToDB(clientUser)
 

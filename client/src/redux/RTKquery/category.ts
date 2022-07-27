@@ -1,6 +1,21 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { TokenStorage } from '../../storage/tokenStorage'
-import { baseUrl } from './http'
+import { ICategory } from '../../models/product'
+import { baseUrl, setAuthHeader } from './http'
+
+type CreateRequest = ICategory
+
+type UpdateRequest = {
+  category: string,
+  body: ICategory
+}
+
+type DeleteRequest = {
+  category: string
+}
+
+type MutationResult = {
+  message: string
+}
 
 export const categoryApi = createApi({
   reducerPath: 'categoryApi',
@@ -8,41 +23,41 @@ export const categoryApi = createApi({
   tagTypes: ['category'],
   endpoints: (builder) => ({
 
-    getCategories: builder.query({
+    getCategories: builder.query<ICategory[], void>({
       query: () => 'category',
       providesTags: () => ['category']
     }),
 
-    createCategory: builder.mutation({
+    createCategory: builder.mutation<MutationResult, CreateRequest>({
       query: (body) => ({
         url: 'category',
         method: 'POST',
-        body: body,
+        body,
         headers: {
-          authorization: `Bearer ${TokenStorage.get()}`
+          authorization: setAuthHeader()
         }
       }),
       invalidatesTags: ['category']
     }),
 
-    updateCategory: builder.mutation({
-      query: (data) => ({
-        url: `category/${data.category}`,
+    updateCategory: builder.mutation<MutationResult, UpdateRequest>({
+      query: ({ category, body }) => ({
+        url: `category/${category}`,
         method: 'PUT',
-        body: { ...data.formData },
+        body,
         headers: {
-          authorization: `Bearer ${TokenStorage.get()}`
+          authorization: setAuthHeader()
         }
       }),
       invalidatesTags: ['category']
     }),
 
-    deleteCategory: builder.mutation({
+    deleteCategory: builder.mutation<MutationResult, DeleteRequest>({
       query: (category) => ({
         url: `category/${category}`,
         method: 'DELETE',
         headers: {
-          authorization: `Bearer ${TokenStorage.get()}`
+          authorization: setAuthHeader()
         }
       }),
       invalidatesTags: ['category']

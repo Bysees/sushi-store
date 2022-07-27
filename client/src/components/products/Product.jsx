@@ -9,7 +9,7 @@ import ProductDescription from './description/ProductDescription'
 
 import { convertAlt, orderedMessage } from '../../utils/converter'
 import { useDeleteProductMutation } from '../../redux/RTKquery/product'
-import { addToCart, removeFromCart } from '../../redux/slices/cart'
+import { addToCart, removeFromCart } from '../../redux/slices/cartSlice'
 import { useToogle } from '../../hooks/useToogle'
 
 import styles from './products.module.scss'

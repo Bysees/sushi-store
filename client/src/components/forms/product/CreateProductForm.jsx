@@ -46,7 +46,7 @@ const CreateProductForm = ({ onHide }) => {
 
     formData.append('product', JSON.stringify(data))
 
-    const response = await createProduct({ category, formData })
+    const response = await createProduct({ category, body: formData })
     if (!response.error) {
       reset()
       setPreviewImg('')

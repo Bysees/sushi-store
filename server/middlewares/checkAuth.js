@@ -10,7 +10,7 @@ const checkAuth = async (req, res, next) => {
   try {
     const token = req.headers.authorization.split(' ')[1]
 
-    if (token === 'null') {
+    if (!token) {
       return res.status(401).send({ message: 'Пользователь не авторизован' })
     }
 

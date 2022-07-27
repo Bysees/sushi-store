@@ -1,7 +1,9 @@
+import { Middleware } from "@reduxjs/toolkit"
 import { CartStorage } from "../../storage/cartStorage"
-import { addToCart, removeFromCart } from "../slices/cart"
+import { addToCart, removeFromCart } from "../slices/cartSlice"
+import { RootState } from "../store"
 
-export const cartMiddleware = ({ getState }) => (next) => (action) => {
+export const cartMiddleware: Middleware<{}, RootState> = ({ getState }) => (next) => (action) => {
   const result = next(action)
   const cart = getState().cart
 

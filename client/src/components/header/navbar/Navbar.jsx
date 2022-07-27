@@ -11,7 +11,7 @@ import Dropdown from '../../common/Dropdown'
 import ButtonIcon from '../../common/ButtonIcon'
 
 import { TokenStorage } from '../../../storage/tokenStorage'
-import { removeUser } from '../../../redux/slices/user'
+import { removeUser } from '../../../redux/slices/userSlice'
 import { appRoutes } from '../../../consts/links'
 import { useGetCategoriesQuery } from '../../../redux/RTKquery/category'
 

@@ -1,6 +1,5 @@
-import { configureStore, combineReducers } from '@reduxjs/toolkit'
+import { configureStore, combineReducers, PreloadedState } from '@reduxjs/toolkit'
 import { cartMiddleware } from './middlewares/cartMiddleware'
-import { combinePreloadedStates } from './utils/combinePreloadedStates'
 import { cartRehydrate } from './rehydrates/cart'
 import { userReducer, cartReducer } from './slices'
 import { authApi, categoryApi, productApi, userApi } from './RTKquery'
@@ -15,9 +14,9 @@ const rootReducer = combineReducers({
   [userApi.reducerPath]: userApi.reducer,
 })
 
-const preloadedState = combinePreloadedStates({
-  cart: cartRehydrate,
-})
+const preloadedState: PreloadedState<RootState> = {
+  cart: cartRehydrate()
+}
 
 const store = configureStore({
   reducer: rootReducer,
@@ -31,5 +30,8 @@ const store = configureStore({
       .concat(cartMiddleware)
   )
 })
+
+export type AppDispatch = typeof store.dispatch
+export type RootState = ReturnType<typeof rootReducer>
 
 export default store

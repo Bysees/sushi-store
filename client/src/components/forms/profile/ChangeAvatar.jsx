@@ -5,7 +5,7 @@ import { faUser } from '@fortawesome/free-solid-svg-icons'
 
 import { convertAlt } from '../../../utils/converter'
 import { useUpdateImgMutation } from '../../../redux/RTKquery/user'
-import { setUserAvatar } from '../../../redux/slices/user'
+import { setUserAvatar } from '../../../redux/slices/userSlice'
 
 import profileStyles from './profileForms.module.scss'
 import formStyles from './../form.module.scss'

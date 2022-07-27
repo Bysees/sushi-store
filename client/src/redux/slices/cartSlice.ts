@@ -1,21 +1,15 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { ICart } from '../../models/cart'
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-/**
-* @param CartItem
-* * id: string
-* * title: string
-* * img: string
-* * price: number
-* * amount: number
-*/
+type AddToCart = ICart
+type RemoveFromCart = Pick<ICart, 'id' | 'amount'>
 
-/**
-* @param initialState
-* * cartItems: CartItem[]
-* * totalPrice: number
-*/
+export type CartInitialState = {
+  cartItems: ICart[]
+  totalPrice: number
+}
 
-const initialState = {
+const initialState: CartInitialState = {
   cartItems: [],
   totalPrice: 0
 }
@@ -24,15 +18,7 @@ export const cartSlice = createSlice({
   name: 'cart',
   initialState,
   reducers: {
-    /**
-      * @param addToCart //? payload
-      * * id: string
-      * * title: string
-      * * img: string
-      * * price: number
-      * * amount: number
-    */
-    addToCart: (state, { payload }) => {
+    addToCart: (state, { payload }: PayloadAction<AddToCart>) => {
       const cartItem = state.cartItems.find(item => item.id === payload.id)
       if (cartItem) {
         cartItem.amount++
@@ -41,12 +27,7 @@ export const cartSlice = createSlice({
       }
       state.totalPrice += payload.price
     },
-    /**
-     * @param removeFromCart //? payload
-     * * id: string
-     * * amount: number
-    */
-    removeFromCart: (state, { payload }) => {
+    removeFromCart: (state, { payload }: PayloadAction<RemoveFromCart>) => {
       const cartItem = state.cartItems.find(item => item.id === payload.id)
       if (!cartItem) {
         return

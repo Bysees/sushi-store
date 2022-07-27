@@ -12,7 +12,7 @@ class UserController {
   editInfo(req, res) {
     try {
       const clientUser = req.clientUser
-      const { description = '', name = '' } = req.body
+      const { description = null, name = null } = req.body
 
       const usersDB = getUsersFromDB()
       const userDB = usersDB.find(userDB => userDB.login.toLowerCase() === clientUser.login.toLowerCase())
@@ -47,7 +47,7 @@ class UserController {
       const usersDB = getUsersFromDB()
       const userDB = usersDB.find(userDB => userDB.login.toLowerCase() === clientUser.login.toLowerCase())
 
-      const avatarFileName = userDB.avatar.split('/')[2]
+      const avatarFileName = userDB.avatar?.split('/')[2]
 
       if (avatarFileName) {
         deleteCurrentPicture(avatarFileName)
@@ -63,6 +63,7 @@ class UserController {
         }
         return userDB
       })
+
 
       writeUsersToDB(updatedUsers)
 

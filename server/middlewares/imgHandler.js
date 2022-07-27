@@ -1,6 +1,6 @@
 import multer, { diskStorage } from 'multer'
 
-function imgHandler(filedname, path = '') {
+function imgHandler(fieldname, path = '') {
 
   const storage = diskStorage({
 
@@ -26,7 +26,7 @@ function imgHandler(filedname, path = '') {
     cb(null, false)
   }
 
-  return multer({ storage, fileFilter }).single(filedname)
+  return multer({ storage, fileFilter }).single(fieldname)
 }
 
 

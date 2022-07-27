@@ -1,25 +1,38 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query/react";
 import { TokenStorage } from "../../storage/tokenStorage";
 import jwtDecode from "jwt-decode";
-import { baseUrl } from "./http";
+import { baseUrl, setAuthHeader } from "./http";
+import { IUser } from "../../models/user";
+
+type UpdateInfoResult = Pick<IUser, 'name' | 'description'>
+type UpdateInfoRequest = UpdateInfoResult
+
+type UpdateImgResult = Pick<IUser, 'avatar'>
+type UpdateImgRequest = {
+  body: FormData
+}
+
+type UpdateResponse = {
+  token: string
+}
 
 export const userApi = createApi({
   reducerPath: 'userApi',
   baseQuery: fetchBaseQuery({ baseUrl }),
   endpoints: (builder) => ({
 
-    updateInfo: builder.mutation({
+    updateInfo: builder.mutation<UpdateInfoResult, UpdateInfoRequest>({
       query: (body) => ({
         url: 'user/info',
         method: 'PUT',
-        body: body,
+        body,
         headers: {
-          authorization: `Bearer ${TokenStorage.get()}`
+          authorization: setAuthHeader()
         }
       }),
-      transformResponse: (response) => {
+      transformResponse: (response: UpdateResponse) => {
         TokenStorage.set(response.token)
-        const user = jwtDecode(response.token)
+        const user = jwtDecode<UpdateInfoResult>(response.token)
         return {
           name: user.name,
           description: user.description
@@ -27,21 +40,22 @@ export const userApi = createApi({
       }
     }),
 
-    updateImg: builder.mutation({
+    updateImg: builder.mutation<UpdateImgResult, UpdateImgRequest>({
       query: (body) => ({
         url: 'user/avatar',
         method: 'PUT',
-        body: body,
+        body,
         headers: {
-          authorization: `Bearer ${TokenStorage.get()}`
+          authorization: setAuthHeader()
         }
       }),
-      transformResponse: (response) => {
+      transformResponse: (response: UpdateResponse) => {
         TokenStorage.set(response.token)
-        const user = jwtDecode(response.token)
+        const user = jwtDecode<UpdateImgResult>(response.token)
         return { avatar: user.avatar }
       }
     }),
+
   })
 })
 

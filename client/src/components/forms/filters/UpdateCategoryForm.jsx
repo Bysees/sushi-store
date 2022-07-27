@@ -33,7 +33,7 @@ const UpdateCategoryForm = ({ onHide, currentCategory, categories }) => {
 
   const onSubmit = async (formData) => {
 
-    const response = await updateCategory({ category: currentCategory, formData })
+    const response = await updateCategory({ category: currentCategory, body: formData })
     if (!response.error) {
       setSuccessfulMessage(response.data.message)
       const newCategoryLink = formData.category.eng

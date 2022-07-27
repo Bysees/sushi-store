@@ -7,7 +7,7 @@ import Input from '../fields/Input'
 
 import Validate from '../Validate'
 import { useLoginMutation } from '../../../redux/RTKquery/auth'
-import { setUser } from '../../../redux/slices/user'
+import { setUser } from '../../../redux/slices/userSlice'
 
 import styles from '../form.module.scss'
 

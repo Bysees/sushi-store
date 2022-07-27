@@ -6,7 +6,7 @@ import Input from '../fields/Input'
 import Textarea from '../fields/Textarea'
 
 import { useUpdateInfoMutation } from '../../../redux/RTKquery/user'
-import { setUserInfo } from '../../../redux/slices/user'
+import { setUserInfo } from '../../../redux/slices/userSlice'
 import Validate from '../Validate'
 
 import styles from '../form.module.scss'
