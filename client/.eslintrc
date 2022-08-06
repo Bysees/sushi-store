@@ -1,0 +1,9 @@
+{
+  "extends": ["react-app", "react-app/jest"],
+  "rules": {
+    "no-duplicate-imports": ["warn", { "includeExports": true }],
+    "semi": ["warn", "never"],
+    "quotes": ["warn", "single", { "avoidEscape": true }],
+    "jsx-quotes": ["warn", "prefer-single"]
+  }
+}

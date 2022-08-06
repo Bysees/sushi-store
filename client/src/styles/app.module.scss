@@ -18,6 +18,7 @@ html {
   background-color: rgba(92, 92, 92, 0.287);
   width: $scroll-width;
 }
+
 ::-webkit-scrollbar-thumb {
   background-color: rgba(80, 80, 80, 0.678);
 }
@@ -63,8 +64,7 @@ html {
 .profile {
   border-top: 1px solid transparent;
   min-height: 100%;
-  background: url('../images/backgrounds/background-menu.jpg') center center
-    no-repeat;
+  background: url('../images/backgrounds/background-menu.jpg') center center no-repeat;
   background-size: cover;
   background-attachment: fixed;
   padding-top: $header-height;
@@ -114,5 +114,13 @@ html {
     top: 100%;
     left: 0;
     min-width: 100%;
+    overflow: hidden;
+
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    background-color: #121212;
+
+    display: flex;
+    flex-direction: column;
   }
 }

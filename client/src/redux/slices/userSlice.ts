@@ -1,5 +1,5 @@
-import { IUser } from '../../models/user';
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { IUser } from '../../models/user'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 type SetUser = IUser
 type SetUserAuth = Pick<IUser, 'login' | 'role'>
@@ -13,7 +13,7 @@ const initialState: UserInitialState = {
   role: null,
   name: null,
   description: null,
-  avatar: null,
+  avatar: null
 }
 
 const userSlice = createSlice({
@@ -49,7 +49,5 @@ const userSlice = createSlice({
 })
 
 export const userReducer = userSlice.reducer
-export const { setUser, removeUser, setUserInfo, setUserAvatar } = userSlice.actions
-
-
-
+export const { setUser, removeUser, setUserInfo, setUserAvatar } =
+  userSlice.actions

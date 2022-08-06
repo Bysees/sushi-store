@@ -15,7 +15,7 @@ class CategoryController {
         return res.status(404).send({ message: 'Нет существующих категорий для продуктов' })
       }
 
-      return res.status(200).send({ categories })
+      return res.status(200).send(categories)
     } catch {
       res.status(500).send({ message: `Произошла непредвиденная ошибка` })
     }
@@ -23,7 +23,7 @@ class CategoryController {
 
   create(req, res) {
     try {
-      const { category: newCategory } = req.body
+      const newCategory = req.body
 
       if (!newCategory.eng || !newCategory.rus) {
         return res.status(403).send({ message: 'Не указано русского или английского названия' })
@@ -89,7 +89,7 @@ class CategoryController {
   edit(req, res) {
     try {
       let { type } = req.params
-      const { category: newCategory } = req.body
+      const newCategory = req.body
 
       newCategory.eng = newCategory.eng.toLowerCase()
       newCategory.rus = newCategory.rus.toLowerCase()
@@ -189,7 +189,7 @@ class CategoryController {
       deleteDirFromStatic(type)
 
 
-      res.status(200).send({ products: deletedProducts })
+      res.status(200).send(deletedProducts)
     } catch {
       res.status(500).send({ message: 'Произошла непредвиденная ошибка' })
     }

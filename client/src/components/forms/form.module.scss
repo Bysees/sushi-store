@@ -2,6 +2,7 @@
 
 .wrapper {
   margin-top: 150px;
+
   &__product {
     position: absolute;
     top: 50px;
@@ -42,20 +43,11 @@
     .success {
       background-color: rgba(0, 255, 0, 0.2);
     }
+
     .serverError {
       background-color: rgb(185 6 6 / 40%);
     }
   }
-}
-
-.success {
-  max-width: 355px;
-  margin: 0px 0px 15px 10px;
-  padding: 7px 15px 10px 15px;
-  border-radius: 10px;
-  font-size: 1.2rem;
-  text-align: center;
-  background-color: rgba(0, 255, 0, 0.2);
 }
 
 .exit {
@@ -69,10 +61,12 @@
 
   font-weight: 700;
   transition: color 0.15s;
-  & > span {
+
+  &>span {
     font-size: 2rem;
     line-height: 1rem;
   }
+
   &:hover {
     color: #fff;
   }
@@ -106,13 +100,15 @@ h3.title {
 
   & div {
     position: relative;
-    & > button {
+
+    &>button {
       background-color: transparent;
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
       right: 10px;
-      & > svg {
+
+      &>svg {
         width: 24px;
         height: 24px;
         color: #fff;
@@ -130,6 +126,7 @@ h3.title {
     color: #fff;
 
     font-size: 1.1rem;
+
     &::placeholder {
       font-size: 1rem;
       color: rgb(155, 155, 155);
@@ -165,6 +162,7 @@ h3.title {
 
       font-size: 1.1rem;
       text-transform: lowercase;
+
       &:checked {
         background-color: rgba(0, 255, 255, 0.4);
       }
@@ -178,13 +176,13 @@ h3.title {
     display: grid;
     grid-template-columns: 350px;
 
-    & > input {
+    &>input {
       position: absolute;
       z-index: -1;
       visibility: hidden;
     }
 
-    & > button {
+    &>button {
       height: 40px;
       margin-bottom: 10px;
 
@@ -198,15 +196,17 @@ h3.title {
       }
     }
 
-    & > div {
+    &>div {
       position: relative;
       width: 100%;
-      & > img {
+
+      &>img {
         width: 100%;
         height: 250px;
         object-fit: cover;
       }
-      & > button {
+
+      &>button {
         opacity: 0;
         position: absolute;
         top: 0px;
@@ -217,10 +217,12 @@ h3.title {
         color: #000;
         font-weight: 700;
         transition: color 0.15s, opacity 0.2s;
-        & > span {
+
+        &>span {
           font-size: 2rem;
           line-height: 1rem;
         }
+
         &:hover {
           color: #fff;
         }
@@ -240,15 +242,6 @@ h3.title {
   color: rgb(255, 0, 0);
 }
 
-.field__error {
-  & input {
-    &:focus {
-      background-color: $input-error-color;
-    }
-    background-color: $input-error-color;
-  }
-}
-
 .button {
   text-align: right;
 
@@ -260,18 +253,22 @@ h3.title {
     font-size: 1.1rem;
 
     transition: 0.3s;
+
     &:hover,
     &:focus {
       background-color: $button-form-hover;
     }
+
     &:focus {
       box-shadow: 0 0 0 1px #fff;
     }
+
     &:active {
       transition: 0.1s;
       text-shadow: 0px 0px 5px #fff;
       box-shadow: 0 0 0 3px $button-form;
     }
+
     &:disabled {
       background-color: rgba(255, 255, 255, 0.424);
     }

@@ -72,7 +72,9 @@ class ProductsController {
 
       const allProducts = getAllProducts()
       const allProductItems = allProducts.flatMap(products => products.items)
-      const isProductTitleExist = allProductItems.find(item => item.title.toLowerCase() === newProduct.title.toLowerCase())
+      const isProductTitleExist = allProductItems.find(item => {
+        return item.title.toLowerCase() === newProduct.title.toLowerCase()
+      })
 
       if (isProductTitleExist) {
         return res.status(403).send({ message: `Продукт с названием "${newProduct.title}" уже существует` })

@@ -2,6 +2,7 @@
   from {
     transform: rotateX(0);
   }
+
   to {
     transform: rotateX(90deg);
   }
@@ -11,6 +12,7 @@
   from {
     transform: rotateX(-90deg);
   }
+
   to {
     transform: rotateX(0deg);
   }
@@ -24,8 +26,7 @@
   animation: hide 0.2s both;
 }
 
-//! Если не захочу демонтировать компонент, можно использовать это!
-.endHideComponent {
+.onExitDone {
   position: absolute;
   z-index: -1;
   visibility: hidden;
