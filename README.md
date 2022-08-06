@@ -18,5 +18,5 @@ npm start
 
 ### Enter as admin
 
-&nbsp;&nbsp;login: **master** <br>
+&nbsp;&nbsp;login: **admin** <br>
 &nbsp;&nbsp;password: **qwerty12**
