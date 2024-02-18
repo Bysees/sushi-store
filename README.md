@@ -1,7 +1,3 @@
-# food-online
-http://food-shop.alwaysdata.net/
-
-
 ## To run project
 
 ```
